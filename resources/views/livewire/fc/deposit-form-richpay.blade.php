@@ -104,7 +104,7 @@
                             <div class="card mb-0">
                                 <div class="card-body">
                                     <div class="text-center">
-                                        <h5 class="text-muted text-uppercase py-3 font-20"><b>POIPET RESORT</b></h5>
+                                        <h1 class="text-muted text-uppercase py-3"><b>POIPET RESORT</b></h1>
                                     </div>
                                     {{-- <form role="form" action="{{ route('apiroute.r2p.payin') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate> --}}
                                     @csrf
@@ -237,7 +237,7 @@
                                             <div class="col-md-8">
                                                 <input class="form-control" required name="customer_account_number" id="customer_account_number" placeholder="Enter Bank Account Number" type="text">
                                             </div>
-                                        </div>
+                                        </div><br/>
                                         <!-- Spinner -->
                                         <div class="spinner-container">
                                             <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."> <!-- Replace with your spinner image URL -->
