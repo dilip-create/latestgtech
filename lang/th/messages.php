@@ -713,5 +713,6 @@ return [
     'Reference ID' => 'รหัสอ้างอิง',
     'Invoice Number' => 'หมายเลขใบแจ้งหนี้',
     'Resend Callback' => 'ส่งการโทรกลับอีกครั้ง',
+    'QR Code' => 'คิวอาร์โค้ด',
 
 ];

@@ -9,6 +9,8 @@ use App\Livewire\DepositTransactionList;
 use App\Livewire\WithdrawTransactionList;
 use App\Livewire\Fc\GenerateqrForm;
 use App\Livewire\Fc\ShowQR;
+use App\Livewire\Fc\QrcodeList;
+use App\Livewire\Fc\DepositFormRichpay;
 
 
 // Route::get('/', function () {
@@ -26,6 +28,10 @@ Route::get('/transactions/withdraw', WithdrawTransactionList::class)->name('tran
 Route::get('lang', [LanguageController::class, 'change'])->name("change.lang");
 // FC Start
 Route::get('/generate/FCQR', GenerateqrForm::class)->name('generate.FCQR');
-Route::get('/showQR/{id}', ShowQR::class)->name('showQR');
+Route::get('/showQR/{recordID}', ShowQR::class)->name('showQR');
+Route::get('/invoice-qrcode-list', QrcodeList::class)->name('invoice.qrcode.list');
+// Route::get('fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', 'fcs2pDeposit')->name('fc.s2p.Deposit');
+
+Route::get('/fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', DepositFormRichpay::class)->name('fc.r2pdeposit');
 
 
