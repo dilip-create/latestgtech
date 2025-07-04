@@ -31,6 +31,12 @@
                                 <span style="font-size:14px">{{ __('messages.Withdraw Transactions') }} </span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('invoice.qrcode.list') }}" wire:navigate>
+                                <i class="mdi mdi-poll"></i>
+                                <span> {{ __('messages.Summary Report') }} </span>
+                            </a>
+                        </li>
                         @if (Session::get('auth')->role_name === 'Merchant')
                             
                             {{-- <li>

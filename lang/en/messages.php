@@ -718,7 +718,7 @@ return [
     'Reference ID' => 'Reference ID',
     'Invoice Number' => 'Invoice Number',
     'Resend Callback' => 'Resend Callback',
-    'ID' => 'ID',
+    'QR Code' => 'QR Code',
     'ID' => 'ID',
 
     
