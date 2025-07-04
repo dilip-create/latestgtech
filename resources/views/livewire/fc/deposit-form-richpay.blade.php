@@ -124,7 +124,7 @@
                                             <div class="col-md-8">
                                                 <input class="form-control" name="referenceId" value="{{ $invoice_number ?? '' }}" required readonly type="text">
                                             </div>
-                                        </div>
+                                        </div> 
 
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Bank Name</strong><span class="text-danger">*</span></label>
