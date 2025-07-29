@@ -106,7 +106,7 @@
                                     <div class="text-center">
                                         <h1 class="text-muted text-uppercase py-3"><b>POIPET RESORT</b></h1>
                                     </div>
-                                    {{-- <form role="form" action="{{ route('apiroute.r2p.payin') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate> --}}
+                                    <form role="form" action="{{ route('apiroute.r2p.payin') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate>
                                     @csrf
                                         <input type="hidden" name="merchant_code" value="FCmerchant001">
                                         <input type="hidden" name="product_id" value="27">    {{--for local 25 for live 27 --}}
