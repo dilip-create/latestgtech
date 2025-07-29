@@ -34,4 +34,4 @@ Route::get('/invoice-qrcode-list', QrcodeList::class)->name('invoice.qrcode.list
 
 Route::get('/fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', DepositFormRichpay::class)->name('fc.r2pdeposit');
 
-
+ 
