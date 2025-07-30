@@ -110,7 +110,7 @@
                                     @csrf
                                         <input type="hidden" name="merchant_code" value="FCmerchant001">
                                         <input type="hidden" name="product_id" value="27">    {{--for local 25 for live 27 --}}
-                                        {{-- <input type="hidden" name="callback_url" value="{{ route('apiroute.r2pPayincallbackURL') }}"> --}}
+                                        <input type="hidden" name="callback_url" value="{{ route('apiroute.r2pPayincallbackURL') }}">
                                         <input type="hidden" name="amount" value="{{ $amount ?? '' }}">
                                         <input type="hidden" name="Currency" value="THB">
                                         <div class="form-group row">
@@ -237,6 +237,9 @@
                                             <div class="col-md-8">
                                                 <input class="form-control" required name="customer_account_number" id="customer_account_number" placeholder="Enter Bank Account Number" type="text">
                                             </div>
+                                            @error('customer_account_number')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div><br/>
                                         <!-- Spinner -->
                                         <div class="spinner-container">
