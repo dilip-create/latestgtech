@@ -12,6 +12,7 @@ use App\Livewire\Fc\GenerateqrForm;
 use App\Livewire\Fc\ShowQR;
 use App\Livewire\Fc\QrcodeList;
 use App\Livewire\Fc\DepositFormRichpay;
+use App\Livewire\PaymentForm\R2p\RichpayPayinForm;
 
 
 // Route::get('/', function () {
@@ -34,9 +35,10 @@ Route::get('/invoice-qrcode-list', QrcodeList::class)->name('invoice.qrcode.list
 // Route::get('fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', 'fcs2pDeposit')->name('fc.s2p.Deposit');
 
 Route::get('/fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', DepositFormRichpay::class)->name('fc.r2pdeposit');
+Route::get('/r2pPayin', RichpayPayinForm::class)->name('r2p.deposit.form');
 
 Route::controller(RichPayController::class)->group(function () {
-    Route::get('/r2pPayin', 'payinform');
+    
     Route::get('/r2pPaymentPage/{frtransaction}', 'paymentPage');
     Route::get('/r2pPaymentPage2/{frtransaction}', 'paymentProcessingPage');
     Route::get('r2p/payinResponse/{frtransaction}', 'payinResponse');
