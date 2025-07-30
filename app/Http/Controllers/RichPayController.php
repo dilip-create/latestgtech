@@ -9,6 +9,11 @@ use Session;
 
 class RichPayController extends Controller
 {
+    // public function payinform(Request $request)
+    // {
+    //     return view('payment-form.r2p.payin-form');
+    // }
+
     public function payin(Request $request)
     {
         $validatedData = $request->validate([
@@ -17,11 +22,6 @@ class RichPayController extends Controller
             'bank_account_name' => 'required',
             'customer_account_number' => 'required',
         ]);
-        //  return response()->json([
-        //     'message' => 'Payment information received successfully.',
-        //     'data' => $validatedData
-        // ], 200);
-
         // echo "<pre>";  print_r($request->all()); die;
 
         $frtransaction = $this->generateUniqueCode();
@@ -106,12 +106,12 @@ class RichPayController extends Controller
     public function paymentPage(Request $request, $frtransaction)
     {
         $RefID = base64_decode($frtransaction);
-        $paymentDetail = PaymentDetail::where('fourth_party_transection', $RefID)->first();
+        $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $RefID)->first();
           
             $data = [
                 'merchant_code' => $paymentDetail->merchant_code,
-                'referenceId' => $paymentDetail->transaction_id,
-                'transaction_id' => $paymentDetail->fourth_party_transection,
+                'referenceId' => $paymentDetail->reference_id,
+                'transaction_id' => $paymentDetail->systemgenerated_TransId,
                 'amount' => $paymentDetail->amount,
                 'Currency' => $paymentDetail->Currency,
                 'customer_name' => $paymentDetail->customer_name,
@@ -129,11 +129,11 @@ class RichPayController extends Controller
     public function paymentProcessingPage(Request $request, $frtransaction)
     {
         $RefID = base64_decode($frtransaction);
-        $paymentDetail = PaymentDetail::where('fourth_party_transection', $RefID)->first();
+        $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $RefID)->first();
             $data = [
                 'merchant_code' => $paymentDetail->merchant_code,
-                'referenceId' => $paymentDetail->transaction_id,
-                'transaction_id' => $paymentDetail->fourth_party_transection,
+                'referenceId' => $paymentDetail->reference_id,
+                'transaction_id' => $paymentDetail->systemgenerated_TransId,
                 'amount' => $paymentDetail->amount,
                 'Currency' => $paymentDetail->Currency,
                 'customer_name' => $paymentDetail->customer_name,
@@ -150,37 +150,18 @@ class RichPayController extends Controller
 
     public function payinResponse(Request $request, $frtransaction)
     {
-        $RefID = base64_decode($frtransaction);
-        // $paymentDetail = PaymentDetail::where('fourth_party_transection', $RefID)->first();
-        // echo "<pre>";  print_r($paymentDetail); die;
-        // $secretKey =  'Z0FBQUFBQm55WHJRYllhRGdjNXl5NjFvTDRLRHNhcElGamN3'; // Store secret key in .env file
-        // $signatureString = "{$secretKey}:{$RefID}:{$paymentDetail->amount}";
-        // $encodedSignature = base64_encode($signatureString);
-        // // Call Curl API code START
-        // $response = Http::withHeaders([
-        //     'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiT1NNTyIsInNpZ25hdHVyZSI6ImNTMUNYMlZ6ZEU0MkxWUjNiMnRLZDFNeE1qQmhXRUpTZWpSTlFtOUVSVlpzWTFGblRXeHpNR1ZGVmtGRFoyNXdOSGxrTW1adVMyaFlTemxLTkRFeGFIa3phV3hwYjJVdE1VOXRlblYyY1daak16TXhVVkpIYVd0d09XeHJZV2xPVEhKVVRuZzNhV3cxVHpaMVpVNDVTMkZ0T0VoZlZraFhWRk56WW1GWGJEUkZUbEJTYXpWcVdrcHhNRXhuVkZabWN6bEJQUT09IiwiaWRlbnRpZmllciI6IlowRkJRVUZCUW01NVdISlJUa1JyZUdaVFRIcFdhMk41ZURaM2NVSm1SMmhCWkU5TU5scGxkR1E1TlV0bWNuaFZjQzExV213eFRFZGFSRXRTTUhKMFdqVm9iRGhrTTBwd2RFNU1aa1Y0VGtGYU1DMXphVmgzTlRZd1gzTXRhazVRWnpVeFMxTm5kVXBhWTBwSk0xbHdUVGRDU2tGRk5HODkifQ.gvm5-f2jGiJyDXYlaRsgLgscgQv3YS2zV7IHE4ZgWwg', // Ensure proper concatenation
-        //     'x-api-key' => 'c48beec83f740331c0ff58', // Correct usage of array key
-        //     'x-signature' => $encodedSignature, // No change needed
-        // ])->post('https://service.richpay.io/api/v1/client/resend_callback_for_transaction', ['ref_id' => $paymentDetail->TransId ]);
-        // $jsonData = $response->json();
-        // echo "<pre>";  print_r($jsonData); die;
-        // $orderStatus = match ($jsonData['status'] ?? '') {
-        //     'SUCCESS' => 'success',
-        //     'AUTO_SUCCESS' => 'success',
-        //     'PROCESSING' => 'processing',
-        //     default => 'failed',
-        // };
+        $systemgenerated_TransId = base64_decode($frtransaction);
         $updateData = [
             'payment_status' => 'processing',
             // 'response_data' => json_encode($jsonData),
         ];
-        PaymentDetail::where('fourth_party_transection', $RefID)->update($updateData);
-        $paymentDetail = PaymentDetail::where('fourth_party_transection', $RefID)->first();
+        DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->update($updateData);
+        $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->first();
         $callbackUrl = $paymentDetail->callback_url;
         $postData = [
             'merchant_code' => $paymentDetail->merchant_code,
-            'referenceId' => $paymentDetail->transaction_id,
-            'transaction_id' => $paymentDetail->fourth_party_transection,
+            'referenceId' => $paymentDetail->reference_id,
+            'transaction_id' => $paymentDetail->systemgenerated_TransId,
             'amount' => $paymentDetail->amount,
             'Currency' => $paymentDetail->Currency,
             'customer_name' => $paymentDetail->customer_name,
@@ -247,15 +228,15 @@ class RichPayController extends Controller
                 'response_data' => json_encode($data),
             ];
             // echo "<pre>";  print_r($updateData); die;
-            PaymentDetail::where('fourth_party_transection', $RefID)->update($updateData);
+            DepositTransaction::where('systemgenerated_TransId', $RefID)->update($updateData);
             echo "Transaction updated successfully!";
             //Call webhook API START
-            $paymentDetail = PaymentDetail::where('fourth_party_transection', $RefID)->first();
+            $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $RefID)->first();
             $callbackUrl = $paymentDetail->callback_url;
             $postData = [
                 'merchant_code' => $paymentDetail->merchant_code,
                 'referenceId' => $paymentDetail->transaction_id,
-                'transaction_id' => $paymentDetail->fourth_party_transection,
+                'transaction_id' => $paymentDetail->systemgenerated_TransId,
                 'amount' => $paymentDetail->amount,
                 'Currency' => $paymentDetail->Currency,
                 'customer_name' => $paymentDetail->customer_name,
@@ -284,7 +265,7 @@ class RichPayController extends Controller
     {
         $mytime = Carbon::now();
         $currentDateTime = str_replace(' ', '', $mytime->parse($mytime->toDateTimeString())->format('Ymd His'));
-        $fourth_party_transection = $currentDateTime.random_int(1000, 9999);
-        return 'TR'.$fourth_party_transection;
+        $systemgenerated_TransId = $currentDateTime.random_int(1000, 9999);
+        return 'TR'.$systemgenerated_TransId;
     }
 }
