@@ -42,10 +42,12 @@ Route::controller(RichPayController::class)->group(function () {
     Route::get('/r2pPaymentPage/{frtransaction}', 'paymentPage');
     Route::get('/r2pPaymentPage2/{frtransaction}', 'paymentProcessingPage');
     Route::get('r2p/payinResponse/{frtransaction}', 'payinResponse');
-    Route::get('/r2pPayout', 'r2pPayoutform'); 
+    // Route::get('/r2pPayout', 'r2pPayoutform'); 
 
     Route::get('/r2p/payintest', 'payintest'); 
-    Route::get('/r2p/payouttest', 'payouttest'); 
+    // Route::get('/r2p/payouttest', 'payouttest'); 
+
+    Route::get('sendDepositNotification/{id}', 'sendDepositNotification');
 });
 
  
