@@ -7,7 +7,7 @@
     <title>Transaction Information as follows</title>
     <style>
         body {
-            background: #f9ebdc;
+            background: #64b0f2;
         }
 
         .h1-class-success {

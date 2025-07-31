@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DepositTransaction;
+use App\Models\Merchant;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use Session;
@@ -18,12 +19,16 @@ class RichPayController extends Controller
     {
         $validatedData = $request->validate([
             'bank_code' => 'required',
-            'bank_code_character' => 'required',
+            // 'bank_code_character' => 'required',
             'bank_account_name' => 'required',
             'customer_account_number' => 'required',
         ]);
         // echo "<pre>";  print_r($request->all()); die;
 
+        $merchantData=Merchant::where('merchant_code', $request->merchant_code)->first();
+        if (empty($merchantData)) {
+            return 'Invalid Merchants!';
+        }
         $frtransaction = $this->generateUniqueCode();
         $client_ip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR']);
 
@@ -68,8 +73,8 @@ class RichPayController extends Controller
             }
             // for speedpay deposit charge END
             $addRecord = [
-                'agent_id' => $merchantData->agent_id ?? '1',
-                'merchant_id' => $merchantData->id ?? '1',
+                'agent_id' => $merchantData->agent_id,
+                'merchant_id' => $merchantData->id,
                 'merchant_code' => $request->merchant_code,
                 'reference_id' => $request->referenceId,
                 'systemgenerated_TransId' => $frtransaction,
@@ -83,7 +88,7 @@ class RichPayController extends Controller
                 'bank_account_number' => $request->customer_account_number,
                 'payment_channel' => $gatewayPaymentChannel->id ?? '',
                 'payment_method' => $paymentMethod->method_name ?? 'QR Payment',
-                // 'request_data' => json_encode($res),
+                'request_data' => json_encode($postData),
                 'gateway_name' => 'RichPay',
                 'customer_name' => $request->customer_name ?? $request->bank_account_name,
                 'customer_email' => $request->customer_email,
@@ -235,7 +240,7 @@ class RichPayController extends Controller
             $callbackUrl = $paymentDetail->callback_url;
             $postData = [
                 'merchant_code' => $paymentDetail->merchant_code,
-                'referenceId' => $paymentDetail->transaction_id,
+                'referenceId' => $paymentDetail->reference_id,
                 'transaction_id' => $paymentDetail->systemgenerated_TransId,
                 'amount' => $paymentDetail->amount,
                 'Currency' => $paymentDetail->Currency,
@@ -259,6 +264,11 @@ class RichPayController extends Controller
 
     }
 
+    public function payintest(Request $request)
+    {
+        return view('payment-form.r2p.payintest');
+    }
+
     
 
     public function generateUniqueCode()
@@ -267,5 +277,35 @@ class RichPayController extends Controller
         $currentDateTime = str_replace(' ', '', $mytime->parse($mytime->toDateTimeString())->format('Ymd His'));
         $systemgenerated_TransId = $currentDateTime.random_int(1000, 9999);
         return 'TR'.$systemgenerated_TransId;
+    }
+
+    public function sendDepositNotification($id)
+    {
+        $paymentDetail = DepositTransaction::where('id', base64_decode($id))->first();
+        $callbackUrl = $paymentDetail->callback_url;
+        $postData = [
+            'merchant_code' => $paymentDetail->merchant_code,
+            'referenceId' => $paymentDetail->reference_id,
+            'transaction_id' => $paymentDetail->systemgenerated_TransId,
+            'amount' => $paymentDetail->amount,
+            'Currency' => $paymentDetail->Currency,
+            'customer_name' => $paymentDetail->customer_name, 
+            'payment_status' => $paymentDetail->payment_status,
+            'created_at' => $paymentDetail->created_at,
+        ];
+   
+            // Broadcast the event Notification code START
+        // $data = [
+        //     'type' => 'Deposit',
+        //     'transaction_id' => $paymentDetail->systemgenerated_TransId,
+        //     'amount' => $paymentDetail->amount,
+        //     'Currency' => $paymentDetail->Currency,
+        //     'status' => $paymentDetail->payment_status,
+        //     'msg' => 'One Transaction notified!',
+        // ];
+        // event(new DepositCreated($data));
+        // Broadcast the event Notification code START
+
+        return view('payment.depositNotification', compact('postData', 'callbackUrl'));
     }
 }

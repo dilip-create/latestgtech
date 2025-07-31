@@ -12,6 +12,7 @@ Route::controller(RichPayController::class)->group(function () {
     Route::get('r2p/payin', 'payin')->name('apiroute.r2p.payin');                      // For call API
     Route::post('r2p/payin/callbackURL', 'r2pPayinCallbackURL')->name('apiroute.r2pPayincallbackURL');    // For sending callback on frontend
     Route::post('/r2pDepositNotifiication', 'r2pDepositNotifiication');                // For sending callback on Backend
+    
 
     // Route::get('r2p/payout', 'payout')->name('apiroute.r2p.payout');                      // For call API
     // Route::post('r2p/payout/callbackURL', 'r2pPayoutcallbackURL')->name('apiroute.r2pPayoutcallbackURL');    // For sending callback on frontend

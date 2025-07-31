@@ -86,7 +86,7 @@
                                                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" class="cursor-pointer text-[#98A6AD]" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path></svg> <i class="mdi mdi-chevron-down"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">{{ __('messages.Resend Callback') }}</a>
+                                                        <a class="dropdown-item text text-danger" href="{{ url('sendDepositNotification/' . base64_encode($row->id)) }}" target="_blank">{{ __('messages.Resend Callback') }}</a>
                                                     </div>
                                                 </div>
                                             </td>  
