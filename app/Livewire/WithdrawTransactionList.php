@@ -48,6 +48,7 @@ class WithdrawTransactionList extends Component
 
     public function render()
     {
-        return view('livewire.withdraw-transaction-list');
+        $title =   __('messages.Withdraw Transactions');
+        return view('livewire.withdraw-transaction-list')->title($title);
     }
 }

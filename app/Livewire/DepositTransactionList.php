@@ -47,6 +47,7 @@ class DepositTransactionList extends Component
 
     public function render()
     {
-        return view('livewire.deposit-transaction-list');
+        $title =   __('messages.Deposit Transactions');
+        return view('livewire.deposit-transaction-list')->title($title);
     }
 }
