@@ -44,7 +44,7 @@
                                 </svg>
                             </div>
                             <div >
-                                <h2 class="text-white invoice-num fw-bold">54345</h2>
+                                <h2 class="text-white invoice-num fw-bold"><?= number_format((int) $total_transactions_amount_today, 2) ?></h2>
                                 <span class="text-white fs-16">{{__("messages.Today's ")}} {{__('messages.Transaction Amount')}} </span>
                             </div>
 
@@ -77,7 +77,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-white invoice-num fw-bold">5555</h2>
+                                <h2 class="text-white invoice-num fw-bold"><?= number_format((int) $total_transactions_amount_month, 2) ?></h2>
                                 <span class="text-white fs-16">{{__('messages.Monthly')}} {{__('messages.Transaction Amount')}} </span>
                             </div>
 
@@ -153,7 +153,7 @@
                             </div>
                             <div>
                             <h2 class="text-white invoice-num fw-bold">
-                                5555
+                                <?=  number_format((int) $totalDepositSum-($totalFee+$total_payout), 2); ?>
                                 </h2>
                                 <span class="text-white fs-16">{{__('messages.Total Available Balance For Payout')}} </span>
                             </div>
@@ -304,7 +304,7 @@
                                     </svg>
                                 </div>
                                 <div >
-                                    <h2 class="text-white invoice-num fw-bold"> {{ $total_transactions_amount ?? '00' }}</h2>
+                                    <h2 class="text-white invoice-num fw-bold"> {{ $total_deposit_amount ?? '00' }}</h2>
                                     <span class="text-white fs-16">{{__('messages.Total Transaction Amount')}} </span>
                                 </div>
 
@@ -319,16 +319,16 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{ trans('messages.User Name') }}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ auth()->user()->user_name ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->user_name ?? '' }}</td>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{ trans('messages.Created Date/Time') }}</td>
-                                    {{-- <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ auth()->user()->created_at->format('Y-m-d H:i:s') ?? '' }}</td> --}}
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->created_at->format('Y-m-d H:i:s') ?? '' }}</td>
                                 </tr>
                                 @if (Session::get('auth')->role_name == 'Merchant')
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Merchant Code')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $details?->merchant_code ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->merchant_code ?? '' }}</td>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Merchant Name')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $details?->merchant_name ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->merchant_name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Agent Code')}}</td>
@@ -346,9 +346,9 @@
                                 @endif
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Email')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ auth()->user()->email ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->email ?? '' }}</td>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Mobile Number')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ auth()->user()->mobile_number ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->mobile_number ?? '' }}</td>
                                 </tr>
                             </tbody>
                         </table>
