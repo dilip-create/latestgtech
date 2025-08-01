@@ -14,6 +14,7 @@ class QrcodeList extends Component
 
     public function render()
     {
-        return view('livewire.fc.qrcode-list');
+        $title =   __('messages.Summary Report');
+        return view('livewire.fc.qrcode-list')->title($title);
     }
 }

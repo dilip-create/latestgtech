@@ -1,13 +1,14 @@
 <?php
-
 namespace App\Livewire;
-
 use Livewire\Component;
+use App\Models\DepositTransaction;
+use Session;
 
 class DashboardPage extends Component
 {
     public function render()
     {
-        return view('livewire.dashboard-page');
+        $title =   __('messages.Dashboard');
+        return view('livewire.dashboard-page')->title($title);
     }
 }
