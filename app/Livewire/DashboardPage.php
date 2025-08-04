@@ -12,6 +12,7 @@ class DashboardPage extends Component
 {
     public $totalDepositCount, $total_transactions_amount_today, $total_payout_count, $total_transactions_amount_month, $totalDepositSum, $total_payout, $totalFee;
     public $total_agent, $total_merchant, $total_deposit_amount, $total_transactions_count;
+    public $merchantData, $agentData;
     public function mount()
     {
         if(Session::get('auth')->role_name == 'Merchant'){
@@ -45,15 +46,11 @@ class DashboardPage extends Component
                                 ->sum('mdr_fee_amount');
             $this->totalFee=$totalDepositFee+$totalPayoutFee;
 
-            // $merchantData=Merchant::where('merchant_id', Session::get('auth')->merchant_id)->first();
-            // if (empty($merchantData)) {
-            //     return 'Invalid Merchants!';
-            // }
-            // $merchantData=Agent::where('id', $merchantData->merchant_id)->first();
-            
-            // $this->total_agent = Agent::count();
-            // $this->merchantdata =  Merchant::count();
-
+            $this->merchantData=Merchant::where('id', Session::get('auth')->merchant_id)->first();
+            if (empty($this->merchantData)) {
+                return 'Invalid Merchants!';
+            }
+            $this->agentData=Agent::where('id', $this->merchantData->agent_id)->first();
         
         }elseif(Session::get('auth')->role_name == 'Agent'){
 
@@ -85,6 +82,8 @@ class DashboardPage extends Component
                                 ->where('status', 'success')
                                 ->sum('mdr_fee_amount');
             $this->totalFee=$totalDepositFee+$totalPayoutFee;
+            $this->agentData=Agent::where('id', Session::get('auth')->agent_id)->first();
+            
         }else{
             $this->totalDepositCount = DepositTransaction::where('payment_status', 'success')
                                 ->count('amount');
