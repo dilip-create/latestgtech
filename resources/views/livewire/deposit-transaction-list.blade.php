@@ -29,10 +29,35 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    {{-- <h4 class="header-title">Buttons example</h4>
+                                    <h4 class="header-title">{{ __('messages.Status') }}</h4>
                                     <p class="sub-header">
-                                        The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
-                                    </p> --}}
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                {{-- <div class="form-group"> --}}
+                                                    <select class="form-control custom-select" wire:model.live="statusFilter">
+                                                    <option value="all">{{ __('messages.All') }}</option>
+                                                    <option value="pending">{{ __('messages.pending') }}</option>
+                                                    <option value="success">{{ __('messages.Success') }}</option>
+                                                    <option value="processing">{{ __('messages.processing') }}</option>
+                                                    <option value="failed">{{ __('messages.Failed') }}</option>
+                                                </select>
+                                                {{-- </div> --}}
+                                            </div>
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-6">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="button" class="btn {{ $dateFilter === 'today' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('today')">Today</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'yesterday' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('yesterday')">Yesterday</button>
+                                                <button type="button" class="btn {{ $dateFilter === '7days' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('7days')">7 days ago</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'this_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_week')">This week</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'last_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_week')">Last week</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'this_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_month')">This month</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'last_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_month')">Last month</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'last_year' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_year')">Last year</button>
+                                            </div>
+                                        </div>
+                                    </p>
 
                                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
