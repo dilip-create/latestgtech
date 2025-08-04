@@ -326,22 +326,22 @@
                                 @if (Session::get('auth')->role_name == 'Merchant')
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Merchant Code')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->merchant_code ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $merchantData->merchant_code ?? '' }}</td>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Merchant Name')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ Session::get('auth')->merchant_name ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $merchantData->merchant_name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Agent Code')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $details?->agent?->agent_code ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $agentData->agent_code ?? '' }}</td>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Agent Name')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $details?->agent?->agent_name ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $agentData->agent_name ?? '' }}</td>
                                 </tr>
                                 @else
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Agent Code')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $details?->agent_code ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $agentData->agent_code ?? '' }}</td>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Agent Name')}}</td>
-                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $details?->agent_name ?? '' }}</td>
+                                    <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $agentData->agent_name ?? '' }}</td>
                                 </tr>
                                 @endif
                                 <tr>
