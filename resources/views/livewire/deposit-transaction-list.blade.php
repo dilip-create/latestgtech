@@ -33,31 +33,41 @@
                                     <p class="sub-header">
                                         <div class="row">
                                             <div class="col-sm-2">
-                                                {{-- <div class="form-group"> --}}
-                                                    <select class="form-control custom-select" wire:model.live="statusFilter">
+                                                <select wire:model.live="statusFilter" class="form-control custom-select">
                                                     <option value="all">{{ __('messages.All') }}</option>
                                                     <option value="pending">{{ __('messages.pending') }}</option>
                                                     <option value="success">{{ __('messages.Success') }}</option>
                                                     <option value="processing">{{ __('messages.processing') }}</option>
                                                     <option value="failed">{{ __('messages.Failed') }}</option>
                                                 </select>
-                                                {{-- </div> --}}
                                             </div>
+
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" placeholder="Search here"/>
+                                                <input type="text" wire:model.live="search" class="form-control" placeholder="Search here"/>
                                             </div>
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-6">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn {{ $dateFilter === 'today' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('today')">{{ __('messages.Today') }}</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'yesterday' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('yesterday')">{{ __('messages.Yesterday') }}</button>
-                                                <button type="button" class="btn {{ $dateFilter === '7days' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('7days')">{{ __('messages.7 days ago') }}</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'this_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_week')">{{ __('messages.This week') }}</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'last_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_week')">{{ __('messages.Last week') }}</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'this_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_month')">{{ __('messages.This month') }}</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'last_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_month')">{{ __('messages.Last month') }}</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'last_year' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_year')">{{ __('messages.Last year') }}</button>
+                                                @php
+                                                    $buttons = [
+                                                        'today' => 'Today',
+                                                        'yesterday' => 'Yesterday',
+                                                        '7days' => '7 days ago',
+                                                        'this_week' => 'This week',
+                                                        'last_week' => 'Last week',
+                                                        'this_month' => 'This month',
+                                                        'last_month' => 'Last month',
+                                                        'this_year' => 'This year',
+                                                        'last_year' => 'Last year',
+                                                    ];
+                                                @endphp
+
+                                                @foreach($buttons as $key => $label)
+                                                    <button type="button"
+                                                            wire:click="$set('dateFilter', '{{ $key }}')"
+                                                            class="btn {{ $dateFilter === $key ? 'btn-primary' : 'btn-outline-primary' }} waves-effect waves-light">
+                                                        {{ $label }}
+                                                    </button>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </p>

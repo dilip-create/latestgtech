@@ -25,14 +25,52 @@
                                                 <li class="header-title list-inline-item"><b>{{ __('messages.Total Amount:') }} <span id="order_success_sum" class="text text-primary">{{ $totalAmount ?? '00' }}</span></b></li> <span class="d-none d-md-inline">|</span>
                                                 <li class="header-title list-inline-item"><b>{{ __('messages.Total MDR Fee:') }} <span id="payment_count" class="text text-danger">{{ $totalmdrfee ?? '00' }}</span></b></li> <span class="d-none d-md-inline">|</span>
                                                 <li class="header-title list-inline-item"><b>{{ __('messages.Total Net Amount:') }} <span id="order_amount_sum" class="text text-success">{{ $totalNetAmount ?? '00' }}</span></b></li> 
-                                                {{-- <li class="list-inline-item">{{ __('messages.Success order count:') }} <span id="order_success_count"></span></li> <span class="d-none d-md-inline">|</span> --}}
                                             </ul>
                                         </div>
                                     </div>
-                                    {{-- <h4 class="header-title">Buttons example</h4>
+                                    <h4 class="header-title">{{ __('messages.Status') }}</h4>
                                     <p class="sub-header">
-                                        The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
-                                    </p> --}}
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <select wire:model.live="statusFilter" class="form-control custom-select">
+                                                    <option value="all">{{ __('messages.All') }}</option>
+                                                    <option value="pending">{{ __('messages.pending') }}</option>
+                                                    <option value="success">{{ __('messages.Success') }}</option>
+                                                    <option value="processing">{{ __('messages.processing') }}</option>
+                                                    <option value="failed">{{ __('messages.Failed') }}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-sm-2">
+                                                <input type="text" wire:model.live="search" class="form-control" placeholder="Search here"/>
+                                            </div>
+                                             <div class="col-sm-2"></div>
+                                            <div class="col-sm-6">
+                                                @php
+                                                    $buttons = [
+                                                        'today' => 'Today',
+                                                        'yesterday' => 'Yesterday',
+                                                        '7days' => '7 days ago',
+                                                        'this_week' => 'This week',
+                                                        'last_week' => 'Last week',
+                                                        'this_month' => 'This month',
+                                                        'last_month' => 'Last month',
+                                                        'this_year' => 'This year',
+                                                        'last_year' => 'Last year',
+                                                    ];
+                                                @endphp
+
+                                                @foreach($buttons as $key => $label)
+                                                    <button type="button"
+                                                            wire:click="$set('dateFilter', '{{ $key }}')"
+                                                            class="btn {{ $dateFilter === $key ? 'btn-primary' : 'btn-outline-primary' }} waves-effect waves-light">
+                                                        {{ $label }}
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                    </p>
 
                                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
