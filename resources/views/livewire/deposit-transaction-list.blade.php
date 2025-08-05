@@ -43,18 +43,21 @@
                                                 </select>
                                                 {{-- </div> --}}
                                             </div>
-                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" placeholder="Search here"/>
+                                            </div>
+                                            <div class="col-sm-2"></div>
                                             <div class="col-sm-6">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn {{ $dateFilter === 'today' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('today')">Today</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'yesterday' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('yesterday')">Yesterday</button>
-                                                <button type="button" class="btn {{ $dateFilter === '7days' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('7days')">7 days ago</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'this_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_week')">This week</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'last_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_week')">Last week</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'this_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_month')">This month</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'last_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_month')">Last month</button>
-                                                <button type="button" class="btn {{ $dateFilter === 'last_year' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_year')">Last year</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'today' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('today')">{{ __('messages.Today') }}</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'yesterday' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('yesterday')">{{ __('messages.Yesterday') }}</button>
+                                                <button type="button" class="btn {{ $dateFilter === '7days' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('7days')">{{ __('messages.7 days ago') }}</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'this_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_week')">{{ __('messages.This week') }}</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'last_week' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_week')">{{ __('messages.Last week') }}</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'this_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('this_month')">{{ __('messages.This month') }}</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'last_month' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_month')">{{ __('messages.Last month') }}</button>
+                                                <button type="button" class="btn {{ $dateFilter === 'last_year' ? 'btn-primary' : 'btn-outline-primary' }}" wire:click="filterByDate('last_year')">{{ __('messages.Last year') }}</button>
                                             </div>
                                         </div>
                                     </p>
@@ -65,6 +68,9 @@
                                             <th>{{ __('messages.Order Id') }}</th>
                                             <th>{{ __('messages.Created Time') }}</th>
                                             <th>{{ __('messages.Transaction ID') }}</th>
+                                            @if (Session::get('auth')->role_name == 'Admin') 
+                                            <th>{{ __('messages.Merchant Code') }}</th>
+                                            @endif
                                             @if(Session::get('auth')->merchant_id  == '1')       
                                              <th>{{ __('messages.Invoice Number') }}</th>     {{-- For FC Department --}}
                                             @else
@@ -88,6 +94,9 @@
                                             <td>{{ ++$index }}</td>
                                             <td> {{ $row->created_at ?? '' }}</td>
                                             <td>{{ $row->systemgenerated_TransId ?? '' }}</td>
+                                            @if (Session::get('auth')->role_name == 'Admin') 
+                                             <td>{{ $row->merchant_code ?? '' }}</td>
+                                            @endif
                                             <td>{{ $row->reference_id ?? '' }}</td>
                                             <td>{{ $row->customer_name ?? '' }}</td>
                                             <td>{{ $row->amount ?? '' }}</td>
@@ -118,7 +127,7 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td></td><td></td><td></td><td></td><td>Record not founds</td><td></td><td></td></td><td></td><td></td><td></td><td>
+                                            <td></td><td></td><td></td><td></td><td></td><td>Record not founds</td><td></td><td></td></td><td></td><td></td><td></td><td>
                                         </tr>
                                         @endforelse
                                         

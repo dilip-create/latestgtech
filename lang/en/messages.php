@@ -720,6 +720,16 @@ return [
     'Resend Callback' => 'Resend Callback',
     'QR Code' => 'QR Code',
     'ID' => 'ID',
+    'Today' => 'Today',
+    'Yesterday' => 'Yesterday',
+    '7 days ago' => '7 days ago',
+    'This week' => 'This week',
+    'Last week' => 'Last week',
+    'This month' => 'This month',
+    'Last month' => 'Last month',
+    'Last year' => 'Last year',
+    'ID' => 'ID',
+    'ID' => 'ID',
 
     
     
