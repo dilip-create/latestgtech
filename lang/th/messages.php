@@ -714,5 +714,13 @@ return [
     'Invoice Number' => 'หมายเลขใบแจ้งหนี้',
     'Resend Callback' => 'ส่งการโทรกลับอีกครั้ง',
     'QR Code' => 'คิวอาร์โค้ด',
+    'Today' => 'วันนี้',
+    'Yesterday' => 'เมื่อวาน',
+    '7 days ago' => '7 วันที่ผ่านมา',
+    'This week' => 'สัปดาห์นี้',
+    'Last week' => 'สัปดาห์ที่แล้ว',
+    'This month' => 'เดือนนี้',
+    'Last month' => 'เดือนที่แล้ว',
+    'Last year' => 'ปีที่แล้ว',
 
 ];
