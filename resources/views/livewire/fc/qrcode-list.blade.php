@@ -43,14 +43,8 @@
                                         {!! QrCode::size(100)->generate($row->qr_img_url) !!}</td>
                                            
                                             <td>
-                                                <div class="btn-group mt-1 mr-1">
-                                                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" class="cursor-pointer text-[#98A6AD]" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path></svg> <i class="mdi mdi-chevron-down"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">{{ __('messages.View') }}</a>
-                                                    </div>
-                                                </div>
+                                                {{ $row->id ?? '' }}
+                                                <button class="btn btn-primary btn-sm" type="button" wire:click="$dispatch('openmodal', { id: {{ $row->id }} })">View</button>
                                             </td>  
                                         </tr>
                                         @empty
@@ -65,4 +59,5 @@
                             </div>
                         </div>
                         <!-- end row -->
+                        <livewire:fc.show-q-r-modal />
 </div>
