@@ -25,6 +25,10 @@
     <!-- Toster CSS START Livewire-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <!-- Toster CSS END Livewire-->
+    <!-- Custom box css -->
+    <link href="{{ URL::to('newassets/libs/custombox/custombox.min.css') }}" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@3.10.3/dist/alpine.min.js" defer ></script>
 
        
     @livewireStyles
@@ -104,7 +108,10 @@
         <script src="{{ URL::to('newassets/libs/chart-js/Chart.bundle.min.js') }}"></script>
     <!-- Init js -->
         <script src="{{ URL::to('newassets/js/pages/chartjs.init.js') }}"></script>
-    
+    <!-- Modal-Effect -->
+        <script src="{{ URL::to('newassets/libs/custombox/custombox.min.js') }}"></script>
+       
+
     @livewireScripts
 </body>
 
