@@ -99,7 +99,7 @@
                                             @forelse($transactionlist as $row)
                                         <tr>
                                             <td>{{ ++$index }}</td>
-                                            <td> {{ $row->created_at ?? '' }}</td>
+                                            <td>{{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
                                             <td>{{ $row->systemgenerated_TransId ?? '' }}</td>
                                             <td>{{ $row->reference_id ?? '' }}</td>
                                             <td>{{ $row->customer_name ?? '' }}</td>

@@ -102,7 +102,7 @@
                                             @forelse($transactionlist as $row)
                                         <tr>
                                             <td>{{ ++$index }}</td>
-                                            <td> {{ $row->created_at ?? '' }}</td>
+                                            <td>{{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
                                             <td>{{ $row->systemgenerated_TransId ?? '' }}</td>
                                             @if (Session::get('auth')->role_name == 'Admin') 
                                              <td>{{ $row->merchant_code ?? '' }}</td>

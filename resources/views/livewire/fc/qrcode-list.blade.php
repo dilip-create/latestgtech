@@ -1,4 +1,5 @@
 <div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -38,14 +39,12 @@
                                             <td>{{ $row->invoice_number ?? '' }}</td>
                                             <td>{{ $row->customer_name ?? '' }}</td>
                                             <td>{{ $row->amount ?? '' }}</td>
-                                            <td> {{ $row->created_at ?? '' }}</td>
-                                            <td> <!-- Display QR Code as SVG -->
-                                        {!! QrCode::size(100)->generate($row->qr_img_url) !!}</td>
-                                           
+                                            <td> {{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
+                                            <td> <!-- Display QR Code as SVG -->{!! QrCode::size(100)->generate($row->qr_img_url) !!}</td>
                                             <td>
-                                                {{ $row->id ?? '' }}
-                                                <button class="btn btn-primary btn-sm" type="button" wire:click="$dispatch('openmodal', { id: {{ $row->id }} })">View</button>
-                                            </td>  
+                                                <a href="#custom-modal" class="view-record-btn btn btn-primary waves-effect waves-light" data-id="{{ $row->id }}" data-animation="blur" data-plugin="custommodal"
+                                                data-overlaySpeed="100" data-overlayColor="#36404a">{{ __('messages.View') }}</a>
+                                            </td>
                                         </tr>
                                         @empty
                                         <tr>
@@ -55,9 +54,68 @@
                                         
                                         </tbody>
                                     </table>
+                                  
                                 </div>
                             </div>
                         </div>
                         <!-- end row -->
-                        <livewire:fc.show-q-r-modal />
+<!-- Modal START-->
+    <div id="custom-modal" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <span>&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="custom-modal-title text-center">{{ __('messages.View') }}</h4>
+        <div class="custom-modal-text text-muted">
+            <table class="table table-bordered test" style="padding: 7px 10px; !important">
+                    <tr>
+                        <td style="width: 25%; background-color: #6c6c70 !important; color: white;">{{ __('messages.Customer Name') }}</td>
+                        <td class="customer_name"></td>
+                        <td style="width: 25%;"  colspan="2" rowspan="4">
+                            {{-- {!! QrCode::size(200)->generate("<span>class='qr-content'</span>") !!} --}}
+                            <div id="qr-container"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%; background-color: #6c6c70 !important; color: white;">{{ __('messages.Invoice Number') }}</td>
+                        <td class="invoice_number"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%; background-color: #6c6c70 !important; color: white;">{{ __('messages.Amount') }}</td>
+                        <td class="amount"></td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+<!-- Modal START-->
+<script>
+$(document).ready(function() {
+    $('.view-record-btn').click(function() {
+        let recordId = $(this).data('id');
+        // alert(recordId);
+        $.ajax({
+            url: '/get-record/' + recordId,
+            type: 'GET',
+            success: function(response) {
+                $('.customer_name').html(response.customer_name);
+                $('.invoice_number').html(response.invoice_number);
+                $('.amount').html(response.amount);
+                // $('.qr-content').html(response.qr_img_url);
+             
+                $('#qr-container').empty();
+                // Generate new QR code with value of response.qr_img_url
+                new QRCode(document.getElementById("qr-container"), {
+                    text: response.qr_img_url,
+                    width: 200,
+                    height: 150
+                });
+            },
+            error: function() {
+                alert('Failed to fetch record.');
+            }
+        });
+    });
+});
+</script>
+                   
+                        
 </div>

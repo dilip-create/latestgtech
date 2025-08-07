@@ -28,8 +28,7 @@
     <!-- Custom box css -->
     <link href="{{ URL::to('newassets/libs/custombox/custombox.min.css') }}" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@3.10.3/dist/alpine.min.js" defer ></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
        
     @livewireStyles
 </head>
@@ -73,14 +72,18 @@
     </div>
     <!-- END wrapper -->
 
-
+     @livewireScripts
     <!-- Vendor js -->
     <script src="{{ URL::to('newassets/js/vendor.min.js') }}"></script>
     <!--Morris Chart-->
-    <script src="{{ URL::to('newassets/libs/morris-js/morris.min.js') }}"></script>
+    {{-- <script src="{{ URL::to('newassets/libs/morris-js/morris.min.js') }}"></script>
     <script src="{{ URL::to('newassets/libs/raphael/raphael.min.js') }}"></script>
     <!-- Dashboard init js-->
-    <script src="{{ URL::to('newassets/js/pages/dashboard.init.js') }}"></script>
+    <script src="{{ URL::to('newassets/js/pages/dashboard.init.js') }}"></script> --}}
+    <!-- Chart JS -->
+        <script src="{{ URL::to('newassets/libs/chart-js/Chart.bundle.min.js') }}"></script>
+    <!-- Init js -->
+        <script src="{{ URL::to('newassets/js/pages/chartjs.init.js') }}"></script>
     <!-- App js -->
     <script src="{{ URL::to('newassets/js/app.min.js') }}"></script>
 
@@ -104,15 +107,12 @@
     <!-- Toastr js -->
         <script src="{{ URL::to('newassets/libs/toastr/toastr.min.js') }}"></script>
         <script src="{{ URL::to('newassets/js/pages/toastr.init.js') }}"></script>
-    <!-- Chart JS -->
-        <script src="{{ URL::to('newassets/libs/chart-js/Chart.bundle.min.js') }}"></script>
-    <!-- Init js -->
-        <script src="{{ URL::to('newassets/js/pages/chartjs.init.js') }}"></script>
+    
     <!-- Modal-Effect -->
         <script src="{{ URL::to('newassets/libs/custombox/custombox.min.js') }}"></script>
        
 
-    @livewireScripts
+   
 </body>
 
 </html>

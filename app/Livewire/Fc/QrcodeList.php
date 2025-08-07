@@ -6,16 +6,17 @@ use App\Models\Qrgenerater;
 class QrcodeList extends Component
 {
     public $record;
+    public $modalStatus = false;
 
-    public ?Qrgenerater $selectedUser = null;
-    public function showUser($id)
-    {
-        $this->selectedUser = Qrgenerater::find($id);
+   public function openModal($id){
+        // dd($id);
+        
+            $this->modalStatus = true;
+        
     }
 
-    public function closeModal()
-    {
-        $this->selectedUser = null;
+    public function closeModal(){
+        $this->modalStatus = false;
     }
 
 
