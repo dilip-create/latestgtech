@@ -358,5 +358,10 @@
             @endif
         </div>
     </div>
-
-</div>
+<!--Morris Chart-->
+    {{-- <script src="{{ URL::to('newassets/libs/morris-js/morris.min.js') }}"></script>
+    <!-- Dashboard init js-->
+    <script src="{{ URL::to('newassets/js/pages/dashboard.init.js') }}"></script>
+     <!-- Init js -->
+    <script src="{{ URL::to('newassets/js/pages/chartjs.init.js') }}"></script>
+</div> --}}

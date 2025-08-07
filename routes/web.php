@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\RichPayController;
+use App\Http\Controllers\AJAXController;
+
 
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\DashboardPage;
@@ -32,6 +34,7 @@ Route::get('lang', [LanguageController::class, 'change'])->name("change.lang");
 Route::get('/generate/FCQR', GenerateqrForm::class)->name('generate.FCQR');
 Route::get('/showQR/{recordID}', ShowQR::class)->name('showQR');
 Route::get('/invoice-qrcode-list', QrcodeList::class)->name('invoice.qrcode.list');
+Route::get('/get-record/{id}', [AJAXController::class, 'getRecord']);
 // Route::get('fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', 'fcs2pDeposit')->name('fc.s2p.Deposit');
 
 Route::get('/fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', DepositFormRichpay::class)->name('fc.r2pdeposit');
@@ -49,5 +52,8 @@ Route::controller(RichPayController::class)->group(function () {
 
     Route::get('sendDepositNotification/{id}', 'sendDepositNotification');
 });
+
+
+
 
  
