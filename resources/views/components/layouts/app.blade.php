@@ -71,8 +71,16 @@
 
     </div>
     <!-- END wrapper -->
+   
+
 
      @livewireScripts
+     <script>
+    Livewire.hook('message.processed', (message, component) => {
+        const chartData = component.serverMemo.data.chartData;
+        window.dispatchEvent(new CustomEvent('chart-updated', { detail: chartData }));
+    });
+</script>
     <!-- Vendor js -->
     <script src="{{ URL::to('newassets/js/vendor.min.js') }}"></script>
     <!--Morris Chart-->
