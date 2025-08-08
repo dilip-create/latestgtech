@@ -78,7 +78,7 @@
                                             <th>{{ __('messages.Order Id') }}</th>
                                             <th>{{ __('messages.Created Time') }}</th>
                                             <th>{{ __('messages.Transaction ID') }}</th>
-                                            @if (Session::get('auth')->role_name == 'Admin') 
+                                            @if (Session::get('auth')->role_name != 'Merchant') 
                                             <th>{{ __('messages.Merchant Code') }}</th>
                                             @endif
                                             @if(Session::get('auth')->merchant_id  == '1')       
@@ -95,8 +95,6 @@
                                             <th>{{ __('messages.Action') }}</th>
                                         </tr>
                                         </thead>
-
-
                                         <tbody>
                                             @php $index = 0; @endphp
                                             @forelse($transactionlist as $row)
@@ -104,7 +102,7 @@
                                             <td>{{ ++$index }}</td>
                                             <td>{{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
                                             <td>{{ $row->systemgenerated_TransId ?? '' }}</td>
-                                            @if (Session::get('auth')->role_name == 'Admin') 
+                                            @if (Session::get('auth')->role_name != 'Merchant') 
                                              <td>{{ $row->merchant_code ?? '' }}</td>
                                             @endif
                                             <td>{{ $row->reference_id ?? '' }}</td>

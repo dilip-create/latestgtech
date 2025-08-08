@@ -164,86 +164,86 @@
                 
             </div>
             @endif
+            
+            {{-- <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
 
-            <div class="row">
-                            <div class="col-12">
-                                <div class="card-box">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <h4 class="header-title">Line Chart</h4>
+                                    <p class="sub-header">
+                                        A line chart is a way of plotting data points on a line. Often, it is
+                                        used to show trend data, and the comparison of two data sets.
+                                    </p>
 
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div>
-                                                <h4 class="header-title">Line Chart</h4>
-                                                <p class="sub-header">
-                                                    A line chart is a way of plotting data points on a line. Often, it is
-                                                    used to show trend data, and the comparison of two data sets.
-                                                </p>
-    
-                                                <div class="p-3">
-                                                    <canvas id="lineChart" height="300"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="mt-5 mt-lg-0">
-                                                <h4 class="header-title">Bar Chart</h4>
-                                                <p class="sub-header">
-                                                    A bar chart is a way of showing data as bars. It is sometimes used to
-                                                    show trend data, and the comparison of multiple data sets side by side.
-                                                </p>
-
-                                                <div class="p-3">
-                                                    <canvas id="bar" height="300"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="p-3">
+                                        <canvas id="lineChart" height="300"></canvas>
                                     </div>
-                                    <!-- end row -->
-
-                                    <div class="row mt-3">
-                                        <div class="col-lg-6">
-                                            <div class="mt-5">
-                                                <h4 class="header-title">Pie Chart</h4>
-                                                <p class="sub-header">
-                                                    Pie and doughnut charts are probably the most commonly used chart there
-                                                    are. They are divided into segments, the arc of each segment shows the
-                                                    proportional value of each piece of data.
-                                                </p>
-
-                                                <div class="p-3">
-                                                    <canvas id="pie" height="260"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="mt-5">
-                                                <h4 class="header-title">Donut Chart</h4>
-                                                <p class="sub-header">
-                                                    Pie and doughnut charts are probably the most commonly used chart there
-                                                    are. They are divided into segments, the arc of each segment shows the
-                                                    proportional value of each piece of data.
-                                                </p>
-
-                                                <div class="p-3">
-                                                    <canvas id="doughnut" height="260"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- end row -->
-
-
-                                 
-
                                 </div>
-                            </div><!-- end col-->
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="mt-5 mt-lg-0">
+                                    <h4 class="header-title">Bar Chart</h4>
+                                    <p class="sub-header">
+                                        A bar chart is a way of showing data as bars. It is sometimes used to
+                                        show trend data, and the comparison of multiple data sets side by side.
+                                    </p>
+
+                                    <div class="p-3">
+                                        <canvas id="bar" height="300"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row mt-3">
+                            <div class="col-lg-6">
+                                <div class="mt-5">
+                                    <h4 class="header-title">Pie Chart</h4>
+                                    <p class="sub-header">
+                                        Pie and doughnut charts are probably the most commonly used chart there
+                                        are. They are divided into segments, the arc of each segment shows the
+                                        proportional value of each piece of data.
+                                    </p>
+
+                                    <div class="p-3">
+                                        <canvas id="pie" height="260"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="mt-5">
+                                    <h4 class="header-title">Donut Chart</h4>
+                                    <p class="sub-header">
+                                        Pie and doughnut charts are probably the most commonly used chart there
+                                        are. They are divided into segments, the arc of each segment shows the
+                                        proportional value of each piece of data.
+                                    </p>
+
+                                    <div class="p-3">
+                                        <canvas id="doughnut" height="260"></canvas>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                         <!-- end row -->
-            
 
+
+                        
+
+                    </div>
+                </div><!-- end col-->
+
+            </div> --}}
+            <!-- end row -->
+            
+             <livewire:chart-section />
             @if (Session::get('auth')->role_name == 'Admin')
                 <div class="row invoice-card-row">
                     <div class="col-xl-3 col-xxl-3 col-sm-6">
