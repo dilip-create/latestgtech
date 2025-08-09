@@ -728,8 +728,17 @@ return [
     'This month' => 'This month',
     'Last month' => 'Last month',
     'Last year' => 'Last year',
-    'ID' => 'ID',
-    'ID' => 'ID',
+    'Profile' => 'Profile',
+    'Logout' => 'Logout',
+    'Welcome' => 'Welcome',
+    'Deposit Overview' => 'Deposit Overview',
+    'last 30 days' => 'last 30 days',
+    'Deposits Currency' => 'Deposits Currency',
+    'Deposit Amount' => 'Deposit Amount',
+    'Welcome' => 'Welcome',
+    'Welcome' => 'Welcome',
+   
+   
 
     
     

@@ -117,18 +117,18 @@
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
                 <div class="dropdown-header noti-title">
-                    <h6 class="text-overflow text-white m-0">Welcome !</h6>
+                    <h6 class="text-overflow text-white m-0">{{ __('messages.Welcome') }} !</h6>
                 </div>
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-outline"></i>
-                    <span>Profile</span>
+                    <span>{{ __('messages.Profile') }}</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <!-- item-->
                 <a href="#" wire:click="logout" class="dropdown-item notify-item">
                     <i class="mdi mdi-logout-variant"></i>
-                    <span>Logout</span>
+                    <span>{{ __('messages.Logout') }}</span>
                 </a>
             </div>
         </li>
