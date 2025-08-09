@@ -26,7 +26,7 @@ class LoginPage extends Component
                    
                     $msg = 'Login Successfully!';
                     $this->dispatch('toast', message: $msg, notify:'success' ); 
-                    return $this->redirect('/dashboard', navigate: true);
+                    return $this->redirect('/dashboard', navigate: false);
 
                 }else{
                     $msg = 'Invalid Username & Password!';

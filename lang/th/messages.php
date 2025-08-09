@@ -722,5 +722,12 @@ return [
     'This month' => 'เดือนนี้',
     'Last month' => 'เดือนที่แล้ว',
     'Last year' => 'ปีที่แล้ว',
+    'Profile' => 'ประวัติโดยย่อ',
+    'Logout' => 'ออกจากระบบ',
+    'Welcome' => 'ยินดีต้อนรับ',
+    'Deposit Overview' => 'ภาพรวมการฝากเงิน',
+    'last 30 days' => '30 วันที่ผ่านมา',
+    'Deposits Currency' => 'สกุลเงินเงินฝาก',
+    'Deposit Amount' => 'จำนวนเงินฝาก',
 
 ];

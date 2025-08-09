@@ -37,6 +37,12 @@
                                 <span> {{ __('messages.Summary Report') }} </span>
                             </a>
                         </li>
+                        <li>
+                            <a href="#" wire:click="logout" wire:navigate>
+                                <i class="mdi mdi-logout-variant"></i>
+                                <span> {{ __('messages.Logout') }} </span>
+                            </a>
+                        </li>
                         @if (Session::get('auth')->role_name === 'Merchant')
                             
                             {{-- <li>
