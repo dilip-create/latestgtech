@@ -8,6 +8,7 @@ use App\Http\Controllers\AJAXController;
 
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\DashboardPage;
+use App\Livewire\ProfilePage;
 use App\Livewire\DepositTransactionList;
 use App\Livewire\WithdrawTransactionList;
 use App\Livewire\Fc\GenerateqrForm;
@@ -27,6 +28,7 @@ Route::get('/table', [HomeController::class, 'datatable']);
 Route::get('/', LoginPage::class)->name('login');
 Route::get('/login', LoginPage::class)->name('login');
 Route::get('/dashboard', DashboardPage::class)->name('dashboard');
+Route::get('/profile', ProfilePage::class)->name('user.profile');
 Route::get('/transactions/deposit', DepositTransactionList::class)->name('transactions.deposit');
 Route::get('/transactions/withdraw', WithdrawTransactionList::class)->name('transactions.withdraw');
 Route::get('lang', [LanguageController::class, 'change'])->name("change.lang");
