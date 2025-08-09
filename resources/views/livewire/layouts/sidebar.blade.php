@@ -5,40 +5,45 @@
 
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
-
                     <ul class="metismenu" id="side-menu">
                          @php
                         // $data = getTodayTransactionCount();
                         @endphp
                         {{-- <li class="menu-title">Navigation</li> --}}
                         <li>
-                            <a href="/dashboard" wire:navigate>
+                            <a href="/dashboard" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Dashboard') }}">
                                 <i class="mdi mdi-view-dashboard"></i>
                                 <span> {{ __('messages.Dashboard') }} </span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('transactions.deposit') }}" wire:navigate>
+                            <a href="{{ route('transactions.deposit') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit Transactions') }}">
                                 <i class="mdi mdi-file-document-box-check-outline"></i>
                                 <span class="badge badge-warning badge-pill float-right">{{ $todayDepositCount > 0 ?   $todayDepositCount  : '' }}</span>
                                 <span>{{ __('messages.Deposit Transactions') }} </span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('transactions.withdraw') }}" wire:navigate>
+                            <a href="{{ route('transactions.withdraw') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Withdraw Transactions') }}">
                                 <i class="mdi mdi-google-pages"></i>
                                 <span class="badge badge-warning badge-pill float-right">{{ $todayWithdrawCount > 0 ?   $todayWithdrawCount  : '' }}</span>
                                 <span style="font-size:14px">{{ __('messages.Withdraw Transactions') }} </span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('invoice.qrcode.list') }}" wire:navigate>
+                            <a href="{{ route('invoice.qrcode.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Summary Report') }}">
                                 <i class="mdi mdi-poll"></i>
                                 <span> {{ __('messages.Summary Report') }} </span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" wire:click="logout" wire:navigate>
+                            <a href="{{ route('user.profile') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Profile') }}">
+                                <i class="mdi mdi-account-outline"></i>
+                                <span> {{ __('messages.Profile') }} </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" wire:click="logout" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Logout') }}">
                                 <i class="mdi mdi-logout-variant"></i>
                                 <span> {{ __('messages.Logout') }} </span>
                             </a>
