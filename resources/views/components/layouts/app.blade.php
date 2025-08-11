@@ -22,9 +22,9 @@
 
     <!-- Notification css (Toastr) -->
     <link href="{{ URL::to('newassets/libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Toster CSS START Livewire-->
+    <!-- Toster CSS START for Livewire and Laravel both-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-    <!-- Toster CSS END Livewire-->
+    <!-- Toster CSS END for Livewire and Laravel both-->
     <!-- Custom box css -->
     <link href="{{ URL::to('newassets/libs/custombox/custombox.min.css') }}" rel="stylesheet">
 
@@ -71,16 +71,15 @@
 
     </div>
     <!-- END wrapper -->
-   
 
 
-     @livewireScripts
-     <script>
+    
+    <script>
     Livewire.hook('message.processed', (message, component) => {
         const chartData = component.serverMemo.data.chartData;
         window.dispatchEvent(new CustomEvent('chart-updated', { detail: chartData }));
     });
-</script>
+    </script>
     <!-- Vendor js -->
     <script src="{{ URL::to('newassets/js/vendor.min.js') }}"></script>
     <!--Morris Chart-->
@@ -118,9 +117,33 @@
     
     <!-- Modal-Effect -->
         <script src="{{ URL::to('newassets/libs/custombox/custombox.min.js') }}"></script>
-       
+    <!-- Toster JS START For Livewire-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        document.addEventListener("livewire:init", () => {
+            Livewire.on("toast", (event) => {
+                toastr[event.notify](event.message);
+            });
+        });
+    </script>
+     <!-- Toster JS END For Livewire-->
+     {{-- toastr js START for LARAVEL controller--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <script>
+        $(document).ready(function() {
+            toastr.options.timeOut = 10000;
+            @if (Session::has('error'))
+                toastr.error('{{ Session::get('error') }}');
+            @elseif(Session::has('success'))
+                toastr.success('{{ Session::get('success') }}');
+            @elseif(Session::has('warning'))
+                toastr.warning('{{ Session::get('warning') }}');
+            @endif
+        });
+    </script>
+    {{-- toastr js END for LARAVEL controller--}}
 
-   
+    @livewireScripts
 </body>
 
 </html>

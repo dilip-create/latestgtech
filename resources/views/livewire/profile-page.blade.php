@@ -24,7 +24,7 @@
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Agent Name')}}</td>
                                     <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $agentData->agent_name ?? '' }}</td>
                                 </tr>
-                                @else
+                                @elseif (Session::get('auth')->role_name == 'Agent')
                                 <tr>
                                     <td style="width: 25%; background-color:#808080; border: 1px solid lightgray" class="header-title">{{__('messages.Agent Code')}}</td>
                                     <td style="width: 25%; color:#000; border: 1px solid lightgray" class="header-title">{{ $agentData->agent_code ?? '' }}</td>
@@ -47,64 +47,47 @@
     </div>
  </div>
 <div class="row">
-    <div class="col-lg-6 offset-lg-3">
+    <div class="col-lg-4 offset-lg-4">
         <div class="card-box mt-5">
           
                     <div class="mt-4 mt-lg-0">
-                        <h4 class="header-title">Horizontal Form</h4>
-                        <p class="sub-header">
+                        <h4 class="header-title">{{__('messages.Change Password')}}</h4>
+                        {{-- <p class="sub-header">
                             Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.
-                        </p>
-
-                    
-                        <form role="form" class="parsley-examples" data-parsley-validate novalidate>
+                        </p> --}}
+                        <form wire:submit.prevent="changePass" method="POST" class="mt-2" role="form" class="parsley-examples" data-parsley-validate novalidate>
+                        @csrf
                             <div class="form-group row">
-                                <label for="inputEmail3" class="col-md-4 col-form-label">Email<span class="text-danger">*</span></label>
+                                <label for="NewPassword" class="col-md-4 col-form-label">{{__('messages.New Password')}}<span class="text-danger">*</span></label>
                                 <div class="col-md-8">
-                                    <input type="email" required parsley-type="email" class="form-control"
-                                            id="inputEmail3" placeholder="Email">
+                                    <input type="password" class="form-control @error('NewPassword') is-invalid @enderror" wire:model.live="NewPassword" placeholder="{{__('messages.Enter here')}}">
+                                    @error('NewPassword')
+                                    <label class="error" for="NewPassword">{{ $message }}</label>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="hori-pass1" class="col-md-4 col-form-label">Password<span class="text-danger">*</span></label>
+                                <label for="confirmPassword" class="col-md-4 col-form-label">{{__('messages.Confirm Password')}}<span class="text-danger">*</span></label>
                                 <div class="col-md-8">
-                                    <input id="hori-pass1" type="password" placeholder="Password" required
-                                            class="form-control">
+                                    <input type="password" class="form-control @error('confirmPassword') is-invalid @enderror" wire:model.live="confirmPassword" placeholder="{{__('messages.Enter here')}}">
+                                    @error('confirmPassword')
+                                    <label class="error" for="confirmPassword">{{ $message }}</label>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="hori-pass2" class="col-md-4 col-form-label">Confirm Password
-                                    <span class="text-danger">*</span></label>
+                                <label for="oldPassword" class="col-md-4 col-form-label">{{__('messages.Old Password')}}<span class="text-danger">*</span></label>
                                 <div class="col-md-8">
-                                    <input data-parsley-equalto="#hori-pass1" type="password" required
-                                            placeholder="Password" class="form-control" id="hori-pass2">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="webSite" class="col-md-4 form-control-label">Web Site<span class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <input type="url" required parsley-type="url" class="form-control"
-                                            id="webSite" placeholder="URL">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-8 offset-md-4">
-                                    <div class="checkbox">
-                                        <input id="remember-2" type="checkbox">
-                                        <label for="remember-2"> Remember me </label>
-                                    </div>
+                                    <input type="password" class="form-control @error('oldPassword') is-invalid @enderror" wire:model.live="oldPassword" placeholder="{{__('messages.Enter here')}}">
+                                    @error('oldPassword')
+                                    <label class="error" for="oldPassword">{{ $message }}</label>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row justify-content-end">
                                 <div class="col-md-8">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
-                                        Register
-                                    </button>
-                                    <button type="reset"
-                                            class="btn btn-secondary waves-effect">
-                                        Cancel
-                                    </button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">{{__('messages.Save')}}</button>
+                                    <button type="reset" class="btn btn-secondary waves-effect">{{__('messages.Reset')}}</button>
                                 </div>
                             </div>
                         </form>

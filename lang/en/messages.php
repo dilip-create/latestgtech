@@ -735,8 +735,13 @@ return [
     'last 30 days' => 'last 30 days',
     'Deposits Currency' => 'Deposits Currency',
     'Deposit Amount' => 'Deposit Amount',
-    'Welcome' => 'Welcome',
-    'Welcome' => 'Welcome',
+    'Change Password' => 'Change Password',
+    'New Password' => 'New Password',
+    'Confirm Password' => 'Confirm Password',
+    'Old Password' => 'Old Password',
+    'Save' => 'Save',
+    'Reset' => 'Reset',
+    'Enter here' => 'Enter here',
    
    
 

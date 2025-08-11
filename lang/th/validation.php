@@ -1,8 +1,14 @@
 <?php
 
 return [
-
-    'The :attribute field is required.' => 'The :attribute field is required.',
+    'required' => 'ต้องระบุข้อมูลในช่องนี้',
+    'unique' => 'ออกแล้ว.',
+    'numeric' => 'ฟิลด์นี้ต้องเป็นค่าตัวเลข',
+    'string' => 'ฟิลด์นี้ต้องเป็นค่าสตริง',
+    'min' => [
+        'string' => 'ฟิลด์นี้ต้องมีอย่างน้อย :min characters.',
+    ],
+    'The :attribute field is required.' => 'ฟิลด์ :attribute เป็นสิ่งจำเป็น',
     'The :attribute must be unique.' => 'The :attribute must be unique.',
     'The :attribute must be alphabets.' => 'The :attribute must be alphabets.',
     'The :attribute confirmation does not match.' => 'The :attribute confirmation does not match.',

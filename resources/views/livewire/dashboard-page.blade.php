@@ -313,7 +313,7 @@
                     </div>
                 </div>
             @else
-                <div id="merchant-agent" style="font-size:12px;">
+                {{-- <div id="merchant-agent" style="font-size:12px;">
                     <div class="table-responsive">
                         <table class="table dashboard" style="color:#fff;">
                             <tbody>
@@ -354,7 +354,7 @@
                         </table>
                     </div>
 
-                </div>
+                </div> --}}
             @endif
         </div>
     </div>
