@@ -120,7 +120,7 @@
                     <h6 class="text-overflow text-white m-0">{{ __('messages.Welcome') }} !</h6>
                 </div>
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{ route('user.profile') }}" wire:navigate class="dropdown-item notify-item">
                     <i class="mdi mdi-account-outline"></i>
                     <span>{{ __('messages.Profile') }}</span>
                 </a>
