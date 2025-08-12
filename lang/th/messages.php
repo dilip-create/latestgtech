@@ -729,5 +729,12 @@ return [
     'last 30 days' => '30 วันที่ผ่านมา',
     'Deposits Currency' => 'สกุลเงินเงินฝาก',
     'Deposit Amount' => 'จำนวนเงินฝาก',
+    'Change Password' => 'เปลี่ยนรหัสผ่าน',
+    'New Password' => 'รหัสผ่านใหม่',
+    'Confirm Password' => 'ยืนยันรหัสผ่าน',
+    'Old Password' => 'รหัสผ่านเก่า',
+    'Save' => 'บันทึก',
+    'Reset' => 'รีเซ็ต',
+    'Enter here' => 'เข้ามาที่นี่',
 
 ];
