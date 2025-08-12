@@ -10,6 +10,7 @@ class LoginPage extends Component
 {
     #[Rule('required')]
     public $username, $password;
+    public bool $showPassword = false;
     public function loginCheck()
     {
         $validated = $this->validate();

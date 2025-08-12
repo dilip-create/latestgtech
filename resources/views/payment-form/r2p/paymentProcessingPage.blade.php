@@ -120,7 +120,9 @@
     <h2 style="text-align:center; color:rgb(11, 3, 58);!important;">สแกน QR Code จากแอปธนาคาร</h2>
     <hr style="border-top: 1px solid #dedede;"><br/>
     <div class="abf-topline"><div>
-      <div style="text-align:center; height:186px"><img src="https://payin.implogix.com/api/vizpay/processing.gif" style="display: inline;height:200px;width:230px;margin-top: -5%;" alt="official QR code for payment"> </div>
+      <div style="text-align:center; height:186px">
+        <img src="{{ URL::to('newassets/images/bank-images/processing.gif') }}" style="display: inline;height:200px;width:230px;margin-top: -5%;" alt="Official QR code for Payment">
+       </div>
     </div>
     <h4 style="text-align:center;color:#dc3545 !important;">คุณจะถูกส่งต่อไปยังเว็บไซต์ของผู้ค้าใน <span id="timer" style="color:#dc3545 !important;">00:30 วินาที</span>.</h4>
       <div class="abf-list">

@@ -20,19 +20,19 @@
                             @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" wire:model.live="password" placeholder="Enter your password">
+                            <input type="{{ $showPassword ? 'text' : 'password' }}" id="password" class="form-control @error('password') is-invalid @enderror" wire:model.live="password" placeholder="Enter your password">
                             @error('password')
                             <label class="error" for="password">{{ $message }}</label>
                             @enderror
                         </div>
                         <div class="form-group mb-3">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="checkbox-signin" checked>
-                                <label class="custom-control-label" for="checkbox-signin">Remember me</label>
+                                <input type="checkbox" class="custom-control-input" id="checkbox-signin" wire:model.live="showPassword">
+                                <label class="custom-control-label" for="checkbox-signin">show password</label>
                             </div>
                         </div>
                         <div class="form-group text-center">
-                            <button class="btn btn-success btn-block waves-effect waves-light" type="submit"> Log In <i class="mdi mdi-arrow-right"></i></button>
+                            <button class="btn btn-success btn-block waves-effect waves-light" type="submit"> Sign In <i class="mdi mdi-arrow-right"></i></button>
                         </div>
                         {{-- <a href="pages-recoverpw.html" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Forgot your password?</a> --}}
                     </form>
