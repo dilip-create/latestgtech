@@ -16,7 +16,7 @@ use App\Livewire\Fc\ShowQR;
 use App\Livewire\Fc\QrcodeList;
 use App\Livewire\Fc\DepositFormRichpay;
 use App\Livewire\PaymentForm\R2p\RichpayPayinForm;
-
+use App\Livewire\Agent\AgentList;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -55,6 +55,8 @@ Route::controller(RichPayController::class)->group(function () {
     Route::get('sendDepositNotification/{id}', 'sendDepositNotification');
 });
 
+
+Route::get('/agent-lists', AgentList::class)->name('agent.list');
 
 
 

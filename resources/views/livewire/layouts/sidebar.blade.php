@@ -19,7 +19,7 @@
                         @if (Session::get('auth')->role_name === 'Admin')
 
                             <li>
-                                <a href="{{ route('user.profile') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Agent Management') }}">
+                                <a href="{{ route('agent.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Agent Management') }}">
                                     <i class="mdi mdi-account-outline"></i>
                                     <span> {{ __('messages.Agent Management') }} </span>
                                 </a>
