@@ -16,6 +16,16 @@
                                 <span> {{ __('messages.Dashboard') }} </span>
                             </a>
                         </li>
+                        @if (Session::get('auth')->role_name === 'Admin')
+
+                            <li>
+                                <a href="{{ route('user.profile') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Agent Management') }}">
+                                    <i class="mdi mdi-account-outline"></i>
+                                    <span> {{ __('messages.Agent Management') }} </span>
+                                </a>
+                            </li>
+
+                        @endif
                         <li>
                             <a href="{{ route('transactions.deposit') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit Transactions') }}">
                                 <i class="mdi mdi-file-document-box-check-outline"></i>
@@ -65,32 +75,7 @@
                             </li> --}}
 
                         @endif
-                        @if (Session::get('auth')->role_name === 'Admin')
-
-                            {{-- @if (auth()->user()->can('PaymentDetails: View PaymentDetails'))
-                            <li>
-                                <a href="{{ route('PaymentDetails: View PaymentDetails') }}">
-                                    <i class="mdi mdi-file-document-box-check-outline"></i>
-                                    <span class="badge badge-warning badge-pill float-right">{{ $data['todayDepositCount'] > 0 ?   $data['todayDepositCount']  : '' }}</span>
-                                    <span>{{ __('messages.Deposit Transactions') }} </span>
-                                </a>
-                            </li>
-                            @endif 
-                            @if (auth()->user()->can('Settlement: Billing View Settlement') ||
-                                auth()->user()->can('Settlement: Settle Request View Settlement') ||
-                                auth()->user()->can('Settlement: Settle Approved View Settlement') ||
-                                auth()->user()->can('Settlement: Settled View Settlement') ||
-                                auth()->user()->can('Settlement: Settled History Settlement'))   
-                                <li>
-                                    <a href="{{ route('Settlement: Settled History Settlement') }}">
-                                        <i class="mdi mdi-google-pages"></i>
-                                        <span class="badge badge-warning badge-pill float-right">{{ $data['todayWithdrawCount'] > 0 ?  $data['todayWithdrawCount'] : '' }}</span>
-                                        <span style="font-size:14px;">{{ __('messages.Withdraw Transactions') }}</span>
-                                    </a>
-                                </li>
-                            @endif --}}
-
-                        @endif
+                        
                         {{-- <li class="menu-title mt-2">Components</li>
                         <li>
                             <a href="javascript: void(0);">
