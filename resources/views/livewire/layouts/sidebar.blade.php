@@ -11,7 +11,7 @@
                         @endphp
                         {{-- <li class="menu-title">Navigation</li> --}}
                         <li>
-                            <a href="/dashboard" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Dashboard') }}">
+                            <a href="/dashboard" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Dashboard') }}">
                                 <i class="mdi mdi-view-dashboard"></i>
                                 <span> {{ __('messages.Dashboard') }} </span>
                             </a>
