@@ -109,7 +109,7 @@
                                     <form role="form" action="{{ route('apiroute.r2p.payin') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate>
                                     @csrf
                                         <input type="hidden" name="merchant_code" value="FCmerchant001">
-                                        <input type="hidden" name="product_id" value="27">    {{--for local 25 for live 27 --}}
+                                        <input type="hidden" name="channel_id" value="1">    {{--for new Richpay gateway  --}}
                                         <input type="hidden" name="callback_url" value="{{ route('apiroute.r2pPayincallbackURL') }}">
                                         <input type="hidden" name="amount" value="{{ $amount ?? '' }}">
                                         <input type="hidden" name="Currency" value="THB">
