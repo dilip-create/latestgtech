@@ -742,6 +742,7 @@ return [
     'Save' => 'Save',
     'Reset' => 'Reset',
     'Enter here' => 'Enter here',
+    'Generate QR' => 'Generate QR Code',
    
    
 

@@ -23,16 +23,14 @@ class RichPayController extends Controller
             'customer_account_number' => 'required',
         ]);
         // echo "<pre>";  print_r($request->all()); die;
-
         // fetching gateway details START
         $res = $this->getGatewayParameters($request->merchant_code, $request->channel_id);
         // fetching gateway details END
-        // echo "<pre>";  print_r($res['merchantdata']['id']); die;
-        
+        // echo "<pre>";  print_r($res); die;
         $frtransaction = $this->generateUniqueCode();
         $client_ip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR']);
-
-        $secretKey =  $res['secretKey'] ?? 'Z0FBQUFBQm55WHJRYllhRGdjNXl5NjFvTDRLRHNhcElGamN3'; // Store secret key in .env file
+        $secretKey =  $res['parameters']['secretKey'] ?? 'Z0FBQUFBQm55WHJRYllhRGdjNXl5NjFvTDRLRHNhcElGamN3'; 
+        $accessToken = $res['parameters']['accessToken'];
         $orderId = $frtransaction; // Replace with actual Order ID
         $amount =  $request->amount; // Replace with actual Amount
         // Step 1: Concatenate in required format
@@ -54,11 +52,12 @@ class RichPayController extends Controller
             'ref2' => '',
             'callback_url' => url('api/r2pDepositNotifiication'),
         ];
+        //  echo "<pre>";  print_r($postData); die;
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiT1NNTyIsInNpZ25hdHVyZSI6ImNTMUNYMlZ6ZEU0MkxWUjNiMnRLZDFNeE1qQmhXRUpTZWpSTlFtOUVSVlpzWTFGblRXeHpNR1ZGVmtGRFoyNXdOSGxrTW1adVMyaFlTemxLTkRFeGFIa3phV3hwYjJVdE1VOXRlblYyY1daak16TXhVVkpIYVd0d09XeHJZV2xPVEhKVVRuZzNhV3cxVHpaMVpVNDVTMkZ0T0VoZlZraFhWRk56WW1GWGJEUkZUbEJTYXpWcVdrcHhNRXhuVkZabWN6bEJQUT09IiwiaWRlbnRpZmllciI6IlowRkJRVUZCUW01NVdISlJUa1JyZUdaVFRIcFdhMk41ZURaM2NVSm1SMmhCWkU5TU5scGxkR1E1TlV0bWNuaFZjQzExV213eFRFZGFSRXRTTUhKMFdqVm9iRGhrTTBwd2RFNU1aa1Y0VGtGYU1DMXphVmgzTlRZd1gzTXRhazVRWnpVeFMxTm5kVXBhWTBwSk0xbHdUVGRDU2tGRk5HODkifQ.gvm5-f2jGiJyDXYlaRsgLgscgQv3YS2zV7IHE4ZgWwg', // Ensure proper concatenation
-            'x-api-key' => $res['apiKey'] ?? 'c48beec83f740331c0ff58', // Correct usage of array key
+            'Authorization' => 'Bearer ' . $accessToken, // Correct concatenation
+            'x-api-key' => $res['parameters']['apiKey'] ?? 'c48beec83f740331c0ff58', // Correct usage of array key
             'x-signature' => $encodedSignature, // No change needed
-        ])->post($res['api_url'] ?? 'https://service.richpay.io/api/v1/client/create_deposit', $postData);
+        ])->post($res['parameters']['apiUrl'] ?? 'https://service.richpay.io/api/v1/client/create_deposit', $postData);
         $jsonData = $response->json();
         // echo "<pre>";  print_r($jsonData); die;
         // Redirect to the payment link
@@ -66,7 +65,7 @@ class RichPayController extends Controller
             //Insert data into DB
              // for speedpay deposit charge START
             if(!empty($request->amount)){
-                $percentage = 1.35;     // Deposit Charge for RichPay
+                $percentage = $res['parameters']['percentage_charge'];     // Deposit Charge for RichPay
                 $totalWidth = $request->amount;
                 $mdr_fee_amount = ($percentage / 100) * $totalWidth;
                 $net_amount= $totalWidth-$mdr_fee_amount;
@@ -82,14 +81,13 @@ class RichPayController extends Controller
                 'callback_url' => $request->callback_url,
                 'amount' => $request->amount,
                 'Currency' => $request->Currency,
-                'product_id' => $request->product_id,
                 'bank_account_name' => $request->bank_account_name ?? $request->customer_name,
                 'bank_code' => $request->bank_code_character ?? $request->bank_code,
                 'bank_account_number' => $request->customer_account_number,
-                'payment_channel' => $gatewayPaymentChannel->id ?? '',
-                'payment_method' => $paymentMethod->method_name ?? 'QR Payment',
+                'payment_channel' => $res['channel']['id'] ?? '',
+                'payment_method' => $res['gateway_account']['payment_method'] ?? 'QR Payment',
                 'request_data' => json_encode($postData),
-                'gateway_name' => 'RichPay',
+                'gateway_name' => $res['gateway_account']['gateway_name'],
                 'customer_name' => $request->customer_name ?? $request->bank_account_name,
                 'customer_email' => $request->customer_email,
                 'payin_arr' => json_encode($jsonData),
@@ -98,7 +96,7 @@ class RichPayController extends Controller
                 'net_amount' => $net_amount ?? '',
                 'mdr_fee_amount' => $mdr_fee_amount ?? '',
             ];
-            //   echo "<pre>";  print_r($addRecord); die;
+            // echo "<pre>";  print_r($addRecord); die;
             DepositTransaction::create($addRecord);
             // sleep(20);
             return redirect(url('r2pPaymentPage/'.base64_encode($frtransaction)));

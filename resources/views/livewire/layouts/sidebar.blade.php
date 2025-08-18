@@ -46,6 +46,14 @@
                                 <span> {{ __('messages.Summary Report') }} </span>
                             </a>
                         </li>
+                         @if (Session::get('auth')->user_name == 'FCmerchant001')
+                            <li>
+                                <a href="{{ route('generate.FCQR') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Generate QR') }}" target="_blank">
+                                    <i class="mdi mdi-qrcode-scan"></i>
+                                    <span> {{ __('messages.Generate QR') }} </span>
+                                </a>
+                            </li>
+                        @endif
                         <li>
                             <a href="{{ route('user.profile') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Profile') }}">
                                 <i class="mdi mdi-account-outline"></i>
@@ -58,23 +66,7 @@
                                 <span> {{ __('messages.Logout') }} </span>
                             </a>
                         </li>
-                        @if (Session::get('auth')->role_name === 'Merchant')
-                            
-                            {{-- <li>
-                                <a href="{{ route('transactions/withdraw') }}">
-                                    <i class="mdi mdi-google-pages"></i>
-                                    <span class="badge badge-warning badge-pill float-right">{{ $data['todayWithdrawCount'] > 0 ?  $data['todayWithdrawCount'] : '' }}</span>
-                                    <span style="font-size:14px;">{{ __('messages.Withdraw Transactions') }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('merchant-qrcode-list') }}">
-                                    <i class="mdi mdi-poll"></i>
-                                    <span> {{ __('messages.Summary Report') }} </span>
-                                </a>
-                            </li> --}}
-
-                        @endif
+                       
                         
                         {{-- <li class="menu-title mt-2">Components</li>
                         <li>

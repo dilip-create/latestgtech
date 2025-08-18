@@ -28,6 +28,7 @@ class CustomAuth
             || ($path == 'transactions/withdraw' && !Session::get('auth'))
             || ($path == 'invoice-qrcode-list' && !Session::get('auth'))
             || ($path == 'profile' && !Session::get('auth'))
+            || ($path == 'generate/FCQR' && !Session::get('auth'))
         //  || (strpos($path, 'dashboard') !== false && !Session::has('auth'))
         //  || (strpos($path, 'logAuth') !== false && !Session::has('auth'))
         )
