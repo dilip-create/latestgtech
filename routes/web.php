@@ -17,6 +17,7 @@ use App\Livewire\Fc\QrcodeList;
 use App\Livewire\Fc\DepositFormRichpay;
 use App\Livewire\PaymentForm\R2p\RichpayPayinForm;
 use App\Livewire\Agent\AgentList;
+use App\Livewire\PaymentGateway\GatewayAccountList;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -57,6 +58,8 @@ Route::controller(RichPayController::class)->group(function () {
 
 
 Route::get('/agent-lists', AgentList::class)->name('agent.list');
+Route::get('/gateway-account-list', GatewayAccountList::class)->name('gateway.account.list');
+
 
 
 
