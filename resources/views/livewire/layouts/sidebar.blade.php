@@ -24,6 +24,18 @@
                                     <span> {{ __('messages.Agent Management') }} </span>
                                 </a>
                             </li>
+                             <li>
+                            <a href="javascript: void(0);">
+                                <i class="mdi mdi-table-settings"></i>
+                                <span>{{ __('messages.Payment Config') }}</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="nav-second-level" aria-expanded="false">
+                                <li><a href="{{ route('gateway.account.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Account') }}">{{ __('messages.Gateway Account') }}</a></li>
+                                <li><a href="tables-datatable.html">Data Tables</a></li>
+                               
+                            </ul>
+                        </li>
 
                         @endif
                         <li>
