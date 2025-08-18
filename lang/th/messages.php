@@ -736,5 +736,6 @@ return [
     'Save' => 'บันทึก',
     'Reset' => 'รีเซ็ต',
     'Enter here' => 'เข้ามาที่นี่',
+    'Generate QR' => 'สร้างรหัส QR',
 
 ];
