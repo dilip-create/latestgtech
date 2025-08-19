@@ -11,6 +11,7 @@ class GatewayAccountList extends Component
         $this->record = GatewayAccount::orderBy('id', 'DESC')->get();
         // dd($this->gatewayData);
     }
+    
 
     public function render()
     {

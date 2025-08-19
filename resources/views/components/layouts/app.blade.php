@@ -20,6 +20,14 @@
     <link href="{{ URL::to('newassets/libs/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::to('newassets/libs/datatables/select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
+    {{-- <!-- Plugins css -->
+    <link href="{{ URL::to('newassets/libs/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ URL::to('newassets/libs/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::to('newassets/libs/multiselect/multi-select.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::to('newassets/libs/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Sweet Alert-->
+        <link href="{{ URL::to('newassets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+
     <!-- Notification css (Toastr) -->
     <link href="{{ URL::to('newassets/libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Toster CSS START for Livewire and Laravel both-->
@@ -29,7 +37,7 @@
     <link href="{{ URL::to('newassets/libs/custombox/custombox.min.css') }}" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-       
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @livewireStyles
 </head>
 
@@ -108,6 +116,22 @@
     <script src="{{ URL::to('newassets/libs/datatables/buttons.print.min.js') }}"></script>
     <script src="{{ URL::to('newassets/libs/datatables/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ URL::to('newassets/libs/datatables/dataTables.select.min.js') }}"></script>
+    {{-- <!-- Plugins Js -->
+    <script src="{{ URL::to('newassets/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ URL::to('newassets/libs/switchery/switchery.min.js') }}"></script>
+    <script src="{{ URL::to('newassets/libs/multiselect/jquery.multi-select.js') }}"></script>
+    <script src="{{ URL::to('newassets/libs/jquery-quicksearch/jquery.quicksearch.min.js') }}"></script>
+    <script src="{{ URL::to('newassets/libs/select2/select2.min.js') }}"></script>
+    <script src="{{ URL::to('newassets/libs/jquery-mockjax/jquery.mockjax.min.js') }}"></script>
+    <script src="{{ URL::to('newassets/libs/autocomplete/jquery.autocomplete.min.js') }}"></script>
+    <script src="{{ URL::to('newassets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+         <!-- form advanced init -->
+    <script src="{{ URL::to('newassets/js/pages/form-advanced.init.js') }}"></script>
+        <!-- Sweet Alerts js -->
+        <script src="{{ URL::to('newassets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+        <!-- Sweet alert init js-->
+        <script src="{{ URL::to('newassets/js/pages/sweet-alerts.init.js') }}"></script> --}}
+
     <!-- Datatables init -->
     <script src="{{ URL::to('newassets/js/pages/datatables.init.js') }}"></script>
 

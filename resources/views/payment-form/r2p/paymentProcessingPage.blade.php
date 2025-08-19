@@ -128,7 +128,7 @@
       <div class="abf-list">
         <div class="abf-list-item">
           <div class="abf-label">Amount:</div>
-          <div class="abf-value"><b><span class="abf-remains">{{ $data['amount'] ?? ''}}</span>THB</b></div>
+          <div class="abf-value"><b><span class="abf-remains"><?= number_format((int) $data['amount'], 2) ?></span>THB</b></div>
         </div>
         <div class="abf-list-item">
           <div class="abf-label">Bank Name:</div>
