@@ -29,6 +29,7 @@ class CustomAuth
             || ($path == 'invoice-qrcode-list' && !Session::get('auth'))
             || ($path == 'profile' && !Session::get('auth'))
             || ($path == 'generate/FCQR' && !Session::get('auth'))
+            || ($path == 'gateway-account-list' && !Session::get('auth'))
         //  || (strpos($path, 'dashboard') !== false && !Session::has('auth'))
         //  || (strpos($path, 'logAuth') !== false && !Session::has('auth'))
         )
