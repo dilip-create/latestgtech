@@ -65,9 +65,9 @@ class RichPayController extends Controller
         if (isset($jsonData['qr_image_link'])) {
             //Insert data into DB
              // for speedpay deposit charge START
-            if(!empty($request->amount)){
+            if(!empty($cleanAmount)){
                 $percentage = $res['parameters']['percentage_charge'];     // Deposit Charge for RichPay
-                $totalWidth = $request->amount;
+                $totalWidth = $cleanAmount;
                 $mdr_fee_amount = ($percentage / 100) * $totalWidth;
                 $net_amount= $totalWidth-$mdr_fee_amount;
             }
