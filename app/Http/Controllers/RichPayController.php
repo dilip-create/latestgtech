@@ -32,14 +32,14 @@ class RichPayController extends Controller
         $secretKey =  $res['parameters']['secretKey'] ?? 'Z0FBQUFBQm55WHJRYllhRGdjNXl5NjFvTDRLRHNhcElGamN3'; 
         $accessToken = $res['parameters']['accessToken'];
         $orderId = $frtransaction; // Replace with actual Order ID
-        $amount =  $request->amount; // Replace with actual Amount
+        $cleanAmount = str_replace(",", "", $request->amount);
         // Step 1: Concatenate in required format
-        $signatureString = "{$secretKey}:{$orderId}:{$amount}";
+        $signatureString = "{$secretKey}:{$orderId}:{$cleanAmount}";
         // Step 2: Encode using Base64
         $encodedSignature = base64_encode($signatureString);
 
         // Call Curl API code START
-        $cleanAmount = str_replace(",", "", $request->amount);
+        
         $postData = [
             // 'UrlFront' => url('s2p/payinResponse'), 
             'order_id' => $frtransaction,
