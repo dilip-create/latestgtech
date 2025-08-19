@@ -26,7 +26,9 @@ class RichPayController extends Controller
         // fetching gateway details START
         $res = $this->getGatewayParameters($request->merchant_code, $request->channel_id);
         // fetching gateway details END
-        // echo "<pre>";  print_r($res); die;
+        if($res == 'Invalid Merchant!' || $res == 'Merchant is Disabled!' || $res == 'Invalid Channel!' || $res == 'Channel is Disabled!' || $res == 'Gateway is Disabled!' || $res == 'Gateway not configured for this Merchant!' || $res == 'Gateway configuration is Disabled for this Merchant!' || $res == 'Parameter not set!'){
+             echo "<pre>";  print_r($res); die;
+        }
         $frtransaction = $this->generateUniqueCode();
         $client_ip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR']);
         $secretKey =  $res['parameters']['secretKey'] ?? 'Z0FBQUFBQm55WHJRYllhRGdjNXl5NjFvTDRLRHNhcElGamN3'; 
@@ -80,7 +82,7 @@ class RichPayController extends Controller
                 'systemgenerated_TransId' => $frtransaction,
                 'gateway_TransId' => $jsonData['ref_id'],
                 'callback_url' => $request->callback_url,
-                'amount' => $request->amount,
+                'amount' => $cleanAmount,
                 'Currency' => $request->Currency,
                 'bank_account_name' => $request->bank_account_name ?? $request->customer_name,
                 'bank_code' => $request->bank_code_character ?? $request->bank_code,
@@ -136,7 +138,8 @@ class RichPayController extends Controller
         // 5. Check Gateway Account Status
         $gatewayAccount = $channel->gatewayAccount;
         if (!$gatewayAccount || $gatewayAccount->status == 0) {
-            return 'Gateway is Disabled!'; die;
+            return 'Gateway is Disabled!'; die; 
+            die;
         }
 
         // 6. Check Gateway Account is linked with Merchant

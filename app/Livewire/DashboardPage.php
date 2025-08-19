@@ -101,7 +101,8 @@ class DashboardPage extends Component
             
             // $this->total_transactions_count = DepositTransaction::count();
         }
-        // dd($this->transactionlist);
+        // dd($this->merchantData);
+        // dd($this->merchantData);
     }
 
     public function render()

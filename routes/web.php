@@ -38,6 +38,8 @@ Route::get('/generate/FCQR', GenerateqrForm::class)->name('generate.FCQR');
 Route::get('/showQR/{recordID}', ShowQR::class)->name('showQR');
 Route::get('/invoice-qrcode-list', QrcodeList::class)->name('invoice.qrcode.list');
 Route::get('/get-record/{id}', [AJAXController::class, 'getRecord']);
+Route::post('/gateway/toggle-status', [AJAXController::class, 'toggleStatus'])->name('gateway.toggleStatus');
+
 // Route::get('fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', 'fcs2pDeposit')->name('fc.s2p.Deposit');
 
 Route::get('/fc/r2pdeposit/{amount}/{invoice_number}/{customer_name}', DepositFormRichpay::class)->name('fc.r2pdeposit');
