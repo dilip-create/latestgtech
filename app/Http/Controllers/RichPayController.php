@@ -39,10 +39,11 @@ class RichPayController extends Controller
         $encodedSignature = base64_encode($signatureString);
 
         // Call Curl API code START
+        $cleanAmount = str_replace(",", "", $request->amount);
         $postData = [
             // 'UrlFront' => url('s2p/payinResponse'), 
             'order_id' => $frtransaction,
-            'amount' => $request->amount,
+            'amount' => $cleanAmount,
             'ref_account' => $request->customer_account_number,
             'ref_bank_code' => $request->bank_code,
             'ref_name_th' => $request->customer_name,
