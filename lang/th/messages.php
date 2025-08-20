@@ -744,5 +744,14 @@ return [
     'If you delete this, it will be gone forever' => 'หากคุณลบสิ่งนี้มันจะหายไปตลอดกาล',
     'Yes' => 'ใช่',
     'Successfully deleted' => 'ลบเรียบร้อยแล้ว',
+    'Today' => 'วันนี้',
+    'Yesterday' => 'เมื่อวาน',
+    '7 days ago' => '7 วันที่ผ่านมา',
+    'This week' => 'สัปดาห์นี้',
+    'Last week' => 'สัปดาห์ที่แล้ว',
+    'This month' => 'เดือนนี้',
+    'Last month' => 'เดือนที่แล้ว',
+    'This year' => 'ในปีนี้',
+    'Last year' => 'ปีที่แล้ว',
 
 ];

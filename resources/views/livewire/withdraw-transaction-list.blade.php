@@ -45,18 +45,18 @@
                                                 <input type="text" wire:model.live="search" class="form-control" placeholder="Search here"/>
                                             </div>
                                              <div class="col-sm-1"></div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-7">&nbsp;&nbsp;&nbsp;&nbsp;
                                                 @php
                                                     $buttons = [
-                                                        'today' => 'Today',
-                                                        'yesterday' => 'Yesterday',
-                                                        '7days' => '7 days ago',
-                                                        'this_week' => 'This week',
-                                                        'last_week' => 'Last week',
-                                                        'this_month' => 'This month',
-                                                        'last_month' => 'Last month',
-                                                        'this_year' => 'This year',
-                                                        'last_year' => 'Last year',
+                                                        'today'       => __('messages.Today'),
+                                                        'yesterday'   => __('messages.Yesterday'),
+                                                        '7days'       => __('messages.7 days ago'),
+                                                        'this_week'   => __('messages.This week'),
+                                                        'last_week'   => __('messages.Last week'),
+                                                        'this_month'  => __('messages.This month'),
+                                                        'last_month'  => __('messages.Last month'),
+                                                        'this_year'   => __('messages.This year'),
+                                                        'last_year'   => __('messages.Last year'),
                                                     ];
                                                 @endphp
 
