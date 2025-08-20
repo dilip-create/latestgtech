@@ -109,68 +109,6 @@ class RichPayController extends Controller
 
     }
 
-    public function getGatewayParameters($merchant_code, $channel_id)
-    {
-        // 1. Validate Merchant
-        $merchantData=Merchant::where('merchant_code', $merchant_code)->first();
-        if (empty($merchantData)) {
-            return 'Invalid Merchant!'; die;
-        }
-        // 2. Check Channel Status
-        if ($merchantData->status == 0) {
-            return 'Merchant is Disabled!'; die;
-        }
-
-        // 3. Validate Channel
-        $channel = GatewayChannel::with('gatewayAccount', 'parameters')
-            ->where('id', $channel_id)
-            ->first();
-
-        if (!$channel) {
-            return 'Invalid Channel!'; die;
-        }
-
-        // 4. Check Channel Status
-        if ($channel->status == 0) {
-            return 'Channel is Disabled!'; die;
-        }
-
-        // 5. Check Gateway Account Status
-        $gatewayAccount = $channel->gatewayAccount;
-        if (!$gatewayAccount || $gatewayAccount->status == 0) {
-            return 'Gateway is Disabled!'; die; 
-            die;
-        }
-
-        // 6. Check Gateway Account is linked with Merchant
-        $config = GatewayConfigurationMerchant::where('gateway_account_id', $gatewayAccount->id)
-            ->where('merchant_id', $merchantData->id)
-            ->first();
-
-        if (!$config) {
-            return 'Gateway not configured for this Merchant!'; die;
-        }
-
-        if ($config->status == 0) {
-            return 'Gateway configuration is Disabled for this Merchant!'; die;
-        }
-
-        // 7. Build Parameters Array
-        $parameters = $channel->parameters->pluck('parameter_value', 'parameter_name')->toArray();
-        if (!$parameters) {
-            return 'Parameter not set!'; die;
-        }
-        // 8. Final Data
-        $data = [
-            'merchantdata' => $merchantData->only(['id', 'merchant_code', 'merchant_name', 'agent_id']),
-            'gateway_account' => $gatewayAccount->only(['id', 'gateway_name', 'payment_method', 'website_url']),
-            'channel' => $channel->only(['id', 'channel_name', 'channel_desc']),
-            'parameters' => $parameters,
-        ];
-        return $data;
-    }
-
-
     public function paymentPage(Request $request, $frtransaction)
     {
         $RefID = base64_decode($frtransaction);
@@ -282,17 +220,18 @@ class RichPayController extends Controller
         // }';
         $data = $request->json()->all(); // Get JSON data from request
         if (!empty($data)) {
-             $orderStatus = match ($data['status'] ?? '') {
-                'SUCCESS' => 'success',
-                'AUTO_SUCCESS' => 'success',
-                'PROCESSING' => 'processing',
-                'Failed' => 'failed',
-                default => 'not confirm',
-            };
+            //  $orderStatus = match ($data['status'] ?? '') {
+            //     'SUCCESS' => 'success',
+            //     'AUTO_SUCCESS' => 'success',
+            //     'PROCESSING' => 'processing',
+            //     'Failed' => 'failed',
+            //     default => 'not confirm',
+            // };
             $RefID = $data['txn_ref_order_id'];
             sleep(30);
             $updateData = [
-                'payment_status' => $orderStatus ?? 'success',
+                // 'payment_status' => $orderStatus ?? 'success',
+                'payment_status' => 'success',
                 'response_data' => json_encode($data),
             ];
             // echo "<pre>";  print_r($updateData); die;
@@ -332,8 +271,6 @@ class RichPayController extends Controller
         return view('payment-form.r2p.payintest');
     }
 
-    
-
     public function generateUniqueCode()
     {
         $mytime = Carbon::now();
@@ -357,7 +294,7 @@ class RichPayController extends Controller
             'created_at' => $paymentDetail->created_at,
         ];
    
-            // Broadcast the event Notification code START
+        // Broadcast the event Notification code START
         // $data = [
         //     'type' => 'Deposit',
         //     'transaction_id' => $paymentDetail->systemgenerated_TransId,
@@ -371,4 +308,66 @@ class RichPayController extends Controller
 
         return view('payment.depositNotification', compact('postData', 'callbackUrl'));
     }
+
+    public function getGatewayParameters($merchant_code, $channel_id)
+    {
+        // 1. Validate Merchant
+        $merchantData=Merchant::where('merchant_code', $merchant_code)->first();
+        if (empty($merchantData)) {
+            return 'Invalid Merchant!'; die;
+        }
+        // 2. Check Channel Status
+        if ($merchantData->status == 0) {
+            return 'Merchant is Disabled!'; die;
+        }
+
+        // 3. Validate Channel
+        $channel = GatewayChannel::with('gatewayAccount', 'parameters')
+            ->where('id', $channel_id)
+            ->first();
+
+        if (!$channel) {
+            return 'Invalid Channel!'; die;
+        }
+
+        // 4. Check Channel Status
+        if ($channel->status == 0) {
+            return 'Channel is Disabled!'; die;
+        }
+
+        // 5. Check Gateway Account Status
+        $gatewayAccount = $channel->gatewayAccount;
+        if (!$gatewayAccount || $gatewayAccount->status == 0) {
+            return 'Gateway is Disabled!'; die; 
+            die;
+        }
+
+        // 6. Check Gateway Account is linked with Merchant
+        $config = GatewayConfigurationMerchant::where('gateway_account_id', $gatewayAccount->id)
+            ->where('merchant_id', $merchantData->id)
+            ->first();
+
+        if (!$config) {
+            return 'Gateway not configured for this Merchant!'; die;
+        }
+
+        if ($config->status == 0) {
+            return 'Gateway configuration is Disabled for this Merchant!'; die;
+        }
+
+        // 7. Build Parameters Array
+        $parameters = $channel->parameters->pluck('parameter_value', 'parameter_name')->toArray();
+        if (!$parameters) {
+            return 'Parameter not set!'; die;
+        }
+        // 8. Final Data
+        $data = [
+            'merchantdata' => $merchantData->only(['id', 'merchant_code', 'merchant_name', 'agent_id']),
+            'gateway_account' => $gatewayAccount->only(['id', 'gateway_name', 'payment_method', 'website_url']),
+            'channel' => $channel->only(['id', 'channel_name', 'channel_desc']),
+            'parameters' => $parameters,
+        ];
+        return $data;
+    }
+
 }

@@ -743,6 +743,10 @@ return [
     'Reset' => 'Reset',
     'Enter here' => 'Enter here',
     'Generate QR' => 'Generate QR Code',
+    'URL' => 'URL',
+    'Reset' => 'Reset',
+    'Reset' => 'Reset',
+    'Reset' => 'Reset',
    
    
 

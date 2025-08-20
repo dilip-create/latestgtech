@@ -8,14 +8,14 @@ $referenceNo = "GZTRN" . time() . (function ($length = 3) {
     }
     return $randomString;
 })();
-$apiUrl = "http://127.0.0.1:8000/api/r2p/payin";
-// $apiUrl = "https://payment.implogix.com/api/r2p/payin";
+// $apiUrl = "http://127.0.0.1:8000/api/r2p/payin";
+$apiUrl = "https://payment.zaffranpay.com/api/r2p/payin";
 $data = [
     'merchant_code' => $_GET['merchant_code'], 
-    'product_id' => '26',
+    'channel_id' => '1',
     'referenceId' => $referenceNo, 
-    'callback_url' => 'http://127.0.0.1:8000/api/r2p/payin/callbackURL',
-    // 'callback_url' => 'https://payment.implogix.com/api/r2p/payin/callbackURL',
+    // 'callback_url' => 'http://127.0.0.1:8000/api/r2p/payin/callbackURL',
+    'callback_url' => 'https://payment.zaffranpay.com/api/r2p/payin/callbackURL',
     'Currency' => $_GET['Currency'], 
     'amount' => $_GET['amount'], 
     'bank_account_name' => $_GET['bank_account_name'],
