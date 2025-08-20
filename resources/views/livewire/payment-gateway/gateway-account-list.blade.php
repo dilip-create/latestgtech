@@ -87,7 +87,7 @@ input:checked + .slider:before {
                             <th>{{ __('messages.Order Id') }}</th>
                                 <th>{{ __('messages.Gateway Account') }}</th>     {{-- For FC Department --}}
                             <th>{{ __('messages.Payment Method') }} </th>
-                            <th>{{ __('messages.URL ') }} </th>
+                            <th>{{ __('messages.URL') }} </th>
                             <th>{{ __('messages.Created Time') }}</th>
                             <th>{{ __('messages.Status') }}</th>
                             <th>{{ __('messages.Action') }}</th>
