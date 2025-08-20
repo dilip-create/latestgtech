@@ -49,15 +49,15 @@
                                             <div class="col-sm-7">
                                                 @php
                                                     $buttons = [
-                                                        'today' => 'Today',
-                                                        'yesterday' => 'Yesterday',
-                                                        '7days' => '7 days ago',
-                                                        'this_week' => 'This week',
-                                                        'last_week' => 'Last week',
-                                                        'this_month' => 'This month',
-                                                        'last_month' => 'Last month',
-                                                        'this_year' => 'This year',
-                                                        'last_year' => 'Last year',
+                                                        'today'       => __('messages.Today'),
+                                                        'yesterday'   => __('messages.Yesterday'),
+                                                        '7days'       => __('messages.7days'),
+                                                        'this_week'   => __('messages.This_week'),
+                                                        'last_week'   => __('messages.Last_week'),
+                                                        'this_month'  => __('messages.This_month'),
+                                                        'last_month'  => __('messages.Last_month'),
+                                                        'this_year'   => __('messages.This_year'),
+                                                        'last_year'   => __('messages.Last_year'),
                                                     ];
                                                 @endphp
 

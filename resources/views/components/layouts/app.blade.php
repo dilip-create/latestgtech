@@ -13,7 +13,7 @@
     <link href="{{ URL::to('newassets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
     <link href="{{ URL::to('newassets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::to('newassets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-stylesheet" />
-
+    <link href="{{ URL::to('newassets/css/customStyle.css') }}" rel="stylesheet" type="text/css" id="app-stylesheet" />
     <!-- Table datatable css -->
     <link href="{{ URL::to('newassets/libs/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::to('newassets/libs/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -81,7 +81,18 @@
     <!-- END wrapper -->
 
 
-    
+    @livewireScripts
+
+    <!-- Toster JS START For Livewire-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        document.addEventListener("livewire:init", () => {
+            Livewire.on("toast", (event) => {
+                toastr[event.notify](event.message);
+            });
+        });
+    </script>
+     <!-- Toster JS END For Livewire-->
     <script>
     Livewire.hook('message.processed', (message, component) => {
         const chartData = component.serverMemo.data.chartData;
@@ -96,9 +107,9 @@
     <!-- Dashboard init js-->
     <script src="{{ URL::to('newassets/js/pages/dashboard.init.js') }}"></script> --}}
     <!-- Chart JS -->
-        <script src="{{ URL::to('newassets/libs/chart-js/Chart.bundle.min.js') }}"></script>
+        {{-- <script src="{{ URL::to('newassets/libs/chart-js/Chart.bundle.min.js') }}"></script> --}}
     <!-- Init js -->
-        <script src="{{ URL::to('newassets/js/pages/chartjs.init.js') }}"></script>
+        {{-- <script src="{{ URL::to('newassets/js/pages/chartjs.init.js') }}"></script> --}}
     <!-- App js -->
     <script src="{{ URL::to('newassets/js/app.min.js') }}"></script>
 
@@ -141,16 +152,7 @@
     
     <!-- Modal-Effect -->
         <script src="{{ URL::to('newassets/libs/custombox/custombox.min.js') }}"></script>
-    <!-- Toster JS START For Livewire-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
-        document.addEventListener("livewire:init", () => {
-            Livewire.on("toast", (event) => {
-                toastr[event.notify](event.message);
-            });
-        });
-    </script>
-     <!-- Toster JS END For Livewire-->
+    
      {{-- toastr js START for LARAVEL controller--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     <script>
@@ -167,7 +169,7 @@
     </script>
     {{-- toastr js END for LARAVEL controller--}}
 
-    @livewireScripts
+    
 </body>
 
 </html>

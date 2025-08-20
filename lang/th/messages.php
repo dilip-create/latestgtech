@@ -738,5 +738,11 @@ return [
     'Enter here' => 'เข้ามาที่นี่',
     'Generate QR' => 'สร้างรหัส QR',
     'URL' => 'URL',
+    'Done' => 'เสร็จแล้ว',
+    'Status Changed Successfully!' => 'เปลี่ยนสถานะสำเร็จแล้ว!',
+    'Are you sure you want to delete this record?' => 'คุณแน่ใจว่าต้องการลบข้อมูลนี้หรือไม่?',
+    'If you delete this, it will be gone forever' => 'หากคุณลบสิ่งนี้มันจะหายไปตลอดกาล',
+    'Yes' => 'ใช่',
+    'Successfully deleted' => 'ลบเรียบร้อยแล้ว',
 
 ];
