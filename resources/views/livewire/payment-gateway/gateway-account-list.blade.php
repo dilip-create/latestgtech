@@ -108,23 +108,23 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ $isEditMode ? 'Edit Gateway Account' : 'Add Gateway Account' }}</h5>
+                    <h5 class="modal-title">{{ $isEditMode ? __('messages.Edit Gateway Account') : __('messages.Add Gateway Account') }}</h5>
                     <button type="button" class="close" wire:click="closeModal">×</button>
                 </div>
                 <form wire:submit.prevent="saveGatewayAccount">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Gateway Name</label>
+                            <label>{{ __('messages.Gateway Name') }}</label>
                             <input type="text" class="form-control" wire:model="gateway_name">
                             @error('gateway_name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label>Website URL</label>
+                            <label>{{ __('messages.Website URL') }}</label>
                             <input type="text" class="form-control" wire:model="website_url">
                             @error('website_url') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label>Payment Method</label>
+                            <label>{{ __('messages.Payment Method') }}</label>
                             {{-- <input type="text" class="form-control" wire:model="payment_method"> --}}
                             <select wire:model="payment_method" class="form-control custom-select">
                                 <option value="">--Select--</option>
@@ -136,8 +136,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">{{ $isEditMode ? 'Update' : 'Save' }}</button>
-                        <button type="button" class="btn btn-secondary" wire:click="closeModal">Close</button>
+                        <button type="submit" class="btn btn-primary">{{ $isEditMode ? __('messages.Update') : __('messages.Save') }}</button>
+                        <button type="button" class="btn btn-secondary" wire:click="closeModal">{{ __('messages.Close') }}</button>
                     </div>
                 </form>
             </div>

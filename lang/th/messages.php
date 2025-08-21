@@ -758,5 +758,6 @@ return [
     'Search here' => 'ค้นหาที่นี่',
     'Gateway updated successfully!' => 'อัปเดตเกตเวย์เรียบร้อยแล้ว!',
     'Gateway added successfully!' => 'เพิ่มเกตเวย์เรียบร้อยแล้ว!',
+    'Website URL' => 'URL ของเว็บไซต์',
 
 ];

@@ -764,6 +764,7 @@ return [
     'Search here' => 'Search here',
     'Gateway updated successfully!' => 'Gateway updated successfully!',
     'Gateway added successfully!' => 'Gateway added successfully!',
+    'Website URL' => 'Website URL',
     'Reset' => 'Reset',
     'Reset' => 'Reset',
     'Reset' => 'Reset',
