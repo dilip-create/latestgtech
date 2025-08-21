@@ -66,7 +66,9 @@ class GatewayAccountList extends Component
             ]
         );
         $this->getdata();
-        $msg =  $this->isEditMode ? 'Gateway updated successfully!' : 'Gateway added successfully!';
+        // $msg =  $this->isEditMode ? 'Gateway updated successfully!' : 'Gateway added successfully!';
+        $msg = $this->isEditMode  ? __('messages.Gateway updated successfully!') : __('messages.Gateway added successfully!');
+
         // session()->flash('message', $this->isEditMode ? 'Gateway updated successfully!' : 'Gateway added successfully!');
         $this->dispatch('toast', message: $msg, notify:'success' ); 
         $this->closeModal();
