@@ -756,5 +756,7 @@ return [
     'Show' => 'แสดง',
     'Search' => 'ค้นหา',
     'Search here' => 'ค้นหาที่นี่',
+    'Gateway updated successfully!' => 'อัปเดตเกตเวย์เรียบร้อยแล้ว!',
+    'Gateway added successfully!' => 'เพิ่มเกตเวย์เรียบร้อยแล้ว!',
 
 ];
