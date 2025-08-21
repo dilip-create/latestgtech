@@ -20,7 +20,7 @@
 
                             <li>
                                 <a href="{{ route('agent.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Agent Management') }}">
-                                    <i class="mdi mdi-account-outline"></i>
+                                    <i class="mdi mdi-account-settings-outline"></i>
                                     <span> {{ __('messages.Agent Management') }} </span>
                                 </a>
                             </li>
@@ -32,7 +32,8 @@
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
                                 <li><a href="{{ route('gateway.account.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Account') }}">{{ __('messages.Gateway Account') }}</a></li>
-                                <li><a href="tables-datatable.html">Data Tables</a></li>
+                                <li><a href="{{ route('payment.channel.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Payment Channel') }}">{{ __('messages.Payment Channel') }}</a></li>
+                               
                                
                             </ul>
                         </li>

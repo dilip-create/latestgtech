@@ -3,16 +3,24 @@ namespace App\Livewire\PaymentGateway;
 use Livewire\Component;
 use App\Models\GatewayAccount;
 use Livewire\WithDispatchesEvents;
+use Livewire\WithPagination;
 
 class GatewayAccountList extends Component
 {
+    use WithPagination;
     public $record;
-    public function mount()
-    {
-        $this->getdata();
-    }
+    // public function mount()
+    // {
+    //     $this->getdata();
+    // }
+
+    public $search = '';        // Searching
+    public $perPage = 10;       // Records per page
+
+    protected $paginationTheme = 'bootstrap';
 
 
+    // FOR EDIT AND ADD RECORD FUNCTIONALITY CODE START
     public $gateway_id, $gateway_name, $website_url, $payment_method;
     public $showModal = false; // To toggle the popup
     public $isEditMode = false; // To detect if editing or adding
@@ -63,6 +71,7 @@ class GatewayAccountList extends Component
         $this->dispatch('toast', message: $msg, notify:'success' ); 
         $this->closeModal();
         $this->dispatch('$refresh'); // Refresh data table
+           $this->resetPage();
     }
 
     /** Close modal */
@@ -79,13 +88,19 @@ class GatewayAccountList extends Component
         $this->website_url = '';
         $this->payment_method = '';
     }
-
+    // FOR EDIT AND ADD RECORD FUNCTIONALITY CODE END
 
 
 
 
     public function getdata(){
-        $this->record = GatewayAccount::orderBy('id', 'DESC')->get();
+        // $this->record = GatewayAccount::orderBy('id', 'DESC')->get();
+        return GatewayAccount::query()
+            ->where('gateway_name', 'like', "%{$this->search}%")
+            ->orWhere('website_url', 'like', "%{$this->search}%")
+            ->orWhere('payment_method', 'like', "%{$this->search}%")
+            ->orderBy('id', 'desc')
+            ->paginate($this->perPage);
     }
     // FOR CHANGE STATUS CODE START
     public function toggleStatus($gatewayId)
@@ -117,27 +132,13 @@ class GatewayAccountList extends Component
     // FOR DELETE RECORD CODE END
 
 
-    // public function saveGatewayAccountData()
-    // {
-    //     dd($this);
-    //     $this->validate();
-
-    //     GatewayAccount::updateOrCreate(
-    //         ['id' => $this->gateway_id],
-    //         [
-    //             'gateway_name' => $this->gateway_name,
-    //             'website_url' => $this->website_url,
-    //             'payment_method' => $this->payment_method,
-    //         ]
-    //     );
-
-    //     // Close modal via JS after saving
-    //     $this->dispatch('formSaved');
-    // }
     
 
     public function render()
     {
-        return view('livewire.payment-gateway.gateway-account-list');
+        // return view('livewire.payment-gateway.gateway-account-list');
+        return view('livewire.payment-gateway.gateway-account-list', [
+            'gateways' => $this->getData(),
+        ]);
     }
 }

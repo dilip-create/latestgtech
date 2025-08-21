@@ -753,5 +753,8 @@ return [
     'Last month' => 'เดือนที่แล้ว',
     'This year' => 'ในปีนี้',
     'Last year' => 'ปีที่แล้ว',
+    'Show' => 'แสดง',
+    'Search' => 'ค้นหา',
+    'Search here' => 'ค้นหาที่นี่',
 
 ];
