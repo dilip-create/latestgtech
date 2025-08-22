@@ -1,7 +1,4 @@
 <div>
-<style>
-
-</style>
     <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -21,7 +18,6 @@
         <div class="row">
             <div class="col-12">
                 <div class="card-box">
-                   
                     <!-- Search + Per Page -->
                     <div class="row mb-3">
                         <div class="col-md-2">
@@ -48,7 +44,7 @@
                         <thead>
                         <tr>
                             <th>{{ __('messages.Order Id') }}</th>
-                            <th>{{ __('messages.Gateway Account') }}</th>     {{-- For FC Department --}}
+                            <th>{{ __('messages.Gateway Account') }}</th>     
                             <th>{{ __('messages.Payment Method') }} </th>
                             <th>{{ __('messages.URL') }} </th>
                             <th>{{ __('messages.Created Time') }}</th>
@@ -58,38 +54,32 @@
                         </thead>
                         <tbody>
                              @forelse ($gateways as $index => $row)
-                        <tr wire:key="row-{{ $row->id }}">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ ucfirst($row->gateway_name) ?? '' }}</td>
-                            <td>{{ ucfirst($row->payment_method) ?? '' }}</td>
-                            <td>{{ $row->website_url ?? '' }}</td>
-                            <td> {{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
-                            <td>
-                                {{-- <label class="switch">
-                                <input type="checkbox" class="toggle-status" data-id="{{ $row->id }}" {{ $row->status == 1 ? 'checked' : '' }}>
-                                <span class="slider"></span>
-                                </label> --}}
-                                <label class="switch">
-                                    <input type="checkbox" wire:click="toggleStatus({{ $row->id }})" {{ $row->status ? 'checked' : '' }}>
-                                    <span class="slider"></span>
-                                </label>
-                            </td>
-                            <td>
-                                 <button class="btn btn-primary"
-                            wire:key="edit-{{ $row->id }}"
-                            wire:click.prevent="editConfirmationFun({{ $row->id }})">
-                            <i class="fas fa-pencil-alt"></i>
-                        </button>
-                                <button class="btn btn-danger waves-effect waves-light" wire:key="delete-{{ $row->id }}" wire:click.prevent="deleteConfirmationFun({{ $row->id }})">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td></td><td></td><td></td><td>Record not founds</td><td></td><td></td></td><td>
-                        </tr>
-                        @endforelse
+                                <tr wire:key="row-{{ $row->id }}">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ucfirst($row->gateway_name) ?? '' }}</td>
+                                    <td>{{ ucfirst($row->payment_method) ?? '' }}</td>
+                                    <td>{{ $row->website_url ?? '' }}</td>
+                                    <td> {{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox" wire:click="toggleStatus({{ $row->id }})" {{ $row->status ? 'checked' : '' }}>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" wire:key="edit-{{ $row->id }}" wire:click.prevent="editConfirmationFun({{ $row->id }})">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>
+                                        <button class="btn btn-danger waves-effect waves-light" wire:key="delete-{{ $row->id }}" wire:click.prevent="deleteConfirmationFun({{ $row->id }})">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td></td><td></td><td></td><td>{{ __('messages.Record not found') }}!</td><td></td><td></td></td><td>
+                                </tr>
+                            @endforelse
                         
                         </tbody>
                     </table>
@@ -114,18 +104,17 @@
                 <form wire:submit.prevent="saveGatewayAccount">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>{{ __('messages.Gateway Name') }}</label>
+                            <label>{{ __('messages.Gateway Name') }}<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" wire:model="gateway_name">
                             @error('gateway_name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label>{{ __('messages.Website URL') }}</label>
+                            <label>{{ __('messages.Website URL') }}<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" wire:model="website_url">
                             @error('website_url') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label>{{ __('messages.Payment Method') }}</label>
-                            {{-- <input type="text" class="form-control" wire:model="payment_method"> --}}
+                            <label>{{ __('messages.Payment Method') }}<span class="text-danger">*</span></label>
                             <select wire:model="payment_method" class="form-control custom-select">
                                 <option value="">--Select--</option>
                                 <option value="QR">QR</option>
@@ -169,7 +158,7 @@
                   });
               });
           });
-        window.addEventListener('ticketCancelled', event => {
+        window.addEventListener('recordDeleted', event => {
           Swal.fire(
               "{{ __('messages.Done') }}!",
               "{{ __('messages.Successfully deleted') }}!",

@@ -8,15 +8,8 @@ use Livewire\WithPagination;
 class GatewayAccountList extends Component
 {
     use WithPagination;
-    public $record;
-    // public function mount()
-    // {
-    //     $this->getdata();
-    // }
-
     public $search = '';        // Searching
     public $perPage = 10;       // Records per page
-
     protected $paginationTheme = 'bootstrap';
 
 
@@ -42,7 +35,6 @@ class GatewayAccountList extends Component
     public function editConfirmationFun($id)
     {
         $gateway = GatewayAccount::findOrFail($id);
-
         $this->gateway_id = $gateway->id;
         $this->gateway_name = $gateway->gateway_name;
         $this->website_url = $gateway->website_url;
@@ -66,14 +58,9 @@ class GatewayAccountList extends Component
             ]
         );
         $this->getdata();
-        // $msg =  $this->isEditMode ? 'Gateway updated successfully!' : 'Gateway added successfully!';
         $msg = $this->isEditMode  ? __('messages.Gateway updated successfully!') : __('messages.Gateway added successfully!');
-
-        // session()->flash('message', $this->isEditMode ? 'Gateway updated successfully!' : 'Gateway added successfully!');
         $this->dispatch('toast', message: $msg, notify:'success' ); 
         $this->closeModal();
-        $this->dispatch('$refresh'); // Refresh data table
-           $this->resetPage();
     }
 
     /** Close modal */
@@ -93,10 +80,7 @@ class GatewayAccountList extends Component
     // FOR EDIT AND ADD RECORD FUNCTIONALITY CODE END
 
 
-
-
     public function getdata(){
-        // $this->record = GatewayAccount::orderBy('id', 'DESC')->get();
         return GatewayAccount::query()
             ->where('gateway_name', 'like', "%{$this->search}%")
             ->orWhere('website_url', 'like', "%{$this->search}%")
@@ -129,7 +113,7 @@ class GatewayAccountList extends Component
          $data= GatewayAccount::find($this->record_id);
          $data->delete();
          $this->getdata();
-         $this->dispatch('ticketCancelled');
+         $this->dispatch('recordDeleted');
     }
     // FOR DELETE RECORD CODE END
 
@@ -138,7 +122,6 @@ class GatewayAccountList extends Component
 
     public function render()
     {
-        // return view('livewire.payment-gateway.gateway-account-list');
         return view('livewire.payment-gateway.gateway-account-list', [
             'gateways' => $this->getData(),
         ]);

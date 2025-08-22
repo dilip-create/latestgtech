@@ -759,5 +759,8 @@ return [
     'Gateway updated successfully!' => 'อัปเดตเกตเวย์เรียบร้อยแล้ว!',
     'Gateway added successfully!' => 'เพิ่มเกตเวย์เรียบร้อยแล้ว!',
     'Website URL' => 'URL ของเว็บไซต์',
+    'Payment Channel updated successfully!' => 'อัปเดตช่องทางการชำระเงินเรียบร้อยแล้ว!',
+    'Payment Channel added successfully!' => 'เพิ่มช่องทางการชำระเงินเรียบร้อยแล้ว!',
+    'Record not found' => 'ไม่พบบันทึก',
 
 ];
