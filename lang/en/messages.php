@@ -768,8 +768,10 @@ return [
     'Payment Channel updated successfully!' => 'Payment Channel updated successfully!',
     'Payment Channel added successfully!' => 'Payment Channel added successfully!',
     'Record not found' => 'Record not found',
-    'Reset' => 'Reset',
-    'Reset' => 'Reset',
+    'Gateway Payment Channel' => 'Gateway Payment Channel',
+    'Gateway Channel Parameters' => 'Gateway Channel Parameters',
+    'Channel Parameters' => 'Channel Parameters',
+    'International Payment Gateway System' => 'International Payment Gateway System',
     'Reset' => 'Reset',
    
    

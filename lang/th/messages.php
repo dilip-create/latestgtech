@@ -762,5 +762,9 @@ return [
     'Payment Channel updated successfully!' => 'อัปเดตช่องทางการชำระเงินเรียบร้อยแล้ว!',
     'Payment Channel added successfully!' => 'เพิ่มช่องทางการชำระเงินเรียบร้อยแล้ว!',
     'Record not found' => 'ไม่พบบันทึก',
+    'Gateway Payment Channel' => 'ช่องทางการชำระเงินเกตเวย์',
+    'Gateway Channel Parameters' => 'พารามิเตอร์ช่องเกตเวย์',
+    'Channel Parameters' => 'พารามิเตอร์ช่อง',
+    'International Payment Gateway System' => 'ระบบเกตเวย์การชำระเงินระหว่างประเทศ',
 
 ];
