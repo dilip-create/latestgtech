@@ -765,9 +765,13 @@ return [
     'Gateway updated successfully!' => 'Gateway updated successfully!',
     'Gateway added successfully!' => 'Gateway added successfully!',
     'Website URL' => 'Website URL',
-    'Reset' => 'Reset',
-    'Reset' => 'Reset',
-    'Reset' => 'Reset',
+    'Payment Channel updated successfully!' => 'Payment Channel updated successfully!',
+    'Payment Channel added successfully!' => 'Payment Channel added successfully!',
+    'Record not found' => 'Record not found',
+    'Gateway Payment Channel' => 'Gateway Payment Channel',
+    'Gateway Channel Parameters' => 'Gateway Channel Parameters',
+    'Channel Parameters' => 'Channel Parameters',
+    'International Payment Gateway System' => 'International Payment Gateway System',
     'Reset' => 'Reset',
    
    

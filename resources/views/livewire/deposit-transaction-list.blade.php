@@ -135,7 +135,7 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td></td><td></td><td></td><td></td><td></td><td>Record not founds</td><td></td><td></td></td><td></td><td></td><td></td><td>
+                                            <td></td><td></td><td></td><td></td><td></td><td>{{ __('messages.Record not found') }}!</td><td></td><td></td></td><td></td><td></td><td></td><td>
                                         </tr>
                                         @endforelse
                                         

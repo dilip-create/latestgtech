@@ -32,7 +32,8 @@
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
                                 <li><a href="{{ route('gateway.account.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Account') }}">{{ __('messages.Gateway Account') }}</a></li>
-                                <li><a href="{{ route('payment.channel.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Payment Channel') }}">{{ __('messages.Payment Channel') }}</a></li>
+                                <li><a href="{{ route('payment.channel.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Payment Channel') }}">{{ __('messages.Payment Channel') }}</a></li>
+                                <li><a href="{{ route('channel.parameter.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Channel Parameters') }}">{{ __('messages.Channel Parameters') }}</a></li>
                                
                                
                             </ul>
