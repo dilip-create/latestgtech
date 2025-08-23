@@ -44,10 +44,9 @@ Route::get('/invoice-qrcode-list', QrcodeList::class)->name('invoice.qrcode.list
 Route::controller(AJAXController::class)->group(function () {
    
     Route::get('/get-record/{id}', 'getRecord');
-    Route::post('/gateway/toggle-status', 'toggleStatus')->name('gateway.toggleStatus');
-    Route::get('/get-gatewayAccount-record/{id}', 'getgatewayAccountRecord');
-    Route::post('/saveGatewayAccountData', 'saveGatewayAccountData')->name('GatewayAccount.save');
-    
+    // Route::post('/gateway/toggle-status', 'toggleStatus')->name('gateway.toggleStatus');
+    // Route::get('/get-gatewayAccount-record/{id}', 'getgatewayAccountRecord');
+    // Route::post('/saveGatewayAccountData', 'saveGatewayAccountData')->name('GatewayAccount.save');
 
 });
 
