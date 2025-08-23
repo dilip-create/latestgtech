@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AJAXController extends Controller
 {
-    // public function getRecord($id)
-    // {
-    //     $record = Qrgenerater::find($id);
-    //     // print_r($record->customer_name); 
-    //     return $record;
-    // }
+    public function getRecord($id)
+    {
+        $record = Qrgenerater::find($id);
+        // print_r($record->customer_name); 
+        return $record;
+    }
 
     // public function toggleStatus(Request $request)
     // {

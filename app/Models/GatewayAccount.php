@@ -8,14 +8,9 @@ class GatewayAccount extends Model
 {
     protected $guarded = ['id'];
 
-    // public function channels()
-    // {
-    //     return $this->hasMany(GatewayChannel::class, 'gateway_account_id');
-    // }
-
     public function channels()
     {
-        return $this->hasMany(GatewayChannel::class);
+        return $this->hasMany(GatewayChannel::class, 'gateway_account_id');
     }
 
 }
