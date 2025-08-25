@@ -766,5 +766,12 @@ return [
     'Gateway Channel Parameters' => 'พารามิเตอร์ช่องเกตเวย์',
     'Channel Parameters' => 'พารามิเตอร์ช่อง',
     'International Payment Gateway System' => 'ระบบเกตเวย์การชำระเงินระหว่างประเทศ',
+    'Parameter Details' => 'รายละเอียดพารามิเตอร์',
+    'Parameter Name' => 'ชื่อพารามิเตอร์',
+    'Parameter Value' => 'ค่าพารามิเตอร์',
+    'Remove' => 'ลบ',
+    'Add Row' => 'เพิ่มแถว',
+    'No parameters' => 'ไม่มีพารามิเตอร์',
+    'Parameters saved successfully!' => 'บันทึกพารามิเตอร์สำเร็จแล้ว!',
 
 ];

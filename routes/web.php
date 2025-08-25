@@ -20,6 +20,7 @@ use App\Livewire\Agent\AgentList;
 use App\Livewire\PaymentGateway\GatewayAccountList;
 use App\Livewire\PaymentGateway\GatewayChannelList;
 use App\Livewire\PaymentGateway\ChannelParameter;
+use App\Livewire\PaymentGateway\ChannelParameterDetails;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -73,6 +74,7 @@ Route::get('/agent-lists', AgentList::class)->name('agent.list');
 Route::get('/gateway-account-list', GatewayAccountList::class)->name('gateway.account.list');
 Route::get('/payment-channel-list', GatewayChannelList::class)->name('payment.channel.list');
 Route::get('/channel-parameter-list', ChannelParameter::class)->name('channel.parameter.list');
+Route::get('/parameter-details/{channelId}', ChannelParameterDetails::class)->name('channel.details');
 
 
 

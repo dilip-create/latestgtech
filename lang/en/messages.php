@@ -772,7 +772,14 @@ return [
     'Gateway Channel Parameters' => 'Gateway Channel Parameters',
     'Channel Parameters' => 'Channel Parameters',
     'International Payment Gateway System' => 'International Payment Gateway System',
-    'Reset' => 'Reset',
+    'Parameter Details' => 'Parameter Details',
+    'Parameter Name' => 'Parameter Name',
+    'Parameter Value' => 'Parameter Value',
+    'Remove' => 'Remove',
+    'Add Row' => 'Add Row',
+    'No parameters' => 'No parameters',
+    'Parameters saved successfully!' => 'Parameters saved successfully!',
+    'Show' => 'Show',
    
    
 
