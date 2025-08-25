@@ -1,28 +1,40 @@
+<div>
+    <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/">GTech</a></li>
+                            <li class="breadcrumb-item active">{{ __('messages.Channel Parameters') }}</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">{{ __('messages.Channel Parameters') }}</h4>
+                </div>
+            </div>
+        </div>     
+    <!-- end page title --> 
 <div class="card">
     <div class="card-body">
-
-        {{-- Top bar: search + add --}}
-        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-3">
-            <div class="w-100 w-md-50">
-                <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search by Gateway / Channel / Param name or value..."
-                    wire:model.live.debounce.300ms="search"
-                >
-            </div>
-
-            <div class="d-flex gap-2">
-                <select class="form-select" style="min-width:120px" wire:model.live="perPage">
-                    <option value="1">1 / page</option>
-                    <option value="10">10 / page</option>
-                    <option value="25">25 / page</option>
-                    <option value="50">50 / page</option>
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <label>{{ __('messages.Show') }}</label>
+                <select class="form-select form-control"  wire:model.live="perPage">
+                    <option value="1">1</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
                 </select>
-
-                <button type="button" class="btn btn-success" wire:click="openCreateModal">
+            </div>
+            <div class="col-md-3">
+                <label>{{ __('messages.Search') }}</label>
+                <input type="text" class="form-control" placeholder="{{ __('messages.Search here') }}..." wire:model.live.debounce.300ms="search">
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                {{-- <button type="button" class="btn btn-success" wire:click="openCreateModal">
                     <i class="fas fa-plus"></i> Add Parameters
-                </button>
+                </button> --}}
             </div>
         </div>
 
@@ -31,11 +43,11 @@
             <table class="table table-bordered table-striped align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th style="width:70px;">#</th>
-                        <th>Gateway</th>
-                        <th>Channel</th>
-                        <th>Parameters</th>
-                        <th style="width:120px;">Actions</th>
+                        <th>{{ __('messages.Order Id') }}</th>
+                        <th>{{ __('messages.Gateway') }}</th>
+                        <th>{{ __('messages.Payment Channel') }}</th>
+                        <th>{{ __('messages.Channel Parameters') }}</th>
+                        <th>{{ __('messages.Action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +59,6 @@
                             <td>
                                 @php
                                     // You asked to use this mapping:
-                                    // $parameters = $channel->parameters->pluck('parameter_value','parameter_name')->toArray();
                                     $parameters = $channel->parameters->pluck('parameter_value', 'parameter_name');
                                 @endphp
 
@@ -56,13 +67,13 @@
                                         {{ $name }}: {{ $value }}
                                     </span>
                                 @empty
-                                    <span class="text-muted">No parameters</span>
+                                    <span class="text-muted">{{ __('messages.No parameters') }}</span>
                                 @endforelse
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-warning" wire:click="edit({{ $channel->id }})">
-                                    Edit
-                                </button>
+                                <a href="parameter-details/{{ base64_encode($channel->id) }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Parameter Details') }}">
+                                    <button class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                                </a>
                             </td>
                         </tr>
                     @empty
@@ -196,4 +207,5 @@ document.addEventListener('livewire:init', () => {
 </script>
 
 
+</div>
 </div>

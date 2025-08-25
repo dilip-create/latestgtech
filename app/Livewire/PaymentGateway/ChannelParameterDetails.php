@@ -5,19 +5,19 @@ use App\Models\GatewayAccount;
 use App\Models\GatewayChannel;
 use App\Models\GatewayChannelParameter;
 use Livewire\WithDispatchesEvents;
-use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
 class ChannelParameterDetails extends Component
 {
     public $rows = [];
+    public $channelId, $gatewayDetails;
 
-    public $channelId;
-
-    public function mount($channelId = 1)
+    public function mount($channelId)
     {
-        $this->channelId = $channelId;
+        $this->channelId = base64_decode($channelId);
 
+        $this->gatewayDetails = GatewayChannel::where('id', $this->channelId)->first();
+        // dd($this->gatewayDetails);
         // Load existing parameters from DB
         $this->rows = DB::table('gateway_channel_parameters')
                         ->where('channel_id', $this->channelId)
@@ -64,8 +64,8 @@ class ChannelParameterDetails extends Component
                 'updated_at' => now(),
             ]);
         }
-
-        session()->flash('message', 'Parameters saved successfully!');
+        $msg = __('messages.Parameters saved successfully!');
+        session()->flash('message', $msg);
     }
 
     public function render()
