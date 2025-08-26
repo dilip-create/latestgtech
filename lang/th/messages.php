@@ -773,5 +773,7 @@ return [
     'Add Row' => 'เพิ่มแถว',
     'No parameters' => 'ไม่มีพารามิเตอร์',
     'Parameters saved successfully!' => 'บันทึกพารามิเตอร์สำเร็จแล้ว!',
+    'Agent updated successfully!' => 'อัปเดตตัวแทนสำเร็จแล้ว!',
+    'Agent added successfully!' => 'เพิ่มตัวแทนเรียบร้อยแล้ว!',
 
 ];

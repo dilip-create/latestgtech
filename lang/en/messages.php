@@ -779,7 +779,12 @@ return [
     'Add Row' => 'Add Row',
     'No parameters' => 'No parameters',
     'Parameters saved successfully!' => 'Parameters saved successfully!',
+    'Agent updated successfully!' => 'Agent updated successfully!',
+    'Agent added successfully!' => 'Agent added successfully!',
     'Show' => 'Show',
+    'Show' => 'Show',
+    'Show' => 'Show',
+    'Show' => 'Show', 
    
    
 
