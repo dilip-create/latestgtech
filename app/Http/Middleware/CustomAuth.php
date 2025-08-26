@@ -32,6 +32,7 @@ class CustomAuth
             || ($path == 'gateway-account-list' && !Session::get('auth'))
             || ($path == 'payment-channel-list' && !Session::get('auth'))
             || ($path == 'channel-parameter-list' && !Session::get('auth'))
+            || ($path == 'agent-lists' && !Session::get('auth'))
          || (strpos($path, 'parameter-details') !== false && !Session::has('auth'))
         //  || (strpos($path, 'logAuth') !== false && !Session::has('auth'))
         )
