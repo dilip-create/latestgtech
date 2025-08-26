@@ -41,6 +41,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = $value;
+    }
+
+
     /**
      * Get the attributes that should be cast.
      *
