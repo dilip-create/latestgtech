@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agents', function (Blueprint $table) {
+        Schema::create('merchants', function (Blueprint $table) {
             $table->id();
-            $table->string('agent_name')->nullable();
-            $table->string('agent_code')->nullable();
-            $table->string('status')->nullable();
+            $table->string('merchant_name')->nullable();
+            $table->string('merchant_code')->nullable();
+            $table->foreignId('agent_id')->constrained('agents');
+            $table->string('payment_urls')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agents');
+        Schema::dropIfExists('merchants');
     }
 };

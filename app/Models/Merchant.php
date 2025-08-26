@@ -13,9 +13,9 @@ class Merchant extends Model
     //     return $this->hasMany(GatewayConfigurationMerchant::class, 'merchant_id');
     // }
 
-    public function gatewayConfigurations()
-    {
-        return $this->hasMany(GatewayConfigurationMerchant::class);
-    }
+    // public function gatewayConfigurations()
+    // {
+    //     return $this->hasMany(GatewayConfigurationMerchant::class);
+    // }
 
 }
