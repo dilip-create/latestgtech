@@ -6,10 +6,10 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="/">GTech</a></li>
-                            <li class="breadcrumb-item active">{{ __('messages.Agent Management') }}</li>
+                            <li class="breadcrumb-item active">{{ __('messages.Merchant Management') }}</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">{{ __('messages.Agent Management') }}</h4>
+                    <h4 class="page-title">{{ __('messages.Merchant Management') }}</h4>
                 </div>
             </div>
         </div>     
@@ -36,7 +36,7 @@
                         <div class="col-md-5"></div>
                         <div class="col-md-2">
                             <a href="#" wire:click.prevent="openAddModal" class="btn btn-success waves-effect waves-light float-right mb-3">
-                                <i class="fas fa-plus"></i> {{ __('messages.Add agent') }}
+                                <i class="fas fa-plus"></i> {{ __('messages.Add Merchant') }}
                             </a>
                         </div>
                     </div>
@@ -44,8 +44,11 @@
                         <thead>
                         <tr>
                             <th>{{ __('messages.Order Id') }}</th>
-                            <th>{{ __('messages.Agent Name') }}</th>     
-                            <th>{{ __('messages.Agent Code') }} </th>
+                            <th>{{ __('messages.Merchant Name') }}</th>     
+                            <th>{{ __('messages.Merchant Code') }} </th>
+                            @if (Session::get('auth')->role_name == 'Admin') 
+                                 <th>{{ __('messages.Agent Name') }} </th>
+                            @endif
                             <th>{{ __('messages.Email') }} </th>
                             <th>{{ __('messages.Mobile') }} </th>
                             <th>{{ __('messages.Created Time') }}</th>
@@ -59,6 +62,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ ucfirst($row->name) ?? '' }}</td>
                                     <td>{{ ucfirst($row->user_name) ?? '' }}</td>
+                                    @if (Session::get('auth')->role_name == 'Admin') 
+                                        <td>{{ ucfirst($row->getAgentdata->agent_name) ?? '' }}</td>
+                                    @endif
                                     <td>{{ $row->email ?? '' }}</td>
                                     <td>{{ $row->mobile_number ?? '' }}</td>
                                     <td> {{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
@@ -101,7 +107,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-center w-100">
-                            {{ $isEditMode ? __('messages.Edit agent') : __('messages.Add agent') }}
+                            {{ $isEditMode ? __('messages.Edit Merchant') : __('messages.Add Merchant') }}
                         </h5>
                         <button type="button" class="close" wire:click="closeModal">×</button>
                     </div>
@@ -111,16 +117,23 @@
                             <div class="row">
                                 <!-- Agent Name -->
                                 <div class="col-md-6 mb-3">
-                                    <label>{{ __('messages.Agent Name') }}<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" wire:model.live="name" placeholder="{{ __('messages.Enter Agent Name') }}">
+                                    <label>{{ __('messages.Merchant Name') }}<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" wire:model.live="name" placeholder="{{ __('messages.Enter Merchant Name') }}">
                                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
 
                                 <!-- Agent Code -->
                                 <div class="col-md-6 mb-3">
-                                    <label>{{ __('messages.Agent Code') }}<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" wire:model.live="user_name" placeholder="{{ __('messages.Enter Agent Code') }}" {{ $isEditMode ? 'disabled' : '' }}>
-                                   
+                                    <label>{{ __('messages.Select Agent') }}<span class="text-danger">*</span></label>
+                                    <select wire:model="agent_id" class="form-control custom-select" {{ Session::get('auth')->role_name == 'Agent' ?  'disabled' : '' }}>
+                                        <option value="">--{{ __('messages.Select') }}--</option>
+                                        @forelse ($agentList as $index => $agent)
+                                        <option value="{{ $agent->id }}">{{ ucfirst($agent->agent_name) }}</option>
+                                        @empty
+                                        <option value="">{{ __('messages.Record not found') }}!</option>
+                                        @endforelse
+                                    </select>
+                                    @error('agent_id') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
 
                                 <!-- Email -->
@@ -132,7 +145,7 @@
 
                                 <!-- Username -->
                                 <div class="col-md-6 mb-3">
-                                    <label>{{ __('messages.Username') }}<span class="text-danger">*</span></label>
+                                    <label>{{ __('messages.Username') }} or {{ __('messages.Merchant Code') }}<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" wire:model.live="user_name" placeholder="{{ __('messages.Enter here') }}" {{ $isEditMode ? 'disabled' : '' }}>
                                     @error('user_name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
@@ -148,7 +161,7 @@
                                 <div class="col-md-6 mb-3">
                                     <label>{{ __('messages.Timezone') }}<span class="text-danger">*</span></label>
                                     <select class="form-control" wire:model="timezone">
-                                        <option value="">--{{ __('messages.Select') }}--</option>
+                                        <option value="">{{ __('messages.Select') }}</option>
                                         <option value="Asia/Kolkata">Asia/Kolkata</option>
                                         <option value="Asia/Bangkok">Asia/Bangkok</option>
                                         <option value="UTC">UTC</option>

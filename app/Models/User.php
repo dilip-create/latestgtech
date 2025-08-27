@@ -45,6 +45,10 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = $value;
     }
+    public function getAgentdata()
+    {
+        return $this->belongsTo(Agent::class, 'agent_id');
+    }
 
 
     /**

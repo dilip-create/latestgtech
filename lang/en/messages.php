@@ -781,9 +781,13 @@ return [
     'Parameters saved successfully!' => 'Parameters saved successfully!',
     'Agent updated successfully!' => 'Agent updated successfully!',
     'Agent added successfully!' => 'Agent added successfully!',
-    'Show' => 'Show',
-    'Show' => 'Show',
-    'Show' => 'Show',
+    'Enter Confirm Password' => 'Enter Confirm Password',
+    'Enter Merchant Name' => 'Enter Merchant Name',
+    'Enter Agent Name' => 'Enter Agent Name', 
+    'Enter Agent Code' => 'Enter Agent Code', 
+    'Merchant updated successfully!' => 'Merchant updated successfully!', 
+    'Merchant added successfully!' => 'Merchant added successfully!', 
+    'Show' => 'Show', 
     'Show' => 'Show', 
    
    

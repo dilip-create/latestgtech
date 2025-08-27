@@ -775,5 +775,11 @@ return [
     'Parameters saved successfully!' => 'บันทึกพารามิเตอร์สำเร็จแล้ว!',
     'Agent updated successfully!' => 'อัปเดตตัวแทนสำเร็จแล้ว!',
     'Agent added successfully!' => 'เพิ่มตัวแทนเรียบร้อยแล้ว!',
+    'Enter Confirm Password' => 'กรอกยืนยันรหัสผ่าน',
+    'Enter Merchant Name' => 'ป้อนชื่อผู้ขาย',
+    'Enter Agent Name' => 'กรอกชื่อตัวแทน', 
+    'Enter Agent Code' => 'ใส่รหัสตัวแทน', 
+    'Merchant updated successfully!' => 'ผู้ขายอัปเดตเรียบร้อยแล้ว!', 
+    'Merchant added successfully!' => 'เพิ่มผู้ค้าสำเร็จแล้ว!', 
 
 ];
