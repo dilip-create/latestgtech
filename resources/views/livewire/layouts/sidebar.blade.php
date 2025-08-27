@@ -17,28 +17,33 @@
                             </a>
                         </li>
                         @if (Session::get('auth')->role_name === 'Admin')
-
+                            <li>
+                                <a href="javascript: void(0);">
+                                    <i class="mdi mdi-table-settings"></i>
+                                    <span>{{ __('messages.Payment Config') }}</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <ul class="nav-second-level" aria-expanded="false">
+                                    <li><a href="{{ route('gateway.account.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Account') }}">{{ __('messages.Gateway Account') }}</a></li>
+                                    <li><a href="{{ route('payment.channel.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Payment Channel') }}">{{ __('messages.Payment Channel') }}</a></li>
+                                    <li><a href="{{ route('channel.parameter.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Channel Parameters') }}">{{ __('messages.Channel Parameters') }}</a></li>
+                                </ul>
+                            </li>
                             <li>
                                 <a href="{{ route('agent.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Agent Management') }}">
                                     <i class="mdi mdi-account-settings-outline"></i>
                                     <span> {{ __('messages.Agent Management') }} </span>
                                 </a>
                             </li>
-                             <li>
-                            <a href="javascript: void(0);">
-                                <i class="mdi mdi-table-settings"></i>
-                                <span>{{ __('messages.Payment Config') }}</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="{{ route('gateway.account.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Account') }}">{{ __('messages.Gateway Account') }}</a></li>
-                                <li><a href="{{ route('payment.channel.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Payment Channel') }}">{{ __('messages.Payment Channel') }}</a></li>
-                                <li><a href="{{ route('channel.parameter.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Gateway Channel Parameters') }}">{{ __('messages.Channel Parameters') }}</a></li>
-                               
-                               
-                            </ul>
-                        </li>
+                        @endif
 
+                        @if (Session::get('auth')->role_name === 'Admin'  || Session::get('auth')->role_name === 'Agent')
+                           <li>
+                                <a href="{{ route('merchant.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Merchant Management') }}">
+                                    <i class="mdi mdi-smart-card-outline"></i>
+                                    <span> {{ __('messages.Merchant Management') }} </span>
+                                </a>
+                            </li>
                         @endif
                         <li>
                             <a href="{{ route('transactions.deposit') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit Transactions') }}">
@@ -60,7 +65,7 @@
                                 <span> {{ __('messages.Summary Report') }} </span>
                             </a>
                         </li>
-                         @if (Session::get('auth')->user_name == 'FCmerchant001')
+                        @if (Session::get('auth')->user_name == 'FCmerchant001')
                             <li>
                                 <a href="{{ route('generate.FCQR') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Generate QR') }}" target="_blank">
                                     <i class="mdi mdi-qrcode-scan"></i>

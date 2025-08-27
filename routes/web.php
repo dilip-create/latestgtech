@@ -17,6 +17,7 @@ use App\Livewire\Fc\QrcodeList;
 use App\Livewire\Fc\DepositFormRichpay;
 use App\Livewire\PaymentForm\R2p\RichpayPayinForm;
 use App\Livewire\Agent\AgentList;
+use App\Livewire\Merchant\MerchantList;
 use App\Livewire\PaymentGateway\GatewayAccountList;
 use App\Livewire\PaymentGateway\GatewayChannelList;
 use App\Livewire\PaymentGateway\ChannelParameter;
@@ -69,14 +70,14 @@ Route::controller(RichPayController::class)->group(function () {
     Route::get('sendDepositNotification/{id}', 'sendDepositNotification');
 });
 
-
-Route::get('/agent-lists', AgentList::class)->name('agent.list');
+// FOR GATEWAY CONFIGURATION START
 Route::get('/gateway-account-list', GatewayAccountList::class)->name('gateway.account.list');
 Route::get('/payment-channel-list', GatewayChannelList::class)->name('payment.channel.list');
 Route::get('/channel-parameter-list', ChannelParameter::class)->name('channel.parameter.list');
 Route::get('/parameter-details/{channelId}', ChannelParameterDetails::class)->name('channel.details');
-
-
+// FOR GATEWAY CONFIGURATION END
+Route::get('/agent-lists', AgentList::class)->name('agent.list');
+Route::get('/merchant-lists', MerchantList::class)->name('merchant.list');
 
 
  

@@ -1,24 +1,30 @@
 <?php
-namespace App\Livewire\Agent;
+namespace App\Livewire\Merchant;
 use Livewire\Component;
 use App\Models\Agent;
+use App\Models\Merchant;
 use App\Models\User;
 use Livewire\WithDispatchesEvents;
 use Livewire\WithPagination;
+use Session;
 
-class AgentList extends Component
+class MerchantList extends Component
 {
+
     use WithPagination;
     public $search = '';        // Searching
     public $perPage = 10;       // Records per page
     protected $paginationTheme = 'bootstrap';
-
-
+    
     // FOR EDIT AND ADD RECORD FUNCTIONALITY CODE START
-    public $user_id, $agent_id, $name, $user_name, $email, $mobile_number, $password, $password_confirmation, $timezone='Asia/Bangkok';
+    public $user_id, $agent_id, $merchant_id, $name, $user_name, $email, $mobile_number, $password, $password_confirmation, $timezone='Asia/Bangkok';
     public $showModal = false; // To toggle the popup
     public $isEditMode = false; // To detect if editing or adding
-    
+    public $agentList;
+    public function mount()
+    {
+        $this->agentList = Agent::where('status', '1')->get();
+    }
 
     /** Open modal for adding new record */
     public function openAddModal()
@@ -26,6 +32,9 @@ class AgentList extends Component
         $this->resetInputFields();
         $this->isEditMode = false;
         $this->showModal = true;
+        if(Session::get('auth')->role_name == 'Agent'){
+            $this->agent_id = Session::get('auth')->agent_id;
+        }
     }
 
     /** Open modal for editing */
@@ -33,6 +42,7 @@ class AgentList extends Component
     {
         $userdata = User::findOrFail($id);
         $this->user_id = $userdata->id;
+        $this->merchant_id = $userdata->merchant_id;
         $this->agent_id = $userdata->agent_id;
         $this->name = $userdata->name;
         $this->user_name = $userdata->user_name;
@@ -48,6 +58,7 @@ class AgentList extends Component
     {
         // no need to check unique at edit case code 
             $rules = [
+                'agent_id'          => 'required',
                 'name'          => 'required|string|max:255',
                 'user_name'     => 'required|string|max:255|unique:users,user_name,' . $this->user_id,
                 'email'         => 'required|email|max:255|unique:users,email,' . $this->user_id,
@@ -66,11 +77,12 @@ class AgentList extends Component
         $this->validate($rules);
         // dd(base64_encode($this->password));
          // Save or update Agent
-        $agent = Agent::updateOrCreate(
-            ['id' => $this->agent_id],
+        $merchant = Merchant::updateOrCreate(
+            ['id' => $this->merchant_id],
             [
-                'agent_name' => $this->name,
-                'agent_code' => $this->user_name,
+                'merchant_name' => $this->name,
+                'merchant_code' => $this->user_name,
+                'agent_id' => $this->agent_id,
             ]
         );
 
@@ -79,9 +91,10 @@ class AgentList extends Component
             'user_name' => $this->user_name,
             'email' => $this->email,
             'mobile_number' => $this->mobile_number,
-            'role_id' => '3',  //for agent role
-            'role_name' => 'Agent',
-            'agent_id' => $agent->id,
+            'role_id' => '4',  //for merchant role
+            'role_name' => 'Merchant',
+            'merchant_id' => $merchant->id,
+            'agent_id' => $merchant->agent_id,
         ];
 
         // Only update password if it's filled
@@ -96,7 +109,7 @@ class AgentList extends Component
 
 
         $this->getdata();
-        $msg = $this->isEditMode  ? __('messages.Agent updated successfully!') : __('messages.Agent added successfully!');
+        $msg = $this->isEditMode  ? __('messages.Merchant updated successfully!') : __('messages.Merchant added successfully!');
         $this->dispatch('toast', message: $msg, notify:'success' ); 
         $this->closeModal();
     }
@@ -111,6 +124,8 @@ class AgentList extends Component
     private function resetInputFields()
     {
         $this->user_id = null;
+        $this->agent_id = '';
+        // $this->merchant_id = '';
         $this->name = '';
         $this->user_name = '';
         $this->email = '';
@@ -123,17 +138,23 @@ class AgentList extends Component
 
     public function getdata()
     {
-        return User::query()
-            ->where('role_name', 'Agent')
+        $query = User::query()
+            ->where('role_name', 'Merchant')
             ->where(function ($query) {
                 $query->where('name', 'like', "%{$this->search}%")
                     ->orWhere('user_name', 'like', "%{$this->search}%")
                     ->orWhere('email', 'like', "%{$this->search}%")
                     ->orWhere('mobile_number', 'like', "%{$this->search}%");
-            })
-            ->orderBy('id', 'desc')
+            });
+
+        //  Check if logged-in user is an Agent
+        if (Session::get('auth')->role_name === 'Agent') {
+            $query->where('agent_id', Session::get('auth')->agent_id);
+        }
+        return $query->orderBy('id', 'desc')
             ->paginate($this->perPage);
     }
+
 
     // FOR CHANGE STATUS CODE START
     public function toggleStatus($UserId)
@@ -143,11 +164,11 @@ class AgentList extends Component
             $User->status = !$User->status;
             $User->save();
 
-            // For Agent Table
-           $agent = Agent::find($User->agent_id);
-            if ($agent) {
-                $agent->status = $agent->status ? 0 : 1;
-                $agent->save();
+            // For Merchant Table
+           $merchent = Merchant::find($User->merchant_id);
+            if ($merchent) {
+                $merchent->status = $merchent->status ? 0 : 1;
+                $merchent->save();
             }
         
             // Emit an event to trigger SweetAlert in frontend
@@ -166,21 +187,19 @@ class AgentList extends Component
     public function delete(){
       
          $data= User::find($this->record_id);
-         $agentdata= Agent::find($data->agent_id);
-         $agentdata->delete();
+         $merchantdata= Merchant::find($data->merchant_id);
+         $merchantdata->delete();
          $data->delete();
          $this->getdata();
          $this->dispatch('recordDeleted');
     }
     // FOR DELETE RECORD CODE END
 
-
-    
-
     public function render()
     {
-        return view('livewire.agent.agent-list', [
+        return view('livewire.merchant.merchant-list', [
             'gateways' => $this->getData(),
         ]);
     }
+
 }

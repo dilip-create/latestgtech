@@ -117,11 +117,11 @@
                         <div class="form-group">
                             <label>{{ __('messages.Gateway') }}<span class="text-danger">*</span></label>
                             <select wire:model="gateway_account_id" class="form-control custom-select">
-                                <option value="">--Select--</option>
+                                <option value="">--{{ __('messages.Select') }}--</option>
                                 @forelse ($gatewayAccountdata as $index => $data)
                                 <option value="{{ $data->id }}">{{ ucfirst($data->gateway_name) }}</option>
                                 @empty
-                                <option value="">Record not Found!</option>
+                                <option value="">{{ __('messages.Record not found') }}!</option>
                                 @endforelse
                             </select>
                             @error('gateway_account_id') <span class="text-danger">{{ $message }}</span> @enderror

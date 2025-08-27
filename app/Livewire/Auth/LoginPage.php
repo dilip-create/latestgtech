@@ -18,8 +18,11 @@ class LoginPage extends Component
 
         if(!empty($checkUser)){
                 // dd(base64_encode($checkUser->password));
-                 
-                if($checkUser->password == base64_encode($this->password)  ){
+                 if($checkUser->status == '0'){
+                    $msg = 'Login Credentials Disabled!'; 
+                    $this->dispatch('toast', message: $msg, notify:'error' ); 
+
+                }elseif($checkUser->password == base64_encode($this->password)  ){
                     
                     unset($checkUser->password);
                     // dd($checkUser);
