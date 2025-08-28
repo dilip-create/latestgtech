@@ -780,6 +780,13 @@ return [
     'Enter Agent Name' => 'กรอกชื่อตัวแทน', 
     'Enter Agent Code' => 'ใส่รหัสตัวแทน', 
     'Merchant updated successfully!' => 'ผู้ขายอัปเดตเรียบร้อยแล้ว!', 
-    'Merchant added successfully!' => 'เพิ่มผู้ค้าสำเร็จแล้ว!', 
+    'Merchant added successfully!' => 'เพิ่มผู้ค้าสำเร็จแล้ว!',
+    'Merchant Config' => 'การกำหนดค่าผู้ขาย', 
+    'Gateway Configuration updated successfully!' => 'อัปเดตการกำหนดค่าเกตเวย์สำเร็จแล้ว!', 
+    'Gateway configured successfully!' => 'กำหนดค่าเกตเวย์สำเร็จแล้ว!',
+    'Merchant Configuration with Gateway' => 'การกำหนดค่าผู้ค้าด้วยเกตเวย์',
+    'Assign gateways with merchants' => 'กำหนดเกตเวย์กับผู้ค้า',
+    'Edit Configuration' => 'แก้ไขการกำหนดค่า',
+    'This configuration already exists!' => 'การกำหนดค่านี้มีอยู่แล้ว!', 
 
 ];

@@ -5,7 +5,6 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\RichPayController;
 use App\Http\Controllers\AJAXController;
 
-
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\DashboardPage;
 use App\Livewire\ProfilePage;
@@ -18,6 +17,7 @@ use App\Livewire\Fc\DepositFormRichpay;
 use App\Livewire\PaymentForm\R2p\RichpayPayinForm;
 use App\Livewire\Agent\AgentList;
 use App\Livewire\Merchant\MerchantList;
+use App\Livewire\Merchant\MerchantConfigureGateway;
 use App\Livewire\PaymentGateway\GatewayAccountList;
 use App\Livewire\PaymentGateway\GatewayChannelList;
 use App\Livewire\PaymentGateway\ChannelParameter;
@@ -78,6 +78,7 @@ Route::get('/parameter-details/{channelId}', ChannelParameterDetails::class)->na
 // FOR GATEWAY CONFIGURATION END
 Route::get('/agent-lists', AgentList::class)->name('agent.list');
 Route::get('/merchant-lists', MerchantList::class)->name('merchant.list');
+Route::get('/merchant-configuration-gateway', MerchantConfigureGateway::class)->name('merchant.configure.gateway');
 
 
  
