@@ -8,19 +8,19 @@ class GatewayConfigurationMerchant extends Model
 {
     protected $guarded = ['id'];
 
-    // public function gatewayAccount()
-    // {
-    //     return $this->belongsTo(GatewayAccount::class, 'gateway_account_id');
-    // }
+    public function gatewayAccount()
+    {
+        return $this->belongsTo(GatewayAccount::class, 'gateway_account_id');
+    }
 
     public function merchant()
     {
-        return $this->belongsTo(Merchant::class);
+        return $this->belongsTo(Merchant::class, 'merchant_id');
     }
 
-    public function gatewayAccount()
-    {
-        return $this->belongsTo(GatewayAccount::class);
-    }
+    // public function gatewayAccount()
+    // {
+    //     return $this->belongsTo(GatewayAccount::class);
+    // }
 
 }

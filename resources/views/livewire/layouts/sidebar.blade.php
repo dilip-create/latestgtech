@@ -45,6 +45,14 @@
                                 </a>
                             </li>
                         @endif
+                        @if (Session::get('auth')->role_name === 'Admin')
+                           <li>
+                                <a href="{{ route('merchant.configure.gateway') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Assign gateways with merchants') }}">
+                                    <i class="mdi mdi-merge"></i>
+                                    <span> {{ __('messages.Merchant Config') }} </span>
+                                </a>
+                            </li>
+                        @endif
                         <li>
                             <a href="{{ route('transactions.deposit') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit Transactions') }}">
                                 <i class="mdi mdi-file-document-box-check-outline"></i>

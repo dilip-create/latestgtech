@@ -787,9 +787,16 @@ return [
     'Enter Agent Code' => 'Enter Agent Code', 
     'Merchant updated successfully!' => 'Merchant updated successfully!', 
     'Merchant added successfully!' => 'Merchant added successfully!', 
-    'Show' => 'Show', 
-    'Show' => 'Show', 
-   
+    'Merchant Config' => 'Merchant Config', 
+    'Gateway Configuration updated successfully!' => 'Gateway Configuration updated successfully!', 
+    'Gateway configured successfully!' => 'Gateway configured successfully!',
+    'Merchant Configuration with Gateway' => 'Merchant Configuration with Gateway',
+    'Assign gateways with merchants' => 'Assign gateways with merchants',
+    'Edit Configuration' => 'Edit Configuration',
+    'This configuration already exists!' => 'This configuration already exists!',
+    'Remove' => 'Remove',
+    'Remove' => 'Remove',
+    'Remove' => 'Remove',
    
 
     
