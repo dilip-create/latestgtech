@@ -114,7 +114,7 @@
                 <span class="d-none d-sm-inline-block ml-1 font-weight-medium">Hello, <b>{{ Session::get('auth')->user_name ?? '' }}</b></span>
                 <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+            {{-- <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
                 <div class="dropdown-header noti-title">
                     <h6 class="text-overflow text-white m-0">{{ __('messages.Welcome') }} !</h6>
@@ -130,7 +130,7 @@
                     <i class="mdi mdi-logout-variant"></i>
                     <span>{{ __('messages.Logout') }}</span>
                 </a>
-            </div>
+            </div> --}}
         </li>
     </ul>
 
