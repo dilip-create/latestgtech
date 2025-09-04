@@ -1,9 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\RichPayController;
 use App\Http\Controllers\AJAXController;
+use App\Http\Controllers\LanguageController;
+
+use App\Http\Controllers\RichPayController;
+use App\Http\Controllers\IpintPaymentController;
 
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\DashboardPage;
@@ -80,5 +82,11 @@ Route::get('/agent-lists', AgentList::class)->name('agent.list');
 Route::get('/merchant-lists', MerchantList::class)->name('merchant.list');
 Route::get('/merchant-configuration-gateway', MerchantConfigureGateway::class)->name('merchant.configure.gateway');
 
-
+Route::controller(IpintPaymentController::class)->group(function () {
+    Route::get('/iptCryptoDeposit', 'ipintDepositform');            // Deposit form
+    Route::get('ipint/deposit/gatewayResponse', 'ipintDepositGatewayResponse');       // for gateway response
+});
+Route::get('/ipcrypto/payintest', function () {
+    return view('payment-form.ipint.payintest');
+});
  
