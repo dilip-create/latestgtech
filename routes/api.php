@@ -2,6 +2,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RichPayController;
+use App\Http\Controllers\IpintPaymentController;
 
 
 Route::get('/user', function (Request $request) {

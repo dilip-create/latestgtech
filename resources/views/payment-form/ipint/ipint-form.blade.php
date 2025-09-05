@@ -20,7 +20,7 @@
         border: 2px solid gray;
     }
     .justify-content-center {
-        margin-top: 120px;
+        margin-top: 10px;
     }
  /* Fullscreen spinner container */
     .spinner-container {
@@ -50,12 +50,11 @@
                                     <div class="text-center">
                                         <h2 class="text-muted text-uppercase py-3"><b>Demo Merchant Crypto Deposit</b></h2>
                                     </div>
-                                    <form role="form" action="{{ route('apiroute.r2p.payin') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate>
+                                    <form role="form" action="{{ route('apiroute.ipint.checkout') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate>
                                     @csrf
                                         <input type="hidden" name="merchant_code" value="testmerchant005">
-                                        <input type="hidden" name="channel_id" value="1">   {{-- // for new Richpay gateway --}}
-                                        <input type="hidden" name="callback_url" value="{{ route('apiroute.r2pPayincallbackURL') }}">
-                                        
+                                        <input type="hidden" name="channel_id" value="4">   {{-- // for new IpInt gateway --}}
+                                        <input type="hidden" name="callback_url" value="{{ route('apiroute.ipint.depositResponse') }}">
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Reference ID</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
@@ -65,33 +64,41 @@
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Currency</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="Currency" value="THB" readonly type="text">
+                                                <select class="form-control" name="Currency" required>
+                                                    <option value="">---</option>
+                                                    <option value="EUR">EUR</option>
+                                                    <option value="MYR">MYR</option>
+                                                    <option value="THB">THB</option>
+                                                    <option value="VND">VND</option>
+                                                    <option value="IDR">IDR</option>
+                                                    <option value="USD" selected>USD</option>
+                                                    <option value="PHP">PHP</option>
+                                                    <option value="INR">INR</option>
+                                                    <option value="CNY">CNY</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Amount</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="amount" placeholder="Enter your Amount" value="100" type="text">
-                                            </div>
-                                        </div>
-                                        
-                                        <input name="bank_code_character" id="bank_code_character" readonly type="hidden">
-                                        <input name="bank_code" id="bank_code" readonly type="hidden">
-                                        <div class="form-group row">
-                                            <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Customer Name</strong><span class="text-danger">*</span></label>
-                                            <div class="col-md-8">
-                                                <input list="browsers" id="browser" class="form-control" name="customer_name" placeholder="Enter cumtomer name" type="text">
-                                                <datalist id="browsers">
-                                                    <option value="{{ $customer_name ?? '' }}">
-                                                </datalist>
+                                                <input class="form-control" name="amount" id="amountInput" placeholder="Enter your Amount" value="100" type="text">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Customer Email</strong><span class="text-danger">*</span></label>
+                                            <label for="customer_name" class="col-md-4 col-form-label"><strong>Customer Name</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="Customer Email" id="Customer Email" placeholder="Enter Customer Email" type="text">
+                                                <input  class="form-control" name="customer_name" placeholder="Enter cumtomer name" type="text" required>
+                                                @error('customer_name')
+                                                <label class="error" for="customer_name">{{ $message }}</label> 
+                                                @enderror
                                             </div>
-                                            @error('Customer Email')
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="customer_email" class="col-md-4 col-form-label"><strong>Customer Email</strong><span class="text-danger">*</span></label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="customer_email"  placeholder="Enter Customer Email" type="text">
+                                            </div>
+                                            @error('customer_email')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div><br/>
@@ -100,7 +107,7 @@
                                             <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."> <!-- Replace with your spinner image URL -->
                                         </div>
                                         <div class="form-group text-center">
-                                            <button type="submit" id="submitBtn" class="btn btn-block btn-lg btn-primary waves-effect waves-light">Pay Now {{ $amount ?? '' }}฿ <i class="mdi mdi-arrow-right"></i></button>
+                                            <button type="submit" id="submitBtn" class="btn btn-block btn-lg btn-primary waves-effect waves-light">Pay Now <span id="amountLabel">100</span>฿ <i class="mdi mdi-arrow-right"></i></button>
                                         </div>
                                     </form>
                                 </div> <!-- end card-body -->
@@ -123,42 +130,28 @@
                 btn.prop("disabled", true);
         spinnerContainer.style.display = 'flex'; // Show spinner with opaque background
     });
-
-      /* Custom dropdown for select Bank START */
-    function toggleDropdown() {
-        var dropdownList = document.getElementById("dropdownList");
-        var arrow = document.getElementById("arrow");
-
-        dropdownList.style.display = dropdownList.style.display === "block" ? "none" : "block";
-        arrow.classList.toggle("rotate");
-    }
-
-    function selectBank(element) {
-        var selectedText = document.getElementById("selectedText");
-        var selectedImg = document.getElementById("selectedImg");
-        var bankCodeField = document.getElementById("bank_code");
-        var bankCodesymbol = document.getElementById("bank_code_character");
-      
-        selectedText.innerText = element.innerText.trim();
-        selectedImg.src = element.dataset.image;
-        bankCodeField.value = element.dataset.value;  // Set the selected bank's data-value
-        bankCodesymbol.value = element.dataset.symbol;  // Set the selected bank's data-symbol
-
-        document.getElementById("dropdownList").style.display = "none";
-        document.getElementById("arrow").classList.remove("rotate");
-    }
-
-    // Close dropdown when clicking outside
-    // document.addEventListener("click", function (event) {
-    //     var dropdown = document.getElementById("bankDropdown");
-    //     if (!dropdown.contains(event.target)) {
-    //         document.getElementById("dropdownList").style.display = "none";
-    //         document.getElementById("arrow").classList.remove("rotate");
-    //     }
-    // });
-      /* Custom dropdown for select Bank END */
 </script>
+<script>
+$(document).ready(function() {
+    $("#amountInput").on("input", function() {
+        let amount = $(this).val();
+        // Regular expression to allow only integers or decimals
+        let regex = /^[0-9]*\.?[0-9]*$/;
+        // If input doesn't match, show alert and clear invalid characters
+        if (!regex.test(amount)) {
+            alert("Amount should be integer or decimal value !");
+            // Remove invalid characters
+            $(this).val(amount.replace(/[^0-9.]/g, ''));
+            amount = $(this).val();
+        }
+        // If input is empty, set amount = 0
+        if (amount === "") {
+            amount = 0;
+        }
+        // Update the button text dynamically
+        $("#amountLabel").text(amount);
+    });
+});
 
-
-
+</script>
 @endsection
