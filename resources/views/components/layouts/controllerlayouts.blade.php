@@ -18,7 +18,7 @@
          <!-- Toster CSS START Livewire-->
         <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
         <!-- Toster CSS END Livewire-->
-        @livewireStyles
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body class="authentication-bg">
@@ -32,7 +32,6 @@
             <!-- end container -->
         </div>
         <!-- end page -->
-
         <!-- Vendor js -->
         <script src="{{ URL::to('newassets/js/vendor.min.js') }}"></script>
         <!-- Toastr js -->
@@ -66,7 +65,6 @@
             });
         </script>
         {{-- toastr js END for LARAVEL controller--}}
-        @livewireScripts
     </body>
 </html>
 

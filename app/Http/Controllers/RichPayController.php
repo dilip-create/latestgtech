@@ -271,7 +271,7 @@ class RichPayController extends Controller
         return view('payment-form.r2p.payintest');
     }
 
-    public function generateUniqueCode()
+    public static function generateUniqueCode()
     {
         $mytime = Carbon::now();
         $currentDateTime = str_replace(' ', '', $mytime->parse($mytime->toDateTimeString())->format('Ymd His'));
@@ -309,7 +309,7 @@ class RichPayController extends Controller
         return view('payment.depositNotification', compact('postData', 'callbackUrl'));
     }
 
-    public function getGatewayParameters($merchant_code, $channel_id)
+    public static function getGatewayParameters($merchant_code, $channel_id)
     {
         // 1. Validate Merchant
         $merchantData=Merchant::where('merchant_code', $merchant_code)->first();

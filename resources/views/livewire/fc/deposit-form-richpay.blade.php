@@ -7,7 +7,7 @@
         border: 2px solid gray;
     }
     .justify-content-center {
-        margin-top: 120px;
+        margin-top: 10px;
     }
  /* Fullscreen spinner container */
     .spinner-container {
