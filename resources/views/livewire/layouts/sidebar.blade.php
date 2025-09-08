@@ -91,7 +91,7 @@
                            <li>
                                 <a href="{{ route('merchant.configure.gateway') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Assign gateways with merchants') }}">
                                     <i class="mdi mdi-merge"></i>
-                                    <span> {{ __('messages.All Userdddd') }} </span>
+                                    <span> {{ __('messages.All User') }} </span>
                                 </a>
                             </li>
                         @endif
