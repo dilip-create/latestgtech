@@ -87,6 +87,14 @@
                                 <span> {{ __('messages.Profile') }} </span>
                             </a>
                         </li>
+                         @if (Session::get('auth')->role_name === 'Admin')
+                           <li>
+                                <a href="{{ route('merchant.configure.gateway') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Assign gateways with merchants') }}">
+                                    <i class="mdi mdi-merge"></i>
+                                    <span> {{ __('messages.All User') }} </span>
+                                </a>
+                            </li>
+                        @endif
                         <li>
                             <a href="#" wire:click="logout" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Logout') }}">
                                 <i class="mdi mdi-logout-variant"></i>
