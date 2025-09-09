@@ -89,7 +89,7 @@
                         </li>
                          @if (Session::get('auth')->role_name === 'Admin')
                            <li>
-                                <a href="{{ route('merchant.configure.gateway') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.Assign gateways with merchants') }}">
+                                <a href="{{ route('merchant.configure.gateway') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.All User') }}">
                                     <i class="mdi mdi-merge"></i>
                                     <span> {{ __('messages.All User') }} </span>
                                 </a>
@@ -103,58 +103,11 @@
                         </li>
                        
                         
-                        {{-- <li class="menu-title mt-2">Components</li>
-                        <li>
-                            <a href="javascript: void(0);">
-                                <i class="mdi mdi-black-mesa"></i>
-                                <span> Icons </span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="icons-materialdesign.html">Material Design</a></li>
-                                <li><a href="icons-ionicons.html">Ion Icons</a></li>
-                                <li><a href="icons-fontawesome.html">Font awesome</a></li>
-                                <li><a href="icons-themify.html">Themify Icons</a></li>
-                                <li><a href="icons-simple-line.html">Simple line Icons</a></li>
-                                <li><a href="icons-weather.html">Weather Icons</a></li>
-                                <li><a href="icons-pe7.html">PE7 Icons</a></li>
-                                <li><a href="icons-typicons.html">Typicons</a></li>
-                            </ul>
-                        </li>
-
+                       
                         
 
-                        <li>
-                            <a href="javascript: void(0);">
-                                <i class="mdi mdi-table-settings"></i>
-                                <span> Tables </span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="tables-basic.html">Basic Tables</a></li>
-                                <li><a href="tables-datatable.html">Data Tables</a></li>
-                                <li><a href="tables-responsive.html">Responsive Table</a></li>
-                                <li><a href="tables-tablesaw.html">Tablesaw</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);">
-                                <i class="mdi mdi-poll"></i>
-                                <span> Charts </span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="charts-flot.html">Flot Charts</a></li>
-                                <li><a href="charts-morris.html">Morris Charts</a></li>
-                                <li><a href="charts-chartjs.html">Chartjs</a></li>
-                                <li><a href="charts-peity.html">Peity Charts</a></li>
-                                <li><a href="charts-chartist.html">Chartist Charts</a></li>
-                                <li><a href="charts-c3.html">C3 Charts</a></li>
-                                <li><a href="charts-sparkline.html">Sparkline Charts</a></li>
-                                <li><a href="charts-knob.html">Jquery Knob</a></li>
-                            </ul>
-                        </li> --}}
+                       
+                       
 
                     
 
