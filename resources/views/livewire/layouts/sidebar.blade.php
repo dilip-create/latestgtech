@@ -89,7 +89,7 @@
                         </li>
                          @if (Session::get('auth')->role_name === 'Admin')
                            <li>
-                                <a href="{{ route('merchant.configure.gateway') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.All User') }}">
+                                <a href="{{ route('user.list') }}" wire:navigate data-toggle="tooltip" data-placement="right" title="{{ __('messages.All User') }}">
                                     <i class="mdi mdi-settings-box"></i>
                                     <span> {{ __('messages.All User') }} </span>
                                 </a>
