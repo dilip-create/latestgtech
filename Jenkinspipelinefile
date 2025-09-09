@@ -2,10 +2,51 @@ pipeline {
     agent any
 
     stages {
-        stage('Deploy PHP Application bu DK') {
+        stage('Deploy PHP Application by DK') {
             steps {
-               sshPublisher(publishers: [sshPublisherDesc(configName: 'php_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/u236490426/domains/zaffranpay.com/public_html/payment', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*.php')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                script {
+                    try {
+                        // Deploy PHP Files to Server via SSH
+                        sshPublisher(publishers: [
+                            sshPublisherDesc(
+                                configName: 'php_server',
+                                transfers: [sshTransfer(
+                                    cleanRemote: false,
+                                    excludes: '',
+                                    execCommand: '',
+                                    execTimeout: 120000,
+                                    flatten: false,
+                                    makeEmptyDirs: false,
+                                    noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+',
+                                    remoteDirectory: '/home/u236490426/domains/zaffranpay.com/public_html/payment',
+                                    remoteDirectorySDF: false,
+                                    removePrefix: '',
+                                    sourceFiles: '**/*.php'
+                                )],
+                                usePromotionTimestamp: false,
+                                useWorkspaceInPromotion: false,
+                                verbose: false
+                            )
+                        ])
+
+                        // Send Telegram Success Notification
+                        sendTelegram("✅ Deployment SUCCESSFUL!\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\nURL: ${env.BUILD_URL}console")
+                    } catch (Exception e) {
+                        // Send Telegram Failure Notification
+                        sendTelegram("❌ Deployment FAILED!\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\nURL: ${env.BUILD_URL}console")
+                        throw e
+                    }
+                }
             }
         }
     }
+}
+
+def sendTelegram(String message) {
+    sh """
+        curl -s -X POST "https://api.telegram.org/bot8383263452:AAFeLUe9z6TziNanl4f9BGf3oDIvo1bud2w/sendMessage" \
+        -d chat_id=-4844072548 \
+        -d text="${message}"
+    """
 }
