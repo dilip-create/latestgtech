@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AJAXController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PostController;
 
 use App\Http\Controllers\RichPayController;
 use App\Http\Controllers\IpintPaymentController;
@@ -91,4 +92,10 @@ Route::controller(IpintPaymentController::class)->group(function () {
 Route::get('/ipcrypto/payintest', function () {
     return view('payment-form.ipint.payintest');
 });
+
+Route::get('/pusher', function () {
+    return view('pusher');
+});
+Route::get('/post',[PostController::class,'showForm']);
+Route::post('/user/postsave',[PostController::class,'save'])->name('post.save');
  
