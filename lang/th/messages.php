@@ -788,5 +788,6 @@ return [
     'Assign gateways with merchants' => 'กำหนดเกตเวย์กับผู้ค้า',
     'Edit Configuration' => 'แก้ไขการกำหนดค่า',
     'This configuration already exists!' => 'การกำหนดค่านี้มีอยู่แล้ว!', 
-
+    'User updated successfully!' => 'อัปเดตผู้ใช้สำเร็จแล้ว!',
+    'User added successfully!' => 'เพิ่มผู้ใช้เรียบร้อยแล้ว!',
 ];

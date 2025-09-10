@@ -16,14 +16,9 @@ class UserList extends Component
     protected $paginationTheme = 'bootstrap';
     
     // FOR EDIT AND ADD RECORD FUNCTIONALITY CODE START
-    public $user_id, $agent_id, $merchant_id, $name, $user_name, $email, $mobile_number, $password, $password_confirmation, $timezone='Asia/Bangkok';
+    public $user_id, $name, $user_name, $email, $mobile_number, $password, $password_confirmation;
     public $showModal = false; // To toggle the popup
     public $isEditMode = false; // To detect if editing or adding
-    public $agentList;
-    public function mount()
-    {
-        $this->agentList = Agent::where('status', '1')->get();
-    }
 
     /** Open modal for adding new record */
     public function openAddModal()
@@ -31,9 +26,7 @@ class UserList extends Component
         $this->resetInputFields();
         $this->isEditMode = false;
         $this->showModal = true;
-        if(Session::get('auth')->role_name == 'Agent'){
-            $this->agent_id = Session::get('auth')->agent_id;
-        }
+        
     }
 
     /** Open modal for editing */
@@ -41,8 +34,6 @@ class UserList extends Component
     {
         $userdata = User::findOrFail($id);
         $this->user_id = $userdata->id;
-        $this->merchant_id = $userdata->merchant_id;
-        $this->agent_id = $userdata->agent_id;
         $this->name = $userdata->name;
         $this->user_name = $userdata->user_name;
         $this->email = $userdata->email;
@@ -57,7 +48,6 @@ class UserList extends Component
     {
         // no need to check unique at edit case code 
             $rules = [
-                'agent_id'          => 'required',
                 'name'          => 'required|string|max:255',
                 'user_name'     => 'required|string|max:255|unique:users,user_name,' . $this->user_id,
                 'email'         => 'required|email|max:255|unique:users,email,' . $this->user_id,
@@ -75,25 +65,14 @@ class UserList extends Component
         }
         $this->validate($rules);
         // dd(base64_encode($this->password));
-         // Save or update Agent
-        $merchant = Merchant::updateOrCreate(
-            ['id' => $this->merchant_id],
-            [
-                'merchant_name' => $this->name,
-                'merchant_code' => $this->user_name,
-                'agent_id' => $this->agent_id,
-            ]
-        );
 
          $userData = [
             'name' => $this->name,
             'user_name' => $this->user_name,
             'email' => $this->email,
             'mobile_number' => $this->mobile_number,
-            'role_id' => '4',  //for merchant role
-            'role_name' => 'Merchant',
-            'merchant_id' => $merchant->id,
-            'agent_id' => $merchant->agent_id,
+            'role_id' => '1',  //for merchant role
+            'role_name' => 'Admin',
         ];
 
         // Only update password if it's filled
@@ -108,7 +87,7 @@ class UserList extends Component
 
 
         $this->getdata();
-        $msg = $this->isEditMode  ? __('messages.Merchant updated successfully!') : __('messages.Merchant added successfully!');
+        $msg = $this->isEditMode  ? __('messages.User updated successfully!') : __('messages.User added successfully!');
         $this->dispatch('toast', message: $msg, notify:'success' ); 
         $this->closeModal();
     }
@@ -123,8 +102,6 @@ class UserList extends Component
     private function resetInputFields()
     {
         $this->user_id = null;
-        $this->agent_id = '';
-        // $this->merchant_id = '';
         $this->name = '';
         $this->user_name = '';
         $this->email = '';
@@ -145,12 +122,7 @@ class UserList extends Component
                     ->orWhere('mobile_number', 'like', "%{$this->search}%");
             });
 
-        //  Check if logged-in user is an Agent
-        if (Session::get('auth')->role_name === 'Agent') {
-            $query->where('agent_id', Session::get('auth')->agent_id);
-        }
-
-        return $query->orderBy('id', 'desc')
+        return $query->orderBy('role_id', 'asc')
             ->paginate($this->perPage);
     }
 
@@ -163,13 +135,6 @@ class UserList extends Component
         if ($User) {
             $User->status = !$User->status;
             $User->save();
-
-            // For Merchant Table
-           $merchent = Merchant::find($User->merchant_id);
-            if ($merchent) {
-                $merchent->status = $merchent->status ? 0 : 1;
-                $merchent->save();
-            }
         
             // Emit an event to trigger SweetAlert in frontend
             $this->dispatch('status-changed');
@@ -187,8 +152,6 @@ class UserList extends Component
     public function delete(){
       
          $data= User::find($this->record_id);
-         $merchantdata= Merchant::find($data->merchant_id);
-         $merchantdata->delete();
          $data->delete();
          $this->getdata();
          $this->dispatch('recordDeleted');
@@ -198,7 +161,7 @@ class UserList extends Component
     public function render()
     {
         return view('livewire.user.user-list', [
-            'gateways' => $this->getData(),
+            'usersrecords' => $this->getData(),
         ]);
     }
     
