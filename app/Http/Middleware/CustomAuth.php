@@ -35,6 +35,7 @@ class CustomAuth
             || ($path == 'agent-lists' && !Session::get('auth'))
             || ($path == 'merchant-lists' && !Session::get('auth'))
             || ($path == 'merchant-configuration-gateway' && !Session::get('auth'))
+            || ($path == 'user-lists' && !Session::get('auth'))
          || (strpos($path, 'parameter-details') !== false && !Session::has('auth'))
         //  || (strpos($path, 'logAuth') !== false && !Session::has('auth'))
         )

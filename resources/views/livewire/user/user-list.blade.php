@@ -44,42 +44,38 @@
                         <thead>
                         <tr>
                             <th>{{ __('messages.Order Id') }}</th>
-                            <th>{{ __('messages.Merchant Name') }}</th>     
-                            <th>{{ __('messages.Merchant Code') }} </th>
-                           
+                            <th>{{ __('messages.Name') }}</th>     
+                            <th>{{ __('messages.User Name') }} </th>
                             <th>{{ __('messages.Email') }} </th>
                             <th>{{ __('messages.Mobile') }} </th>
                             <th>{{ __('messages.Role Name') }} </th>
                             <th>{{ __('messages.Created Time') }}</th>
-                            <th>{{ __('messages.Status') }}</th>
                             <th>{{ __('messages.Action') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                             @forelse ($gateways as $index => $row)
+                             @forelse ($usersrecords as $index => $row)
                                 <tr wire:key="row-{{ $row->id }}">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ ucfirst($row->name) ?? '' }}</td>
-                                    <td>{{ ucfirst($row->user_name) ?? '' }}</td>
-                                   
+                                    <td>{{ $row->user_name ?? '' }}</td> 
                                     <td>{{ $row->email ?? '' }}</td>
                                     <td>{{ $row->mobile_number ?? '' }}</td>
                                     <td>{{ $row->role_name ?? '' }}</td>
-
                                     <td> {{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
                                     <td>
-                                        <label class="switch">
+                                        @if ($row->role_name == 'Admin')
+                                         <label class="switch">
                                             <input type="checkbox" wire:click="toggleStatus({{ $row->id }})" {{ $row->status ? 'checked' : '' }}>
                                             <span class="slider"></span>
                                         </label>
-                                    </td>
-                                    <td>
                                         <button class="btn btn-primary" wire:key="edit-{{ $row->id }}" wire:click.prevent="editConfirmationFun({{ $row->id }})">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
                                         <button class="btn btn-danger waves-effect waves-light" wire:key="delete-{{ $row->id }}" wire:click.prevent="deleteConfirmationFun({{ $row->id }})">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
@@ -92,7 +88,7 @@
                     </table>
                     <!-- Pagination -->
                         <div class="mt-3">
-                            <span class="h5">{{ $gateways->links() }}</span>
+                            <span class="h5">{{ $usersrecords->links() }}</span>
                         </div>
                     
                 </div>
@@ -106,7 +102,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-center w-100">
-                            {{ $isEditMode ? __('messages.Edit Merchant') : __('messages.Add Merchant') }}
+                            {{ $isEditMode ? __('messages.Edit User') : __('messages.Add User') }}
                         </h5>
                         <button type="button" class="close" wire:click="closeModal">×</button>
                     </div>
@@ -116,66 +112,34 @@
                             <div class="row">
                                 <!-- Agent Name -->
                                 <div class="col-md-6 mb-3">
-                                    <label>{{ __('messages.Merchant Name') }}<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" wire:model.live="name" placeholder="{{ __('messages.Enter Merchant Name') }}">
+                                    <label>{{ __('messages.Name') }}<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" wire:model.live="name" placeholder="{{ __('messages.Enter here') }}">
                                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-
-                                <!-- Agent Code -->
+                                 <!-- Username -->
                                 <div class="col-md-6 mb-3">
-                                    <label>{{ __('messages.Select Agent') }}<span class="text-danger">*</span></label>
-                                    <select wire:model="agent_id" class="form-control custom-select" {{ Session::get('auth')->role_name == 'Agent' ?  'disabled' : '' }}>
-                                        <option value="">--{{ __('messages.Select') }}--</option>
-                                        @forelse ($agentList as $index => $agent)
-                                        <option value="{{ $agent->id }}">{{ ucfirst($agent->agent_name) }}</option>
-                                        @empty
-                                        <option value="">{{ __('messages.Record not found') }}!</option>
-                                        @endforelse
-                                    </select>
-                                    @error('agent_id') <span class="text-danger">{{ $message }}</span> @enderror
+                                    <label>{{ __('messages.Username') }}<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" wire:model.live="user_name" placeholder="{{ __('messages.Enter here') }}" {{ $isEditMode ? 'disabled' : '' }}>
+                                    @error('user_name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-
                                 <!-- Email -->
                                 <div class="col-md-6 mb-3">
                                     <label>{{ __('messages.Email') }}<span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" wire:model.live="email" placeholder="{{ __('messages.Enter email') }}">
                                     @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-
-                                <!-- Username -->
-                                <div class="col-md-6 mb-3">
-                                    <label>{{ __('messages.Username') }} or {{ __('messages.Merchant Code') }}<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" wire:model.live="user_name" placeholder="{{ __('messages.Enter here') }}" {{ $isEditMode ? 'disabled' : '' }}>
-                                    @error('user_name') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
-
                                 <!-- Mobile Number -->
                                 <div class="col-md-6 mb-3">
                                     <label>{{ __('messages.Mobile') }}<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" wire:model.live="mobile_number" placeholder="{{ __('messages.Enter Mobile Number') }}">
                                     @error('mobile_number') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-
-                                <!-- Timezone -->
-                                <div class="col-md-6 mb-3">
-                                    <label>{{ __('messages.Timezone') }}<span class="text-danger">*</span></label>
-                                    <select class="form-control" wire:model="timezone">
-                                        <option value="">{{ __('messages.Select') }}</option>
-                                        <option value="Asia/Kolkata">Asia/Kolkata</option>
-                                        <option value="Asia/Bangkok">Asia/Bangkok</option>
-                                        <option value="UTC">UTC</option>
-                                        <!-- Add more options as needed -->
-                                    </select>
-                                    @error('timezone') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
-
                                 <!-- Password -->
                                 <div class="col-md-6 mb-3">
                                     <label>{{ __('messages.Password') }}<span class="text-danger">*</span></label>
                                     <input type="password" class="form-control" wire:model.live="password" placeholder="{{ __('messages.Enter password') }}">
                                     @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-
                                 <!-- Confirm Password -->
                                 <div class="col-md-6 mb-3">
                                     <label>{{ __('messages.Confirm Password') }}<span class="text-danger">*</span></label>
