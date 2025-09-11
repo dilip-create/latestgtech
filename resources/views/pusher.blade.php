@@ -25,6 +25,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     
     <!-- Your app.js or bootstrap.js script -->
-    <script src="{{ asset('/build/assets/app.39aecc54.js') }}"></script>
+    <script src="{{ asset('/build/assets/app-Fdt-UU-v.js') }}"></script>
 </body>
 </html>
