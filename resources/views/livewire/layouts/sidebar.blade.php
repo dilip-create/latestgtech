@@ -101,22 +101,7 @@
                                 <span> {{ __('messages.Logout') }} </span>
                             </a>
                         </li>
-                        {{-- // for Pusher code START --}}
-                                <!-- Hidden audio element -->
-                                <audio id="notificationAudio" preload="auto">
-                                    <source src="{{ asset('/audio/notifcation.mp3') }}" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <button onclick="document.getElementById('notificationAudio').play()"></button>
-
-                                <!-- Include jQuery -->
-                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                <!-- Include Toastr JS -->
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-                                
-                                <!-- Your app.js or bootstrap.js script -->
-                                <script src="{{ asset('/build/assets/app-CGP1dOCu.js') }}"></script>
-                                {{-- // for Pusher code END --}}
+                      
                        
                         
                        
