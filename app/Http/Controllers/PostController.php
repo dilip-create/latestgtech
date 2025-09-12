@@ -23,10 +23,18 @@ class PostController extends Controller
         // $post = Post::create($post_data);
 
         // Broadcast the event
+        // $data = [
+        //     'title' => $request->title,
+        //     'author' => $request->author,
+        // ];
         $data = [
-            'title' => $request->title,
-            'author' => $request->author,
-        ];
+                    'type' => 'Deposit',
+                    'transaction_id' => $request->title,
+                    'amount' => '1000000',
+                    'Currency' => $request->author,
+                    'status' => 'pending',
+                    'msg' => 'New Deposit Transaction Created!',
+                ];
         //  print_r($data); die;
         event(new DepositCreated($data));
 
