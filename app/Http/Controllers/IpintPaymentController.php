@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use Session;
 
+use App\Events\DepositCreated;
+use App\Models\TransactionNotification;
+
 class IpintPaymentController extends Controller
 {
     public function ipintDepositform(Request $request)
@@ -91,6 +94,32 @@ class IpintPaymentController extends Controller
                     'mdr_fee_amount' => $mdr_fee_amount ?? '',
                 ];
                 DepositTransaction::create($addRecord);
+
+                
+                // Broadcast the event Notification code START
+                $data = [
+                    'type' => 'Deposit',
+                    'transaction_id' => $frtransaction,
+                    'amount' => $request->amount,
+                    'Currency' => $request->currency,
+                    'status' => 'pending',
+                    'msg' => 'New Deposit Transaction Created!',
+                ];
+                event(new DepositCreated($data));   
+                // Broadcast the event Notification code END
+                // Insert data in Notification table Code START
+                $merchant=Merchant::where('merchant_code', $request->merchant_code)->first();
+                $addNotificationRecord = [
+                    'notifiable_type' => 'Deposit',
+                    'agent_id' => $merchant->agent_id,
+                    'merchant_id' => $merchant->id,
+                    'data' => json_encode($data,true),
+                    'msg' => 'New Deposit Transaction Created!',
+                ];
+                TransactionNotification::create($addNotificationRecord);
+                // Insert data in Notification table Code END
+
+
                 return redirect($result['payment_process_url']);
         } else {
                 $addRecord = [
