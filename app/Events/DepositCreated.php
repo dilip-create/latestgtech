@@ -37,7 +37,7 @@ use Illuminate\Queue\SerializesModels;
 
 class DepositCreated implements ShouldBroadcast
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $post;
 
