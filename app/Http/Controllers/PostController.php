@@ -1,9 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
-use App\Http\Controllers\Controller;
 use App\Events\DepositCreated;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {

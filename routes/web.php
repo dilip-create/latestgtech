@@ -93,9 +93,15 @@ Route::get('/ipcrypto/payintest', function () {
     return view('payment-form.ipint.payintest');
 });
 
+
+
 Route::get('/pusher', function () {
     return view('pusher');
 });
+Route::get('/pusher2', function () {
+    return view('pusher2');
+});
 Route::get('/post',[PostController::class,'showForm']);
 Route::post('/user/postsave',[PostController::class,'save'])->name('post.save');
+
  

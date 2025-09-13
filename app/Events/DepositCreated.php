@@ -10,31 +10,6 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-// class DepositCreated
-// {
-//     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-//     /**
-//      * Create a new event instance.
-//      */
-//     public function __construct()
-//     {
-//         //
-//     }
-
-//     /**
-//      * Get the channels the event should broadcast on.
-//      *
-//      * @return array<int, \Illuminate\Broadcasting\Channel>
-//      */
-//     public function broadcastOn(): array
-//     {
-//         return [
-//             new PrivateChannel('channel-name'),
-//         ];
-//     }
-// }
-
 class DepositCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -70,5 +45,12 @@ class DepositCreated implements ShouldBroadcast
     public function broadcastAs()
     {
         return 'form-submitted';
+    }
+
+    public function broadcastWith(): array
+    {
+        // Use the data passed from controller
+        return  $this->post;
+        
     }
 }
