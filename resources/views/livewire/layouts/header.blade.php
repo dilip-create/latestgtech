@@ -1,5 +1,9 @@
   
   <div class="navbar-custom">
+     <!-- Include jQuery -->
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <!-- Include Toastr JS -->
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <ul class="list-unstyled topnav-menu float-right mb-0">
 
         <li class="dropdown notification-list dropdown d-none d-lg-inline-block ml-2" id="Langchange">
@@ -113,13 +117,10 @@
                                 </audio>
                                 <button onclick="document.getElementById('notificationAudio').play()"></button>
 
-                                <!-- Include jQuery -->
-                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                <!-- Include Toastr JS -->
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+                               
                                 
                                 <!-- Your app.js or bootstrap.js script -->
-                                <script src="{{ asset('/build/assets/app-CGP1dOCu.js') }}"></script>
+                                <script src="{{ asset('/build/assets/app-BX0Wc3vv.js') }}"></script>
                                 {{-- // for Pusher code END --}}
 
         
