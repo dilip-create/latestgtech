@@ -52,3 +52,33 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /* CSS FOR MAKE TOGGLE STATUS CHECKBOX END */
+
+/* CSS for making notification Icon design START */
+.noti-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.noti-icon {
+    font-size: 26px;  /* bell size */
+    color: #fff;      /* bell color */
+}
+
+.noti-icon-badge {
+    position: absolute;
+    top: 15px !important;   /* move above bell */
+    right: 1px !important; /* stick to right edge */
+    background: #ff3b30;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 5px;
+    line-height: 1;
+    min-width: 25px;
+    height: 22px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* CSS for making notification Icon design END */
