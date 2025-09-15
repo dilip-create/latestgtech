@@ -34,6 +34,7 @@ class DepositCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+       
         return new Channel('my-channel');
     }
 
@@ -44,11 +45,13 @@ class DepositCreated implements ShouldBroadcast
      */
     public function broadcastAs()
     {
+       
         return 'form-submitted';
     }
 
     public function broadcastWith(): array
     {
+          dd($this->post);
         // Use the data passed from controller
         return  $this->post;
         

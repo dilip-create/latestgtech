@@ -1,4 +1,3 @@
-  
   <div class="navbar-custom">
      <!-- Include jQuery -->
                                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -30,10 +29,12 @@
         </li>
 
         <li class="dropdown notification-list">
-            <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <a class="nav-link dropdown-toggle waves-effect waves-light noti-wrapper" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="mdi mdi-bell-outline noti-icon"></i>
-                <span class="noti-icon-badge"></span>
+                <span class="noti-icon-badge">26</span>
             </a>
+
+
             <div class="dropdown-menu dropdown-menu-right dropdown-lg">
 
                 <!-- item-->
