@@ -1,5 +1,5 @@
   <div class="navbar-custom">
-     <!-- Include jQuery -->
+                                <!-- Include jQuery -->
                                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                                 <!-- Include Toastr JS -->
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -31,7 +31,7 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle waves-effect waves-light noti-wrapper" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="mdi mdi-bell-outline noti-icon"></i>
-                <span class="noti-icon-badge">26</span>
+                <span class="noti-icon-badge">{{ $NotificationCount ?? ''}}</span>
             </a>
 
 
@@ -42,7 +42,7 @@
                     <h5 class="font-16 text-white m-0">
                         <span class="float-right">
                             <a href="" class="text-white">
-                                <small>Clear All</small>
+                                {{-- <small>Clear All</small> --}}
                             </a>
                         </span>Notification
                     </h5>
@@ -50,61 +50,33 @@
 
                 <div class="slimscroll noti-scroll">
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-success">
-                            <i class="mdi mdi-settings-outline"></i>
-                        </div>
-                        <p class="notify-details">New settings
-                            <small class="text-muted">There are new settings available</small>
-                        </p>
-                    </a>
-        
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-info">
-                            <i class="mdi mdi-bell-outline"></i>
-                        </div>
-                        <p class="notify-details">Updates
-                            <small class="text-muted">There are 2 new updates available</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-danger">
-                            <i class="mdi mdi-account-plus"></i>
-                        </div>
-                        <p class="notify-details">New user
-                            <small class="text-muted">You have 10 unread messages</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-info">
-                            <i class="mdi mdi-comment-account-outline"></i>
-                        </div>
-                        <p class="notify-details">Caleb Flakelar commented on Admin
-                            <small class="text-muted">4 days ago</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-secondary">
-                            <i class="mdi mdi-heart"></i>
-                        </div>
-                        <p class="notify-details">Carlos Crouch liked
-                            <b>Admin</b>
-                            <small class="text-muted">13 days ago</small>
-                        </p>
-                    </a>
+                    @forelse ($NotificationData as $index => $unread)
+                                @php
+                                    $record = json_decode($unread->data, true); 
+                                @endphp
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <div class="notify-icon bg-info">
+                                    <i class="mdi mdi-bell-outline"></i>
+                                </div>
+                                <p class="notify-details">{{ ucfirst($unread->msg) ?? '' }}
+                                    <small class=" text-success">{{ trans('messages.Trans ID') }}: {{ $record['transaction_id'] ?? '' }}</small>
+                                    <small class=" text-danger">{{ trans('messages.Status') }}: {{ $record['status'] ?? '' }}</small>
+                                    <small class="">{{ $unread->created_at->diffForHumans() }}</small>
+                                </p>
+                            </a>
+                    @empty
+                            <a href="javascript:void(0);" class=" notify-item">
+                                    <p class="notify-details">There is no have any Notification! </p>  
+                            </a>
+                    @endforelse
+                  
+                    
                 </div>
 
                 <!-- All-->
                 <a href="javascript:void(0);" class="dropdown-item text-primary notify-item notify-all">
-                    View all
+                    {{ trans('messages.mark all as read') }}
                     <i class="fi-arrow-right"></i>
                 </a>
 
