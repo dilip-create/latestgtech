@@ -790,4 +790,6 @@ return [
     'This configuration already exists!' => 'การกำหนดค่านี้มีอยู่แล้ว!', 
     'User updated successfully!' => 'อัปเดตผู้ใช้สำเร็จแล้ว!',
     'User added successfully!' => 'เพิ่มผู้ใช้เรียบร้อยแล้ว!',
+    'Notification' => 'การแจ้งเตือน',
+    'There is no have any Notification!' => 'ไม่มีมีการแจ้งเตือนใดๆ!',
 ];

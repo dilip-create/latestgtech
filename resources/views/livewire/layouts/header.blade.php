@@ -44,7 +44,7 @@
                             <a href="" class="text-white">
                                 {{-- <small>Clear All</small> --}}
                             </a>
-                        </span>Notification
+                        </span>{{ trans('messages.Notification') }}
                     </h5>
                 </div>
 
@@ -67,19 +67,17 @@
                             </a>
                     @empty
                             <a href="javascript:void(0);" class=" notify-item">
-                                    <p class="notify-details">There is no have any Notification! </p>  
+                                    <p class="notify-details">{{ trans('messages.There is no have any Notification!') }}</p>  
                             </a>
                     @endforelse
-                  
-                    
                 </div>
 
-                <!-- All-->
-                <a href="javascript:void(0);" class="dropdown-item text-primary notify-item notify-all">
-                    {{ trans('messages.mark all as read') }}
-                    <i class="fi-arrow-right"></i>
-                </a>
-
+                @if($NotificationCount > 0)
+                    <a href="javascript:void(0);" class="dropdown-item text-primary notify-item notify-all">
+                        {{ trans('messages.mark all as read') }}
+                        <i class="fi-arrow-right"></i>
+                    </a>
+                @endif
             </div>
         </li>
           {{-- // for Pusher code START --}}
