@@ -33,7 +33,7 @@ class Sidebar extends Component
     {
         // Session::flush();
         Session::forget('auth');
-        $msg =  __('message.Logout Successfully!');
+        $msg =  __('messages.Logout Successfully!');
         $this->dispatch('toast', message: $msg, notify:'success' ); 
         // return redirect('/');
         return $this->redirect('/', navigate: true);
