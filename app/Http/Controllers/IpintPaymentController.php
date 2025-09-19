@@ -101,7 +101,7 @@ class IpintPaymentController extends Controller
                     'type' => 'Deposit',
                     'transaction_id' => $frtransaction,
                     'amount' => $request->amount,
-                    'Currency' => $request->currency,
+                    'Currency' => $request->Currency,
                     'status' => 'pending',
                     'msg' => 'New Deposit Transaction Created!',
                 ];
