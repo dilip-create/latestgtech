@@ -200,6 +200,28 @@ class RichPayController extends Controller
             'created_at' => $paymentDetail->created_at,
         ];
 
+         // Broadcast the event Notification code START
+                $data = [
+                    'type' => 'Transaction Updated',
+                    'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                    'amount' => $paymentDetail->amount,
+                    'Currency' => $paymentDetail->Currency,
+                    'status' => $paymentDetail->payment_status,
+                    'msg' => 'Transaction Status Updated!',
+                ];
+                event(new DepositCreated($data));   
+                // Broadcast the event Notification code END
+                // Insert data in Notification table Code START
+                $addNotificationRecord = [
+                    'notifiable_type' => 'Transaction Updated',
+                    'agent_id' => $paymentDetail->agent_id,
+                    'merchant_id' => $paymentDetail->merchant_id,
+                    'data' => json_encode($data,true),
+                    'msg' => 'Transaction Status Updated!',
+                ];
+                TransactionNotification::create($addNotificationRecord);
+            // Insert data in Notification table Code END
+
         return view('payment.payment_status', compact('request', 'postData', 'callbackUrl'));
     }
 
@@ -264,6 +286,29 @@ class RichPayController extends Controller
             echo "Transaction updated successfully!";
             //Call webhook API START
             $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $RefID)->first();
+            
+            // Broadcast the event Notification code START
+                $data = [
+                    'type' => 'Callback Transaction Status',
+                    'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                    'amount' => $paymentDetail->amount,
+                    'Currency' => $paymentDetail->Currency,
+                    'status' => $paymentDetail->payment_status,
+                    'msg' => 'Callback Transaction Status Updated!',
+                ];
+                event(new DepositCreated($data));   
+                // Broadcast the event Notification code END
+                // Insert data in Notification table Code START
+                $addNotificationRecord = [
+                    'notifiable_type' => 'Callback Transaction Status',
+                    'agent_id' => $paymentDetail->agent_id,
+                    'merchant_id' => $paymentDetail->merchant_id,
+                    'data' => json_encode($data,true),
+                    'msg' => 'Callback Transaction Status Updated!',
+                ];
+                TransactionNotification::create($addNotificationRecord);
+            // Insert data in Notification table Code END
+
             $callbackUrl = $paymentDetail->callback_url;
             $postData = [
                 'merchant_code' => $paymentDetail->merchant_code,
@@ -319,17 +364,27 @@ class RichPayController extends Controller
             'created_at' => $paymentDetail->created_at,
         ];
    
-        // Broadcast the event Notification code START
-        // $data = [
-        //     'type' => 'Deposit',
-        //     'transaction_id' => $paymentDetail->systemgenerated_TransId,
-        //     'amount' => $paymentDetail->amount,
-        //     'Currency' => $paymentDetail->Currency,
-        //     'status' => $paymentDetail->payment_status,
-        //     'msg' => 'One Transaction notified!',
-        // ];
-        // event(new DepositCreated($data));
-        // Broadcast the event Notification code START
+            // Broadcast the event Notification code START
+                $data = [
+                    'type' => 'Notification send Successfully!',
+                    'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                    'amount' => $paymentDetail->amount,
+                    'Currency' => $paymentDetail->Currency,
+                    'status' => $paymentDetail->payment_status,
+                    'msg' => 'One Transaction notified!',
+                ];
+                event(new DepositCreated($data));   
+                // Broadcast the event Notification code END
+                // Insert data in Notification table Code START
+                $addNotificationRecord = [
+                    'notifiable_type' => 'Notification send Successfully!',
+                    'agent_id' => $paymentDetail->agent_id,
+                    'merchant_id' => $paymentDetail->merchant_id,
+                    'data' => json_encode($data,true),
+                    'msg' => 'One Transaction notified!',
+                ];
+                TransactionNotification::create($addNotificationRecord);
+            // Insert data in Notification table Code END
 
         return view('payment.depositNotification', compact('postData', 'callbackUrl'));
     }

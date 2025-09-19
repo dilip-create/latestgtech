@@ -792,4 +792,11 @@ return [
     'User added successfully!' => 'เพิ่มผู้ใช้เรียบร้อยแล้ว!',
     'Notification' => 'การแจ้งเตือน',
     'There is no have any Notification!' => 'ไม่มีมีการแจ้งเตือนใดๆ!',
+    'Done!' => 'เสร็จแล้ว!',
+    'Logout Successfully!' => 'ออกจากระบบสำเร็จ!',
+
+
+
+
+
 ];

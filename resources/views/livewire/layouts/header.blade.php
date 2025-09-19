@@ -60,8 +60,21 @@
                                     <i class="mdi mdi-bell-outline"></i>
                                 </div>
                                 <p class="notify-details">{{ ucfirst($unread->msg) ?? '' }}
-                                    <small class=" text-success">{{ trans('messages.Trans ID') }}: {{ $record['transaction_id'] ?? '' }}</small>
-                                    <small class=" text-danger">{{ trans('messages.Status') }}: {{ $record['status'] ?? '' }}</small>
+                                    <small class="text-success">{{ trans('messages.Trans ID') }}: {{ $record['transaction_id'] ?? '' }}</small>
+                                  
+                                    @if($record['status'] == 'pending')
+                                        <small class="text text-primary">{{ trans('messages.Status') }}: Pending</small>
+
+                                    @elseif($record['status'] == 'processing')
+                                        <small class="text text-warning">{{ trans('messages.Status') }}: Processing..</small>
+                                
+                                    @elseif($record['status'] == 'failed')
+                                        <small class="text text-danger">{{ trans('messages.Status') }}: Failed</small>
+                                    
+                                    @else
+                                        <small class="text text-success">{{ trans('messages.Status') }}: Success</small>
+                                    @endif
+
                                     <small class="">{{ $unread->created_at->diffForHumans() }}</small>
                                 </p>
                             </a>
@@ -73,7 +86,7 @@
                 </div>
 
                 @if($NotificationCount > 0)
-                    <a href="javascript:void(0);" class="dropdown-item text-primary notify-item notify-all">
+                    <a href="javascript:void(0);" wire:click="markReadTransaction" class="dropdown-item text-primary notify-item notify-all">
                         {{ trans('messages.mark all as read') }}
                         <i class="fi-arrow-right"></i>
                     </a>
