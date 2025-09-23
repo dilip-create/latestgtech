@@ -94,6 +94,12 @@
                                     <span> {{ __('messages.All User') }} </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('api.documentation') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Api Documentation') }}">
+                                    <i class="mdi mdi-file-document-box-multiple"></i>
+                                    <span> {{ __('messages.Api Documentation') }} </span>
+                                </a>
+                            </li>
                         @endif
                         <li>
                             <a href="#" wire:click="logout" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Logout') }}">

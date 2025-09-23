@@ -46,6 +46,7 @@
                         <tr>
                             <th>{{ __('messages.Order Id') }}</th>
                             <th>{{ __('messages.Payment Channel') }} </th>
+                            <th>{{ __('messages.Channel ID') }} </th>
                             <th>{{ __('messages.Description') }} </th>
                             <th>{{ __('messages.Gateway Account') }}</th>     
                             <th>{{ __('messages.Created Time') }}</th>
@@ -58,6 +59,7 @@
                                 <tr wire:key="row-{{ $row->id }}">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ ucfirst($row->channel_name) ?? '' }}</td>
+                                    <td>{{ __('messages.Channel ID') }} => {{ $row->id ?? '' }}</td>
                                     <td>{{ $row->channel_desc ?? '' }}</td>
                                     <td>{{ ucfirst($row->gatewayAccount->gateway_name ) ?? '' }}</td>
                                     <td> {{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
