@@ -800,7 +800,7 @@ return [
     'There is no have any Notification!' => 'There is no have any Notification!',
     'Done!' => 'Done!',
     'Logout Successfully!' => 'Logout Successfully!',
-    'Remove' => 'Remove',
+    'powered by' => 'powered by',
     'Remove' => 'Remove',
     'Remove' => 'Remove',
     'Remove' => 'Remove',
