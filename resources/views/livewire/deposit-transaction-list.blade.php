@@ -44,8 +44,7 @@
 
                                             <div class="col-sm-2">
                                                 <input type="text" wire:model.live="search" class="form-control" placeholder="{{ __('messages.Search here') }}..."/>
-                                            </div>
-                                            <div class="col-sm-1"></div>
+                                            </div>       
                                             <div class="col-sm-7">&nbsp;&nbsp;&nbsp;&nbsp;
                                                 @php
                                                     $buttons = [
@@ -68,6 +67,9 @@
                                                         {{ $label }}
                                                     </button>
                                                 @endforeach
+                                            </div>
+                                             <div class="col-sm-1">
+                                                    <button wire:click="exportExcel" class="btn btn-success float-right">{{ __('messages.Export') }}</button>
                                             </div>
                                         </div>
                                     </p>

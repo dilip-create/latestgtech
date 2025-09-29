@@ -1,57 +1,24 @@
 <?php
-namespace App\Livewire;
-use Livewire\Component;
+
+namespace App\Exports;
 
 use App\Models\DepositTransaction;
-use App\Exports\DepositTransactionsExport;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Session;
 
-class DepositTransactionList extends Component
+class DepositTransactionsExport implements FromView
 {
-    public $transactionlist, $totalAmount, $totalmdrfee, $totalNetAmount;
-    public $statusFilter = 'all';
-    public $dateFilter = 'today';
-    public $search = '';
+    public $statusFilter, $dateFilter, $search;
 
-    public function mount()
+    public function __construct($statusFilter, $dateFilter, $search)
     {
-        $this->calculateTotals(); // calculate once for $totalAmount, $totalmdrfee, $totalNetAmount;
-        $this->getTransactions();
+        $this->statusFilter = $statusFilter;
+        $this->dateFilter   = $dateFilter;
+        $this->search       = $search;
     }
 
-    public function exportExcel()
-    {
-        return Excel::download(
-            new DepositTransactionsExport($this->statusFilter, $this->dateFilter, $this->search),
-            'deposit_transactions.xlsx'
-        );
-    }
-
-    public function calculateTotals()
-    {
-        $query = DepositTransaction::query()
-            ->where('payment_status', 'success');
-
-        if (Session::get('auth')->role_name === 'Merchant') {
-            $query->where('merchant_id', Session::get('auth')->merchant_id);
-        } elseif (Session::get('auth')->role_name === 'Agent') {
-            $query->where('agent_id', Session::get('auth')->agent_id);
-        }
-
-        $this->totalAmount = $query->sum('amount');
-        $this->totalmdrfee = $query->sum('mdr_fee_amount');
-        $this->totalNetAmount = $query->sum('net_amount');
-    }
-
-    public function updated($propertyName)
-    {
-        if (in_array($propertyName, ['statusFilter', 'dateFilter', 'search'])) {
-            $this->getTransactions();
-        }
-    }
-
-    public function getTransactions()
+    public function view(): View
     {
         $query = DepositTransaction::query();
 
@@ -102,7 +69,7 @@ class DepositTransactionList extends Component
 
         // Search filter
         if (!empty($this->search)) {
-            $query->where(function($q) {
+            $query->where(function ($q) {
                 $q->where('merchant_code', 'like', "%{$this->search}%")
                   ->orWhere('reference_id', 'like', "%{$this->search}%")
                   ->orWhere('systemgenerated_TransId', 'like', "%{$this->search}%")
@@ -110,13 +77,10 @@ class DepositTransactionList extends Component
             });
         }
 
-        $this->transactionlist = $query->orderByDesc('id')->get();
-    }
+        $transactions = $query->orderByDesc('id')->get();
 
-
-    public function render()
-    {
-        $title =   __('messages.Deposit Transactions');
-        return view('livewire.deposit-transaction-list')->title($title);
+        return view('exports.deposit-transactions', [
+            'transactionlist' => $transactions
+        ]);
     }
 }
