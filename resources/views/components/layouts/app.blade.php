@@ -67,7 +67,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                2025 - 2026 &copy; powered by <a href="https://zaffrantech.com/" target="_blank">ZaffranTech</a>
+                                2025 - 2026 &copy; {{ __('messages.powered by') }} <a href="https://zaffrantech.com/" target="_blank">ZaffranTech</a>
                             </div>
                         </div>
                     </div>

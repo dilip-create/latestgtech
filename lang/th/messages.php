@@ -794,6 +794,7 @@ return [
     'There is no have any Notification!' => 'ไม่มีมีการแจ้งเตือนใดๆ!',
     'Done!' => 'เสร็จแล้ว!',
     'Logout Successfully!' => 'ออกจากระบบสำเร็จ!',
+    'powered by' => 'ขับเคลื่อนโดย',
 
 
 
