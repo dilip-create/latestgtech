@@ -68,7 +68,7 @@
                             </a>
                         </li>
                         
-                        @if (Session::get('auth')->user_name == 'FCmerchant001')
+                        @if (Session::get('auth')->user_name == 'FCmerchant001' || Session::get('auth')->role_name === 'Admin')
                             <li>
                                 <a href="{{ route('generate.FCQR') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Generate QR') }}" target="_blank">
                                     <i class="mdi mdi-qrcode-scan"></i>
