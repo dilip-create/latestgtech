@@ -67,17 +67,18 @@
                                 <span style="font-size:14px">{{ __('messages.Withdraw Transactions') }} </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('invoice.qrcode.list') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Summary Report') }}">
-                                <i class="mdi mdi-poll"></i>
-                                <span> {{ __('messages.Summary Report') }} </span>
-                            </a>
-                        </li>
+                        
                         @if (Session::get('auth')->user_name == 'FCmerchant001')
                             <li>
                                 <a href="{{ route('generate.FCQR') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Generate QR') }}" target="_blank">
                                     <i class="mdi mdi-qrcode-scan"></i>
                                     <span> {{ __('messages.Generate QR') }} </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('invoice.qrcode.list') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Summary Report') }}">
+                                    <i class="mdi mdi-poll"></i>
+                                    <span> {{ __('messages.Summary Report') }} </span>
                                 </a>
                             </li>
                         @endif

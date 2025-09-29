@@ -8,14 +8,14 @@ $referenceNo = "GZTRN" . time() . (function ($length = 3) {
     }
     return $randomString;
 })();
-// $apiUrl = "http://127.0.0.1:8000/api/ip/checkout";
-$apiUrl = "https://payment.pay2rax.com/api/ip/checkout";
+$apiUrl = "http://127.0.0.1:8000/api/ip/checkout";
+// $apiUrl = "https://payment.pay2rax.com/api/ip/checkout";
 $data = [
     'merchant_code' => $_GET['merchant_code'],
-    'product_id' => '20',
+    'channel_id' => '4',
     'referenceId' => $referenceNo, 
-    // 'callback_url' => 'http://127.0.0.1:8000/api/ip/depositResponse',
-    'callback_url' => 'https://payment.pay2rax.com/api/ip/depositResponse',
+    'callback_url' => 'http://127.0.0.1:8000/api/ip/depositResponse',
+    // 'callback_url' => 'https://payment.pay2rax.com/api/ip/depositResponse',
     'Currency' =>  $_GET['Currency'], 
     'amount' => $_GET['amount'],   
     'customer_email' => 'dk@gmail.com', 
