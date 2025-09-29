@@ -1,17 +1,23 @@
 <table>
     <thead>
     <tr>
-        <th>Order Id</th>
-        <th>Created Time</th>
-        <th>Transaction ID</th>
-        <th>Merchant Code</th>
-        <th>Reference ID</th>
-        <th>Customer Name</th>
-        <th>Amount</th>
-        <th>MDR</th>
-        <th>Net</th>
-        <th>Currency</th>
-        <th>Status</th>
+        <th>{{ __('messages.Order Id') }}</th>
+        <th>{{ __('messages.Created Time') }}</th>
+        <th>{{ __('messages.Transaction ID') }}</th>
+        @if (Session::get('auth')->role_name != 'Merchant') 
+            <th>{{ __('messages.Merchant Code') }}</th>
+        @endif
+        @if(Session::get('auth')->merchant_id  == '1')       
+            <th>{{ __('messages.Invoice Number') }}</th>     {{-- For FC Department --}}
+        @else
+            <th>{{ __('messages.Reference ID') }}</th>
+        @endif
+        <th>{{ __('messages.Customer Name') }} </th>
+        <th>{{ __('messages.Amount') }} </th>
+        <th>{{ __('messages.MDR') }} </th>
+        <th>{{ __('messages.Net') }} </th>
+        <th>{{ __('messages.Currency') }}</th>
+        <th>{{ __('messages.Status') }}</th>
     </tr>
     </thead>
     <tbody>
