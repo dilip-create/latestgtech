@@ -36,6 +36,6 @@
             <td>{{ $row->Currency }}</td>
             <td>{{ ucfirst($row->payment_status) }}</td>
         </tr>
-    @endforeach
+    @endforeach 
     </tbody>
 </table>
