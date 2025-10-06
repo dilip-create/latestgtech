@@ -14,7 +14,6 @@
             </div>
         </div>     
         <!-- end page title --> 
-        
           <div class="row">
                             <div class="col-12">
                                 <div class="card-box">
@@ -44,7 +43,6 @@
                                             <div class="col-sm-2">
                                                 <input type="text" wire:model.live="search" class="form-control" placeholder="{{ __('messages.Search here') }}..."/>
                                             </div>
-                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-7">&nbsp;&nbsp;&nbsp;&nbsp;
                                                 @php
                                                     $buttons = [
@@ -68,6 +66,9 @@
                                                     </button>
                                                 @endforeach
                                             </div>
+                                            <div class="col-sm-1">
+                                                    <button wire:click="exportExcel" class="btn btn-success float-right">{{ __('messages.Export') }}</button>
+                                            </div>
                                         </div>
 
                                     </p>
@@ -78,6 +79,9 @@
                                             <th>{{ __('messages.Order Id') }}</th>
                                             <th>{{ __('messages.Created Time') }}</th>
                                             <th>{{ __('messages.Transaction ID') }}</th>
+                                            @if (Session::get('auth')->role_name != 'Merchant') 
+                                            <th>{{ __('messages.Merchant Code') }}</th>
+                                            @endif
                                             @if(Session::get('auth')->merchant_id  == '1')       
                                              <th>{{ __('messages.Invoice Number') }}</th>     {{-- For FC Department --}}
                                             @else
@@ -93,7 +97,6 @@
                                         </tr>
                                         </thead>
 
-
                                         <tbody>
                                             @php $index = 0; @endphp
                                             @forelse($transactionlist as $row)
@@ -101,6 +104,9 @@
                                             <td>{{ ++$index }}</td>
                                             <td>{{ $row->created_at ? $row->created_at->format('d-m-Y h:i:s A') : '' }}</td>
                                             <td>{{ $row->systemgenerated_TransId ?? '' }}</td>
+                                             @if (Session::get('auth')->role_name != 'Merchant') 
+                                             <td>{{ $row->merchant_code ?? '' }}</td>
+                                            @endif
                                             <td>{{ $row->reference_id ?? '' }}</td>
                                             <td>{{ $row->customer_name ?? '' }}</td>
                                             <td>{{ $row->total ?? '' }}</td>

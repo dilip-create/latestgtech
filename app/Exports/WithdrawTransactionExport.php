@@ -1,58 +1,27 @@
 <?php
-namespace App\Livewire;
-use Livewire\Component;
+
+namespace App\Exports;
+
 use App\Models\WithdrawTransaction;
+use Maatwebsite\Excel\Concerns\FromCollection;
+
+
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Session;
 
-use App\Exports\WithdrawTransactionExport;
-use Maatwebsite\Excel\Facades\Excel;
-
-class WithdrawTransactionList extends Component
+class WithdrawTransactionExport implements FromView
 {
+    public $statusFilter, $dateFilter, $search;
 
-    public $transactionlist, $totalAmount, $totalmdrfee, $totalNetAmount;
-    public $statusFilter = 'all';
-    public $dateFilter = 'today';
-    public $search = '';
-
-    public function mount()
+    public function __construct($statusFilter, $dateFilter, $search)
     {
-        $this->calculateTotals(); // calculate once for $totalAmount, $totalmdrfee, $totalNetAmount;
-        $this->getTransactions();
+        $this->statusFilter = $statusFilter;
+        $this->dateFilter   = $dateFilter;
+        $this->search       = $search;
     }
 
-    public function exportExcel()
-    {
-        return Excel::download(
-            new WithdrawTransactionExport($this->statusFilter, $this->dateFilter, $this->search),
-            'Withdraw_transactions.xlsx'
-        );
-    }
-
-    public function calculateTotals()
-    {
-        $query = WithdrawTransaction::query()
-            ->where('status', 'success');
-
-        if (Session::get('auth')->role_name === 'Merchant') {
-            $query->where('merchant_id', Session::get('auth')->merchant_id);
-        } elseif (Session::get('auth')->role_name === 'Agent') {
-            $query->where('agent_id', Session::get('auth')->agent_id);
-        }
-
-        $this->totalAmount = $query->sum('total');
-        $this->totalmdrfee = $query->sum('mdr_fee_amount');
-        $this->totalNetAmount = $query->sum('net_amount');
-    }
-
-    public function updated($propertyName)
-    {
-        if (in_array($propertyName, ['statusFilter', 'dateFilter', 'search'])) {
-            $this->getTransactions();
-        }
-    }
-
-    public function getTransactions()
+    public function view(): View
     {
         $query = WithdrawTransaction::query();
 
@@ -103,7 +72,7 @@ class WithdrawTransactionList extends Component
 
         // Search filter
         if (!empty($this->search)) {
-            $query->where(function($q) {
+            $query->where(function ($q) {
                 $q->where('merchant_code', 'like', "%{$this->search}%")
                   ->orWhere('reference_id', 'like', "%{$this->search}%")
                   ->orWhere('systemgenerated_TransId', 'like', "%{$this->search}%")
@@ -111,19 +80,10 @@ class WithdrawTransactionList extends Component
             });
         }
 
-        $this->transactionlist = $query->orderByDesc('id')->get();
+        $transactions = $query->orderByDesc('id')->get();
 
-        // Totals
-        // $successQuery = (clone $query)->where('status', 'success');
-        // $this->totalAmount = $successQuery->sum('amount');
-        // $this->totalmdrfee = $successQuery->sum('mdr_fee_amount');
-        // $this->totalNetAmount = $successQuery->sum('net_amount');
-    }
-
-
-    public function render()
-    {
-        $title =   __('messages.Withdraw Transactions');
-        return view('livewire.withdraw-transaction-list')->title($title);
+        return view('exports.withdraw-transactions', [
+            'transactionlist' => $transactions
+        ]);
     }
 }
