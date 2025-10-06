@@ -13,6 +13,9 @@
             <th>{{ __('messages.Reference ID') }}</th>
         @endif
         <th>{{ __('messages.Customer Name') }} </th>
+        <th>{{ __('messages.Bank Name') }} </th>
+        <th>{{ __('messages.Account Name') }} </th>
+        <th>{{ __('messages.Account Number') }} </th>
         <th>{{ __('messages.Amount') }} </th>
         <th>{{ __('messages.MDR') }} </th>
         <th>{{ __('messages.Net') }} </th>
@@ -32,11 +35,14 @@
             @endif
             <td>{{ $row->reference_id }}</td>
             <td>{{ $row->customer_name }}</td>
-            <td>{{ $row->amount }}</td>
+            <td>{{ $row->bank_code }}</td>
+            <td>{{ $row->customer_bank_name }}</td>
+            <td>{{ $row->customer_account_number }}</td>
+            <td>{{ $row->total }}</td>
             <td>{{ $row->mdr_fee_amount }}</td>
             <td>{{ $row->net_amount }}</td>
             <td>{{ $row->Currency }}</td>
-            <td>{{ ucfirst($row->payment_status) }}</td>
+            <td>{{ ucfirst($row->status) }}</td>
         </tr>
     @endforeach 
     </tbody>
