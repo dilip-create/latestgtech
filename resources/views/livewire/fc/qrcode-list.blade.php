@@ -7,10 +7,10 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="/">GTech</a></li>
-                            <li class="breadcrumb-item active">{{ __('messages.Summary Report') }}</li>
+                            <li class="breadcrumb-item active">{{ __('messages.All QR Lists') }}</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">{{ __('messages.Summary Report') }}</h4>
+                    <h4 class="page-title">{{ __('messages.All QR Lists') }}</h4>
                 </div>
             </div>
         </div>     
