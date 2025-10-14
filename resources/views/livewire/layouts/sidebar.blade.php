@@ -76,12 +76,23 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('invoice.qrcode.list') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Summary Report') }}">
+                                <a href="{{ route('invoice.qrcode.list') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.All QR Lists') }}">
                                     <i class="mdi mdi-poll"></i>
-                                    <span> {{ __('messages.Summary Report') }} </span>
+                                    <span> {{ __('messages.All QR Lists') }} </span>
                                 </a>
                             </li>
                         @endif
+
+                        <li>
+                            <a href="javascript: void(0);">
+                                <i class="mdi mdi-table-settings"></i>
+                                <span>{{ __('messages.Summary Report') }}</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="nav-second-level" aria-expanded="false">
+                                <li><a href="{{ route('deposit.summaryReport') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit') }}">{{ __('messages.Deposit') }}</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="{{ route('user.profile') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Profile') }}">
                                 <i class="mdi mdi-account-outline"></i>

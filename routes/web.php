@@ -22,6 +22,7 @@ use App\Livewire\Agent\AgentList;
 use App\Livewire\Merchant\MerchantList;
 use App\Livewire\User\UserList;
 use App\Livewire\ApiDocumentation;
+use App\Livewire\DepositSummaryReport;
 use App\Livewire\Merchant\MerchantConfigureGateway;
 use App\Livewire\PaymentGateway\GatewayAccountList;
 use App\Livewire\PaymentGateway\GatewayChannelList;
@@ -86,6 +87,9 @@ Route::get('/merchant-lists', MerchantList::class)->name('merchant.list');
 Route::get('/merchant-configuration-gateway', MerchantConfigureGateway::class)->name('merchant.configure.gateway');
 Route::get('/user-lists', UserList::class)->name('user.list');
 Route::get('/api/documentation', ApiDocumentation::class)->name('api.documentation');
+Route::get('/deposit/summaryReport', DepositSummaryReport::class)->name('deposit.summaryReport');
+
+
 
 Route::controller(IpintPaymentController::class)->group(function () {
     Route::get('/iptCryptoDeposit', 'ipintDepositform');            // Deposit form

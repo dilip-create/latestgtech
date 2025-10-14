@@ -181,13 +181,15 @@ class RichPayController extends Controller
 
     public function payinResponse(Request $request, $frtransaction)
     {
-        $systemgenerated_TransId = base64_decode($frtransaction);
-        $updateData = [
-            'payment_status' => 'processing',
-            // 'response_data' => json_encode($jsonData),
-        ];
-        DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->update($updateData);
-        $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->first();
+        $transId = base64_decode($frtransaction);
+        $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $transId)->first();
+
+        $status = $paymentDetail->payment_status === 'pending' ? 'processing' : $paymentDetail->payment_status;
+
+        DepositTransaction::where('systemgenerated_TransId', $transId)->update([
+            'payment_status' => $status,
+        ]);
+
         $callbackUrl = $paymentDetail->callback_url;
         $postData = [
             'merchant_code' => $paymentDetail->merchant_code,
@@ -196,17 +198,17 @@ class RichPayController extends Controller
             'amount' => $paymentDetail->amount,
             'Currency' => $paymentDetail->Currency,
             'customer_name' => $paymentDetail->customer_name,
-            'payment_status' => $paymentDetail->payment_status,
+            'payment_status' =>$status,
             'created_at' => $paymentDetail->created_at,
         ];
 
-         // Broadcast the event Notification code START
+            // Broadcast the event Notification code START
                 $data = [
                     'type' => 'Transaction Updated',
                     'transaction_id' => $paymentDetail->systemgenerated_TransId,
                     'amount' => $paymentDetail->amount,
                     'Currency' => $paymentDetail->Currency,
-                    'status' => $paymentDetail->payment_status,
+                    'status' =>$status,
                     'msg' => 'Transaction Status Updated!',
                 ];
                 event(new DepositCreated($data));   
