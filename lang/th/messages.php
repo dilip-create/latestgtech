@@ -795,6 +795,13 @@ return [
     'Done!' => 'เสร็จแล้ว!',
     'Logout Successfully!' => 'ออกจากระบบสำเร็จ!',
     'powered by' => 'ขับเคลื่อนโดย',
+    'All QR Lists' => 'รายการ QR ทั้งหมด',
+    'Deposit Summary Report' => 'รายงานสรุปการฝากเงิน',
+    'Deposit Report' => 'รายงานการฝากเงิน',
+    'Deposit Transactions Report' => 'รายงานธุรกรรมการฝากเงิน',
+    'Date Range' => 'ช่วงวันที่',
+    'Totals' => 'ผลรวม',
+    'to' => 'ถึง',
 
 
 
