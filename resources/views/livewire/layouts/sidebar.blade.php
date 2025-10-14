@@ -90,7 +90,7 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="{{ route('deposit.summaryReport') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit') }}">{{ __('messages.Deposit') }}</a></li>
+                                <li><a href="{{ route('deposit.summaryReport') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit Report') }}">{{ __('messages.Deposit Report') }}</a></li>
                             </ul>
                         </li>
                         <li>

@@ -802,12 +802,12 @@ return [
     'Logout Successfully!' => 'Logout Successfully!',
     'powered by' => 'powered by',
     'All QR Lists' => 'All QR Lists',
-    'Deposit' => 'Deposit',
-    'Remove' => 'Remove',
-    'Remove' => 'Remove',
-    'Remove' => 'Remove',
-    'Remove' => 'Remove',
-    'Remove' => 'Remove',
+    'Deposit Summary Report' => 'Deposit Summary Report',
+    'Deposit Report' => 'Deposit Report',
+    'Deposit Transactions Report' => 'Deposit Transactions Report',
+    'Date Range' => 'Date Range',
+    'Totals' => 'Totals',
+    'to' => 'to',
     'Remove' => 'Remove',
    
 
