@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RichPayController;
 use App\Http\Controllers\IpintPaymentController;
+use App\Http\Controllers\XprizoPaymentController;
 
 
 Route::get('/user', function (Request $request) {
@@ -23,4 +24,13 @@ Route::controller(IpintPaymentController::class)->group(function () {
     Route::get('ip/checkout', 'ipintCheckout')->name('apiroute.ipint.checkout');
     Route::post('ip/depositResponse', 'ipintdepositResponse')->name('apiroute.ipint.depositResponse'); 
     Route::post('/ipintDeposit/WebhookNotifiication', 'ipintDepositWebhookNotifiication'); 
+});
+
+Route::controller(XprizoPaymentController::class)->group(function () {
+    Route::get('xpz/deposit/', 'xpzDepositApifun')->name('apiroute.xpz.depositApi');
+    Route::post('xpz/depositResponse', 'xpzDepositResponse')->name('apiroute.xpzDepositResponse'); 
+    Route::post('/xpzWebhookNotifiication', 'xpzWebhookNotifiication'); 
+
+    // Route::get('xpz/withdrawal/', 'xpzwithdrawApifun')->name('apiroute.xpz.withdrawalApi');
+    // Route::post('xpz/withdrawalResponse', 'xpzWithdrawalResponse')->name('apiroute.xpzWithdrawalResponse'); 
 });

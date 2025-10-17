@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 
 use App\Http\Controllers\RichPayController;
 use App\Http\Controllers\IpintPaymentController;
+use App\Http\Controllers\XprizoPaymentController;
 
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\DashboardPage;
@@ -97,6 +98,18 @@ Route::controller(IpintPaymentController::class)->group(function () {
 });
 Route::get('/ipcrypto/payintest', function () {
     return view('payment-form.ipint.payintest');
+});
+
+Route::controller(XprizoPaymentController::class)->group(function () {
+    Route::get('/xpzDeposit', 'xpzDepositform');            // Deposit form
+    Route::get('xpz/deposit/gatewayResponse', 'xpzDepositGatewayResponse');       // for gateway response
+    // Route::get('/xpzWithdrawal', 'xpzWithdrawalform');            // Withjdrawal form
+});
+Route::get('/xpz/payintest', function () {
+    return view('payment-form.xpz.payintest');
+});
+Route::get('/xpz/payouttest', function () {
+    return view('payment-form.xpz.payouttest');
 });
 
 
