@@ -90,7 +90,7 @@ class XprizoPaymentController extends Controller
                  'expiryYear' => $expiryYear ?? $request->expiryYear,
                 'cvv' => $request->cvv,
             ],
-            'routingCode' => '',
+            'routingCode' => $res['parameters']['routingCode'],
             'redirect' => url('xpz/deposit/gatewayResponse'), 
         ];
 
