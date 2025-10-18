@@ -57,17 +57,17 @@ class IpintPaymentController extends Controller
 
         $result = $response->json();
         //   echo "<pre>";  print_r($result); die;
+        // for IpInt deposit charge START
+            if(!empty($cleanAmount)){
+                $percentage = $res['parameters']['percentage_charge'];     // Deposit Charge for RichPay
+                $totalWidth = $cleanAmount;
+                $mdr_fee_amount = ($percentage / 100) * $totalWidth;
+                $net_amount= $totalWidth-$mdr_fee_amount;
+            }
+            // for IpInt deposit charge END
           // Redirect to the payment link
         if (!empty($result['payment_process_url'])) {
                 //Insert data into DB
-                // for speedpay deposit charge START
-                if(!empty($cleanAmount)){
-                    $percentage = $res['parameters']['percentage_charge'];     // Deposit Charge for RichPay
-                    $totalWidth = $cleanAmount;
-                    $mdr_fee_amount = ($percentage / 100) * $totalWidth;
-                    $net_amount= $totalWidth-$mdr_fee_amount;
-                }
-                // for speedpay deposit charge END
                 $addRecord = [
                     'agent_id' => $res['merchantdata']['agent_id'],
                     'merchant_id' => $res['merchantdata']['id'],
