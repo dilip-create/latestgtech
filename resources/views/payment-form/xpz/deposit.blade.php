@@ -53,7 +53,7 @@
                                     <form role="form" action="{{ route('apiroute.xpz.depositApi') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate>
                                     @csrf
                                         <input type="hidden" name="merchant_code" value="testmerchant005">
-                                        <input type="hidden" name="channel_id" value="4">   {{-- // for new Xprixo gateway --}}
+                                        <input type="hidden" name="channel_id" value="3">   {{-- // for new Xprixo gateway --}}
                                         <input type="hidden" name="callback_url" value="{{ route('apiroute.xpzDepositResponse') }}">
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Reference ID</strong><span class="text-danger">*</span></label>
@@ -80,7 +80,7 @@
                                         <div class="form-group row">
                                             <label for="customer_name" class="col-md-4 col-form-label"><strong>Card Holder Name</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input  class="form-control" name="customer_name" placeholder="Enter cumtomer name" type="text" >
+                                                <input  class="form-control" name="customer_name" placeholder="Enter cumtomer name" type="text" value="DILIP KUMAR GUPTA">
                                                 @error('customer_name')
                                                 <label class="error" for="customer_name">{{ $message }}</label> 
                                                 @enderror
@@ -89,7 +89,7 @@
                                         <div class="form-group row">
                                             <label for="card_number" class="col-md-4 col-form-label"><strong>Card Number</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Enter Card number" maxlength='16' value="5123450000000008">
+                                                <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Enter Card number" maxlength='16' value="4286090162932659">
                                             </div>
                                             @error('card_number')
                                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -98,7 +98,7 @@
                                         <div class="form-group row">
                                             <label for="expiration" class="col-md-4 col-form-label"><strong>Expiration</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control expirationInput" name="expiration" id="expiration"  maxlength='5' placeholder="MM/YY" value="01/30">
+                                                <input type="text" class="form-control expirationInput" name="expiration" id="expiration"  maxlength='5' placeholder="MM/YY" value="01/29">
                                                     <p class="expirationInput-warning text text-danger" style="display:none">Please fillup correct!</p>
                                             </div>
                                             @error('expiration')
@@ -108,7 +108,7 @@
                                         <div class="form-group row">
                                             <label for="cvv" class="col-md-4 col-form-label"><strong>CVC</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3' value="100">
+                                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3' value="118">
                                             </div>
                                             @error('cvv')
                                                 <div class="alert alert-danger">{{ $message }}</div>
