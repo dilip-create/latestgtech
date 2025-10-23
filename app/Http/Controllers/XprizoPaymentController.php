@@ -196,6 +196,62 @@ class XprizoPaymentController extends Controller
 
     }
 
+    public function xpzDepositGatewayResponse(Request $request)
+    {
+            $response = $request->all();
+            $systemgenerated_TransId = $response['reference'] ?? null;
+            $gateway_TransId = $response['key'] ?? null;
+        
+            $orderstatus = match ($response['status'] ?? null) {
+                'Active' => 'success',
+                'Pending' => 'pending',
+                default => 'failed',
+            };
+     
+                $updateData = [
+                    'gateway_TransId' => $gateway_TransId,
+                    'payment_status' => $orderstatus,
+                    'payin_arr' => json_encode($response)
+                ];
+                DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->update($updateData);
+                $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->first();
+                        // Broadcast the event Notification code START
+                        $data = [
+                            'type' => 'Transaction Updated',
+                            'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                            'amount' => $paymentDetail->amount,
+                            'Currency' => $paymentDetail->Currency,
+                            'status' => $paymentDetail->payment_status,
+                            'msg' => 'Transaction Status Updated!',
+                        ];
+                        event(new DepositCreated($data));   
+                        // Broadcast the event Notification code END
+                        // Insert data in Notification table Code START
+                        $addNotificationRecord = [
+                            'notifiable_type' => 'Transaction Updated',
+                            'agent_id' => $paymentDetail->agent_id,
+                            'merchant_id' => $paymentDetail->merchant_id,
+                            'data' => json_encode($data,true),
+                            'msg' => 'Transaction Status Updated!',
+                        ];
+                        TransactionNotification::create($addNotificationRecord);
+                    // Insert data in Notification table Code END
+
+                $callbackUrl = $paymentDetail->callback_url;
+                $postData = [
+                    'merchant_code' => $paymentDetail->merchant_code,
+                    'referenceId' => $paymentDetail->reference_id,
+                    'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                    'amount' => $paymentDetail->amount,
+                    'Currency' => $paymentDetail->Currency,
+                    'customer_name' => $paymentDetail->customer_name,
+                    'payment_status' => $paymentDetail->payment_status,
+                    'created_at' => $paymentDetail->created_at,
+                ];
+                return view('payment.payment_status', compact('request', 'postData', 'callbackUrl'));
+            
+    }
+
 
     public function xpzDepositResponse(Request $request)
     {
