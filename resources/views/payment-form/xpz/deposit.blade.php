@@ -74,7 +74,7 @@
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Amount</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="amount" id="amountInput" placeholder="Enter your Amount" value="100" type="text">
+                                                <input class="form-control" name="amount" id="amountInput" placeholder="Enter your Amount" value="10" type="text">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -89,7 +89,7 @@
                                         <div class="form-group row">
                                             <label for="card_number" class="col-md-4 col-form-label"><strong>Card Number</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Enter Card number" maxlength='16' value="5123450000000008">
+                                                <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Enter Card number" maxlength='16' value="4286090162932609">
                                             </div>
                                             @error('card_number')
                                                 <div class="alert alert-danger">{{ $message }}</div>
