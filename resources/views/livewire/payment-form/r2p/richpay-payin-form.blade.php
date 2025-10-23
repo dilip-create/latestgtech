@@ -8,6 +8,7 @@
         return $randomString;
     }
 ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     .auth-form {
         padding: 20px 20px !important;
@@ -137,7 +138,7 @@
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Amount</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="amount" placeholder="Enter your Amount" value="100" type="text">
+                                                <input class="form-control" name="amount" id="amountInput" placeholder="Enter your Amount" value="100" type="text">
                                             </div>
                                         </div>
 
@@ -261,7 +262,7 @@
                                             <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."> <!-- Replace with your spinner image URL -->
                                         </div>
                                         <div class="form-group text-center">
-                                            <button type="submit" id="submitBtn" class="btn btn-block btn-lg btn-primary waves-effect waves-light">Pay Now {{ $amount ?? '' }}฿ <i class="mdi mdi-arrow-right"></i></button>
+                                            <button type="submit" id="submitBtn" class="btn btn-block btn-lg btn-primary waves-effect waves-light">Pay Now <span id="amountLabel">100</span>฿ <i class="mdi mdi-arrow-right"></i></button>
                                         </div>
                                     </form>
                                 </div> <!-- end card-body -->
@@ -318,6 +319,27 @@
     //     }
     // });
       /* Custom dropdown for select Bank END */
+
+    $(document).ready(function() {
+        $("#amountInput").on("input", function() {
+            let amount = $(this).val();
+            // Regular expression to allow only integers or decimals
+            let regex = /^[0-9]*\.?[0-9]*$/;
+            // If input doesn't match, show alert and clear invalid characters
+            if (!regex.test(amount)) {
+                alert("Amount should be integer or decimal value !");
+                // Remove invalid characters
+                $(this).val(amount.replace(/[^0-9.]/g, ''));
+                amount = $(this).val();
+            }
+            // If input is empty, set amount = 0
+            if (amount === "") {
+                amount = 0;
+            }
+            // Update the button text dynamically
+            $("#amountLabel").text(amount);
+        });
+    });
 </script>
 
 
