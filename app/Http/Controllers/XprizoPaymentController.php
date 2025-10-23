@@ -54,40 +54,40 @@ class XprizoPaymentController extends Controller
             list($expiryMonth, $expiryYear) = explode('/', $expiration);
         }
          $postData = [
-            'description' => 'Pass',
+            'description' => 'Success',
             'reference' => $frtransaction,
             'amount' => $request->amount,
-            // 'currencyCode' => $request->Currency,
+            'currencyCode' => $request->Currency,
             'accountId' => $res['parameters']['accountId'],
-            'transferAccountId' => $res['parameters']['transferAccountId'],
-            'customer' => $request->customer_name,
-            // 'customerData' => [
-            //     'name' => $request->customer_name,
-            //     'email' => $request->customer_email ?? 'default@example.com', // Ensure email is available
-            //     'mobile' => '+855 69861408', 
-            //     'birthDate' => '2025-02-03T10:21:01.871Z', 
-            //     'ipAddress' => request()->ip(), // Fetch user's IP dynamically
-            //     'address' => [
-            //         'address' => 'poipet',
-            //         'countryCode' => 'KHM',
-            //         'street' => 'poipet',
-            //         'city' => 'poipet',
-            //         'stateProvinceRegion' => 'Battambang Province',
-            //         'zipPostalCode' => '273154'
-            //     ],
-            //     'device' => [
-            //         'width' => $request->device_width ?? 'unknown',
-            //         'height' => $request->device_height ?? 'unknown',
-            //         'userAgent' => $request->header('User-Agent') ?? 'unknown',
-            //         'colorDepth' => $request->colorDepth ?? 'unknown'
-            //     ]
-            // ],
+            // 'transferAccountId' => $res['parameters']['transferAccountId'],
+            // 'customer' => $request->customer_name,
+            'customerData' => [
+                'name' => $request->customer_name,
+                'email' => $request->customer_email ?? 'default@example.com', // Ensure email is available
+                'mobile' => '+855 69861408', 
+                // 'birthDate' => '2025-02-03T10:21:01.871Z', 
+                // 'ipAddress' => request()->ip(), // Fetch user's IP dynamically
+                // 'address' => [
+                //     'address' => 'poipet',
+                //     'countryCode' => 'KHM',
+                //     'street' => 'poipet',
+                //     'city' => 'poipet',
+                //     'stateProvinceRegion' => 'Battambang Province',
+                //     'zipPostalCode' => '273154'
+                // ],
+                // 'device' => [
+                //     'width' => $request->device_width ?? 'unknown',
+                //     'height' => $request->device_height ?? 'unknown',
+                //     'userAgent' => $request->header('User-Agent') ?? 'unknown',
+                //     'colorDepth' => $request->colorDepth ?? 'unknown'
+                // ]
+            ],
             'creditCard' => [
                 'name' => $request->customer_name,
                 'number' => $request->card_number,
                 'expiryMonth' => $expiryMonth ?? $request->expiryMonth,
-                // 'expiryYear' => '20'. $expiryYear ?? $request->expiryYear,
-                 'expiryYear' => $expiryYear ?? $request->expiryYear,
+                'expiryYear' => '20'. $expiryYear ?? $request->expiryYear,
+                //  'expiryYear' => $expiryYear ?? $request->expiryYear,
                 'cvv' => $request->cvv,
             ],
             'routingCode' => $res['parameters']['routingCode'],
