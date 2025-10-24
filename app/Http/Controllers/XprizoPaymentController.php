@@ -269,4 +269,127 @@ class XprizoPaymentController extends Controller
         
         return view('payment-form.r2p.deposit-response-page', compact('data'));
     }
+
+    public function xpzWebhookNotifiication(Request $request)
+    {
+        // {
+        //     "statusType": 3,
+        //     "status": "Rejected",  // New /Accepted/Cancelled
+        //     "description": "Reason for rejection",
+        //     "actionedById": 1,
+        //     "affectedContactIds": [],
+        //     "transaction": {
+        //       "id": 0,
+        //       "createdById": 2,
+        //       "type": "UCD",
+        //       "date": "2021-04-20T20:34:00.7606173+02:00",
+        //       "reference": 234234234,
+        //       "currencyCode": "USD",
+        //       "amount": 100.00
+        //     }
+        // }
+        // Decode the JSON payload automatically
+        $results = $request->json()->all();
+        if(!empty($results)) {
+            $systemgenerated_TransId = $results['transaction']['reference'] ?? null;
+            $orderStatus = match ($results['status'] ?? '') {
+                'Active' => 'success',
+                'Accepted' => 'success',
+                'New' => 'processing',
+                default => 'failed',
+            };
+            sleep(10);         // Simulate delay
+                if(!empty($results['transaction']['type']=='UCD')) {
+                            $updateData = [
+                                'payment_status' => $orderStatus,
+                                'response_data' => json_encode($results),
+                            ];
+                            DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->update($updateData);
+                            echo "Deposit Transaction updated successfully!";
+                            //Call webhook API START
+                            $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->first();
+                            
+                                // Broadcast the event Notification code START
+                                    $data = [
+                                        'type' => 'Callback Transaction Status',
+                                        'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                                        'amount' => $paymentDetail->amount,
+                                        'Currency' => $paymentDetail->Currency,
+                                        'status' => $paymentDetail->payment_status,
+                                        'msg' => 'Callback Transaction Status Updated!',
+                                    ];
+                                    event(new DepositCreated($data));   
+                                    // Broadcast the event Notification code END
+                                    // Insert data in Notification table Code START
+                                    $addNotificationRecord = [
+                                        'notifiable_type' => 'Callback Transaction Status',
+                                        'agent_id' => $paymentDetail->agent_id,
+                                        'merchant_id' => $paymentDetail->merchant_id,
+                                        'data' => json_encode($data,true),
+                                        'msg' => 'Callback Transaction Status Updated!',
+                                    ];
+                                    TransactionNotification::create($addNotificationRecord);
+                                // Insert data in Notification table Code END
+
+                            $callbackUrl = $paymentDetail->callback_url;
+                            $postData = [
+                                    'merchant_code' => $paymentDetail->merchant_code,
+                                    'referenceId' => $paymentDetail->reference_id,
+                                    'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                                    'amount' => $paymentDetail->amount,
+                                    'Currency' => $paymentDetail->Currency,
+                                    'customer_name' => $paymentDetail->customer_name,
+                                    'payment_status' => $paymentDetail->payment_status,
+                                    'created_at' => $paymentDetail->created_at,
+                            ];
+                            // echo "<pre>";  print_r($postData); die;
+                            try {
+                                if ($paymentDetail->callback_url != null) {
+                                    $response = Http::post($paymentDetail->callback_url, $postData);
+                                    echo $response->body(); die;
+                                }
+                            } catch (\Exception $e) {
+                                return response()->json(['error' => 'Failed to call webhook','message' => $e->getMessage()], 500);
+                            }
+                            //Call webhook API END
+                          
+
+                }else{
+                        $updateData = [
+                            'status' => $orderStatus,
+                            'api_response' => json_encode($results),
+                        ];
+                        SettleRequest::where('fourth_party_transection', $RefID)->update($updateData);
+                        echo "Withdrawal Transaction updated successfully!";
+                        //Call webhook API START
+                        $paymentDetail = SettleRequest::where('fourth_party_transection', $RefID)->first();
+                        $callbackUrl = $paymentDetail->callback_url;
+                        $postData = [
+                            'merchant_code' => $paymentDetail->merchant_code,
+                            'referenceId' => $paymentDetail->merchant_track_id,
+                            'transaction_id' => $paymentDetail->fourth_party_transection,
+                            'amount' => $paymentDetail->total,
+                            'Currency' => $paymentDetail->Currency,
+                            'customer_name' => $paymentDetail->customer_name,
+                            'payment_status' => $paymentDetail->status,
+                            'created_at' => $paymentDetail->created_at,
+                        ];
+                         
+                        try {
+                            if ($paymentDetail->callback_url != null) {
+                                $response = Http::post($paymentDetail->callback_url, $postData);
+                                echo $response->body(); die;
+                            }
+                        } catch (\Exception $e) {
+                            return response()->json(['error' => 'Failed to call webhook','message' => $e->getMessage()], 500);
+                        }
+                        //Call webhook API START
+                }
+
+        }else{
+            return response()->json(['error' => 'Data Not Found or Invalid Request!'], 400);
+        }
+    }
+
+
 }
