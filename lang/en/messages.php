@@ -808,6 +808,11 @@ return [
     'Date Range' => 'Date Range',
     'Totals' => 'Totals',
     'to' => 'to',
+    'Withdrawal Report' => 'Withdrawal Report',
+    'Withdrawal Summary Report' => 'Withdrawal Summary Report',
+    'Remove' => 'Remove',
+    'Remove' => 'Remove',
+    'Remove' => 'Remove',
     'Remove' => 'Remove',
    
 

@@ -3,12 +3,12 @@ namespace App\Livewire;
 use Livewire\Component;
 
 use Livewire\WithPagination;
-use App\Models\DepositTransaction;
-use App\Exports\DepositReportExport;
+use App\Models\WithdrawTransaction;
+use App\Exports\WithdrawalReportExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Session;
 
-class DepositSummaryReport extends Component
+class WithdrawalSummaryReport extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -44,19 +44,19 @@ class DepositSummaryReport extends Component
     public function exportExcel()
     {
         return Excel::download(
-            new DepositReportExport(
+            new WithdrawalReportExport(
                 $this->statusFilter,
                 $this->startDate,
                 $this->endDate,
                 $this->search
             ),
-            'deposit-transactions-report.xlsx'
+            'withdrawal-summary-report.xlsx'
         );
     }
 
     public function calculateTotals()
     {
-        $query = DepositTransaction::query();
+        $query = WithdrawTransaction::query();
 
         // Role-based filter
         if (Session::get('auth')->role_name === 'Merchant') {
@@ -67,9 +67,9 @@ class DepositSummaryReport extends Component
 
         // Status
         if ($this->statusFilter !== 'all') {
-            $query->where('payment_status', $this->statusFilter);
+            $query->where('status', $this->statusFilter);
         } else {
-            $query->where('payment_status', 'success'); // Default totals for success
+            $query->where('status', 'success'); // Default totals for success
         }
 
         // Date range (always applied)
@@ -88,14 +88,14 @@ class DepositSummaryReport extends Component
             });
         }
 
-        $this->totalAmount = $query->sum('amount');
+        $this->totalAmount = $query->sum('total');
         $this->totalmdrfee = $query->sum('mdr_fee_amount');
         $this->totalNetAmount = $query->sum('net_amount');
     }
 
     public function getTransactions()
     {
-        $query = DepositTransaction::query();
+        $query = WithdrawTransaction::query();
 
         // Role-based filter
         if (Session::get('auth')->role_name === 'Merchant') {
@@ -106,7 +106,7 @@ class DepositSummaryReport extends Component
 
         // Status filter
         if ($this->statusFilter !== 'all') {
-            $query->where('payment_status', $this->statusFilter);
+            $query->where('status', $this->statusFilter);
         }
 
         // Date range
@@ -130,14 +130,14 @@ class DepositSummaryReport extends Component
 
     public function render()
     {
-        $title = __('messages.Deposit Summary Report');
+        $title = __('messages.Withdrawal Summary Report');
 
         // Always return a collection for the view
         $transactions = $this->getTransactions();
 
-        return view('livewire.deposit-summary-report', [
+        return view('livewire.withdrawal-summary-report', [
             'transactionlist' => $transactions,
         ])->title($title);
     }
+    
 }
-

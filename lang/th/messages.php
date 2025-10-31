@@ -802,6 +802,8 @@ return [
     'Date Range' => 'ช่วงวันที่',
     'Totals' => 'ผลรวม',
     'to' => 'ถึง',
+    'Withdrawal Report' => 'รายงานการถอนเงิน',
+    'Withdrawal Summary Report' => 'รายงานสรุปการถอนเงิน',
 
 
 
