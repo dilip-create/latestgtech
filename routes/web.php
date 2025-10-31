@@ -24,6 +24,7 @@ use App\Livewire\Merchant\MerchantList;
 use App\Livewire\User\UserList;
 use App\Livewire\ApiDocumentation;
 use App\Livewire\DepositSummaryReport;
+use App\Livewire\WithdrawalSummaryReport;
 use App\Livewire\Merchant\MerchantConfigureGateway;
 use App\Livewire\PaymentGateway\GatewayAccountList;
 use App\Livewire\PaymentGateway\GatewayChannelList;
@@ -89,6 +90,7 @@ Route::get('/merchant-configuration-gateway', MerchantConfigureGateway::class)->
 Route::get('/user-lists', UserList::class)->name('user.list');
 Route::get('/api/documentation', ApiDocumentation::class)->name('api.documentation');
 Route::get('/deposit/summaryReport', DepositSummaryReport::class)->name('deposit.summaryReport');
+Route::get('/withdrawal/summaryReport', WithdrawalSummaryReport::class)->name('withdrawal.summaryReport');
 
 
 

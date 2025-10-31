@@ -6,10 +6,10 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="/">GTech</a></li>
-                            <li class="breadcrumb-item active">{{ __('messages.Deposit Summary Report') }}</li>
+                            <li class="breadcrumb-item active">{{ __('messages.Withdrawal Summary Report') }}</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">{{ __('messages.Deposit Summary Report') }}</h4>
+                    <h4 class="page-title">{{ __('messages.Withdrawal Summary Report') }}</h4>
                 </div>
             </div>
         </div>     
@@ -90,16 +90,16 @@
                                             @endif
                                             <td>{{ $row->reference_id ?? '' }}</td>
                                             <td>{{ $row->customer_name ?? '' }}</td>
-                                            <td>{{ $row->amount ?? '' }}</td>
+                                            <td>{{ $row->total ?? '' }}</td>
                                             <td>{{ $row->mdr_fee_amount ?? '' }}</td>
                                             <td>{{ $row->net_amount ?? '' }}</td>
                                             <td>{{ $row->Currency ?? '' }}</td>
                                             <td>
-                                            @if($row->payment_status == 'pending')
+                                            @if($row->status == 'pending')
                                             <button type="button" class="btn btn-primary waves-effect waves-light">Pending</button>
-                                            @elseif($row->payment_status == 'processing')
+                                            @elseif($row->status == 'processing')
                                             <button type="button" class="btn btn-warning waves-effect waves-light">Processing..</button>
-                                            @elseif($row->payment_status == 'failed')
+                                            @elseif($row->status == 'failed')
                                             <button type="button" class="btn btn-danger waves-effect waves-light">Failed</button>
                                             @else
                                             <button type="button" class="btn btn-success waves-effect waves-light">Success</button>

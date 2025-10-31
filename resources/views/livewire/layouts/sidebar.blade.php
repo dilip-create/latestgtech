@@ -91,6 +91,7 @@
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
                                 <li><a href="{{ route('deposit.summaryReport') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Deposit Report') }}">{{ __('messages.Deposit Report') }}</a></li>
+                                <li><a href="{{ route('withdrawal.summaryReport') }}" data-toggle="tooltip" data-placement="right" title="{{ __('messages.Withdrawal Report') }}">{{ __('messages.Withdrawal Report') }}</a></li>
                             </ul>
                         </li>
                         <li>
