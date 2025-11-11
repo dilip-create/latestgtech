@@ -23,6 +23,11 @@ class XprizoPaymentController extends Controller
         return view('payment-form.xpz.deposit');
     }
 
+    public function xpzUPIdeposit(Request $request)
+    {
+        return view('payment-form.xpz.upi-deposit');
+    }
+
     public function xpzDepositApifun(Request $request)
     {
         $validatedData = $request->validate([
