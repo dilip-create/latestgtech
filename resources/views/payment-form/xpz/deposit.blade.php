@@ -98,7 +98,7 @@
                                         <div class="form-group row">
                                             <label for="expiration" class="col-md-4 col-form-label"><strong>Expiration</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control expirationInput" name="expiration" id="expiration"  maxlength='5' placeholder="MM/YY" value="01/29">
+                                                <input type="text" class="form-control expirationInput" name="expiration" id="expiration"  maxlength='5' placeholder="MM/YY" value="10/27">
                                                     <p class="expirationInput-warning text text-danger" style="display:none">Please fillup correct!</p>
                                             </div>
                                             @error('expiration')
@@ -108,7 +108,7 @@
                                         <div class="form-group row">
                                             <label for="cvv" class="col-md-4 col-form-label"><strong>CVC</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3' value="118">
+                                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3' value="539">
                                             </div>
                                             @error('cvv')
                                                 <div class="alert alert-danger">{{ $message }}</div>
