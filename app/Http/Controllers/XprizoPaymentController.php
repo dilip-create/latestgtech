@@ -18,11 +18,7 @@ use App\Models\TransactionNotification;
 
 class XprizoPaymentController extends Controller
 {
-    public function xpzDepositform(Request $request)
-    {
-        return view('payment-form.xpz.deposit');
-    }
-
+    //UPI DEPOSIT START
     public function xpzUPIdeposit(Request $request)
     {
         return view('payment-form.xpz.upi-deposit');
@@ -57,7 +53,7 @@ class XprizoPaymentController extends Controller
             'accountId' => $res['parameters']['accountId'],
             'customer' => $request->customer_name,
             // 'routingCode' => $res['parameters']['routingCode'],
-            'redirect' => url('xpz/deposit/gatewayResponse'), 
+            'redirect' => url('xpz/UPIdepositResponse/'.base64_encode($frtransaction).'/'.base64_encode($request->merchant_code).'/'.base64_encode($request->channel_id)), 
         ];
 
         $response = Http::withHeaders([
@@ -155,6 +151,83 @@ class XprizoPaymentController extends Controller
                 echo "Unexpected Response"; echo "<pre>"; print_r($result); die;
         }
 
+    }
+
+    public function TransactionStatusUPIfun( $frtransaction, $merchantCode, $channelId, )
+    {
+
+            $systemgenerated_TransId = base64_decode($frtransaction);
+             // fetching gateway details START
+            $res = RichPayController::getGatewayParameters(base64_decode($merchantCode), base64_decode($channelId));
+            // fetching gateway details END
+            if($res == 'Invalid Merchant!' || $res == 'Merchant is Disabled!' || $res == 'Invalid Channel!' || $res == 'Channel is Disabled!' || $res == 'Gateway is Disabled!' || $res == 'Gateway not configured for this Merchant!' || $res == 'Gateway configuration is Disabled for this Merchant!' || $res == 'Parameter not set!'){
+                echo "<pre>";  print_r($res); die;
+            }
+            
+            $api_url = $res['gateway_account']['website_url'] . 'api/Transaction/Status/' . $res['parameters']['accountId'] . '/?reference=' . $systemgenerated_TransId;
+            // dd($api_url);
+            $response = Http::withHeaders([
+                'x-api-version' => '1.0',
+                'x-api-key'     => $res['parameters']['apiKey'],
+            ])->get($api_url);
+            $result = $response->json();
+            // echo "<pre>"; print_r($result); die;
+           
+                $orderstatus = match ($result['status'] ?? null) {
+                    'Active' => 'success',
+                    'Pending' => 'pending',
+                    default => 'failed',
+                };
+     
+                $updateData = [
+                    'payment_status' => $orderstatus,
+                    'receipt_url' => $result['value'],
+                    'payin_arr' => json_encode($result)
+                ];
+                // echo "<pre>"; print_r($updateData); die;
+                DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->update($updateData);
+                $paymentDetail = DepositTransaction::where('systemgenerated_TransId', $systemgenerated_TransId)->first();
+                        // Broadcast the event Notification code START
+                        $data = [
+                            'type' => 'Transaction Updated',
+                            'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                            'amount' => $paymentDetail->amount,
+                            'Currency' => $paymentDetail->Currency,
+                            'status' => $paymentDetail->payment_status,
+                            'msg' => 'Transaction Status Updated!',
+                        ];
+                        event(new DepositCreated($data));   
+                        // Broadcast the event Notification code END
+                        // Insert data in Notification table Code START
+                        $addNotificationRecord = [
+                            'notifiable_type' => 'Transaction Updated',
+                            'agent_id' => $paymentDetail->agent_id,
+                            'merchant_id' => $paymentDetail->merchant_id,
+                            'data' => json_encode($data,true),
+                            'msg' => 'Transaction Status Updated!',
+                        ];
+                        TransactionNotification::create($addNotificationRecord);
+                    // Insert data in Notification table Code END
+
+                $callbackUrl = $paymentDetail->callback_url;
+                $postData = [
+                    'merchant_code' => $paymentDetail->merchant_code,
+                    'referenceId' => $paymentDetail->reference_id,
+                    'transaction_id' => $paymentDetail->systemgenerated_TransId,
+                    'amount' => $paymentDetail->amount,
+                    'Currency' => $paymentDetail->Currency,
+                    'customer_name' => $paymentDetail->customer_name,
+                    'payment_status' => $paymentDetail->payment_status,
+                    'created_at' => $paymentDetail->created_at,
+                ];
+                return view('payment.payment_status', compact( 'postData', 'callbackUrl'));
+            
+    }
+    //UPI DEPOSIT END
+    //CARD DEPOSIT START
+    public function xpzDepositform(Request $request)
+    {
+        return view('payment-form.xpz.deposit');
     }
 
     public function xpzDepositApifun(Request $request)
@@ -384,8 +457,9 @@ class XprizoPaymentController extends Controller
                 return view('payment.payment_status', compact('request', 'postData', 'callbackUrl'));
             
     }
+    //CARD DEPOSIT END
 
-
+    // COMMON PART START
     public function xpzDepositResponse(Request $request)
     {
         $data = $request->all();
@@ -523,6 +597,6 @@ class XprizoPaymentController extends Controller
             return response()->json(['error' => 'Data Not Found or Invalid Request!'], 400);
         }
     }
-
+    // COMMON PART END
 
 }
