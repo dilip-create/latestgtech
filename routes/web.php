@@ -103,11 +103,17 @@ Route::get('/ipcrypto/payintest', function () {
 });
 
 Route::controller(XprizoPaymentController::class)->group(function () {
-    Route::get('/xpzDeposit', 'xpzDepositform');            // Card Deposit form
+    Route::get('/xpzDeposit-USD', 'xpzDepositformUSD');            // Card Deposit form USD
     Route::get('xpz/deposit/gatewayResponse', 'xpzDepositGatewayResponse');       // for gateway response
     //INR UPI payment integration
     Route::get('/xpzUPIpayment', 'xpzUPIdeposit');            // UPI Deposit form 
     Route::get('xpz/UPIdepositResponse/{frtransaction}/{merchantCode}/{channelId}', 'TransactionStatusUPIfun');       // for redirect check transaction status
+
+
+
+    Route::get('/xpzDeposit-THB', 'xpzDepositformTHB');            // Card Deposit form USD
+
+
 
     // Route::get('/xpzWithdrawal', 'xpzWithdrawalform');            // Withdrawal form
 });

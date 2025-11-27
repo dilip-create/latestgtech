@@ -225,9 +225,14 @@ class XprizoPaymentController extends Controller
     }
     //UPI DEPOSIT END
     //CARD DEPOSIT START
-    public function xpzDepositform(Request $request)
+    public function xpzDepositformUSD(Request $request)
     {
-        return view('payment-form.xpz.deposit');
+        return view('payment-form.xpz.deposit-USD');
+    }
+
+    public function xpzDepositformTHB(Request $request)
+    {
+        return view('payment-form.xpz.deposit-THB');
     }
 
     public function xpzDepositApifun(Request $request)

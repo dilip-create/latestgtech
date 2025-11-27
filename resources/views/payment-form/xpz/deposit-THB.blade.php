@@ -48,12 +48,12 @@
                             <div class="card mb-0">
                                 <div class="card-body">
                                     <div class="text-center">
-                                        <h2 class="text-muted text-uppercase py-3"><b>GTech Card Deposit</b></h2>
+                                        <h2 class="text-muted text-uppercase py-3"><b>GTech Card Deposit THB</b></h2>
                                     </div>
                                     <form role="form" action="{{ route('apiroute.xpz.depositApi') }}" method="GET" id="paymentForm" class="parsley-examples" data-parsley-validate novalidate>
                                     @csrf
                                         <input type="hidden" name="merchant_code" value="testmerchant005">
-                                        <input type="hidden" name="channel_id" value="5">   {{-- // for local 3 , for live 5 --}}
+                                        <input type="hidden" name="channel_id" value="7">   {{-- // for local 6 , for live 7 --}}
                                         <input type="hidden" name="callback_url" value="{{ route('apiroute.xpzDepositResponse') }}">
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Reference ID</strong><span class="text-danger">*</span></label>
@@ -66,21 +66,20 @@
                                             <div class="col-md-8">
                                                 <select class="form-control" name="Currency" required>
                                                     <option value="">---</option>
-                                                    <option value="EUR">EUR</option>
-                                                    <option value="USD" selected>USD</option>
+                                                    <option value="THB" selected>THB</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputEmail3" class="col-md-4 col-form-label"><strong>Amount</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="amount" id="amountInput" placeholder="Enter your Amount" value="1" type="text">
+                                                <input class="form-control" name="amount" id="amountInput" placeholder="Enter your Amount" value="100" type="text">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="customer_name" class="col-md-4 col-form-label"><strong>Card Holder Name</strong><span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input  class="form-control" name="customer_name" placeholder="Enter cumtomer name" type="text" value="">
+                                                <input  class="form-control" name="customer_name" placeholder="Enter cumtomer name" type="text" value="Dilip kumar gupta">
                                                 @error('customer_name')
                                                 <label class="error" for="customer_name">{{ $message }}</label> 
                                                 @enderror
@@ -121,7 +120,7 @@
                                             <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."> <!-- Replace with your spinner image URL -->
                                         </div>
                                         <div class="form-group text-center">
-                                            <button type="submit" id="submitBtn" class="card-btn btn btn-block btn-lg btn-primary waves-effect waves-light">Pay Now <span id="amountLabel">1</span>฿ <i class="mdi mdi-arrow-right"></i></button>
+                                            <button type="submit" id="submitBtn" class="card-btn btn btn-block btn-lg btn-primary waves-effect waves-light">Pay Now <span id="amountLabel">100</span>฿ <i class="mdi mdi-arrow-right"></i></button>
                                         </div>
                                     </form>
                                 </div> <!-- end card-body -->
