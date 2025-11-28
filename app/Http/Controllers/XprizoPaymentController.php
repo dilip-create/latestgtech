@@ -275,18 +275,20 @@ class XprizoPaymentController extends Controller
             // 'customer' => $request->customer_name,
             'customerData' => [
                 'name' => $request->customer_name,
-                'email' => $frtransaction.'@gmail.com', // Ensure email is available
-                'mobile' => '+855 ' . sprintf('%08d', mt_rand(0, 99999999)), 
+                // 'email' => $frtransaction.'@gmail.com', 
+                // 'mobile' => '+855 ' . sprintf('%08d', mt_rand(0, 99999999)), 
+                'email' => 'dilipkumargupta631@gmail.com', 
+                'mobile' => '+85596861409', 
                 // 'birthDate' => '2025-02-03T10:21:01.871Z', 
                 // 'ipAddress' => request()->ip(), // Fetch user's IP dynamically
-                // 'address' => [
-                //     'address' => 'poipet',
-                //     'countryCode' => 'KHM',
-                //     'street' => 'poipet',
-                //     'city' => 'poipet',
-                //     'stateProvinceRegion' => 'Battambang Province',
-                //     'zipPostalCode' => '273154'
-                // ],
+                'address' => [
+                    'address' => 'poipet',
+                    'countryCode' => 'KHM',
+                    'street' => 'poipet',
+                    'city' => 'poipet',
+                    'stateProvinceRegion' => 'Battambang Province',
+                    'zipPostalCode' => '273154'
+                ],
                 // 'device' => [
                 //     'width' => $request->device_width ?? 'unknown',
                 //     'height' => $request->device_height ?? 'unknown',
