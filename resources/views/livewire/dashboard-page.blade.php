@@ -9,7 +9,7 @@
                                         <li class="breadcrumb-item active">{{ __('messages.Dashboard') }}</li>
                                     </ol>
                                 </div>
-                                <h4 class="page-title">{{ __('messages.Dashboard') }}11111</h4>
+                                <h4 class="page-title">{{ __('messages.Dashboard') }}</h4>
                             </div>
                         </div>
                     </div>
